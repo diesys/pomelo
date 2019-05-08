@@ -1,5 +1,6 @@
 import math
 
+
 def nuovoTorneo():
 	return []
 
