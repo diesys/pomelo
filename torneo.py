@@ -1,44 +1,53 @@
-import math
+#!/bin/python3
+
+import math, sys
 
 # crea un nuovo torneo con 'torneo' come nome di default
 def nuovoTorneo(nome="torneo"):
+
+	torneo = {'NOME' : nome, 'GIOCATORI' : {} }
+	
+	return torneo
+
 	# DA GESTIRE PER IL FUTURO POSSIBILI NOMI GIA' DEIFINITI O UGUALI, MAGARI FARE LISTA DI TORNEI
 	# try:
-	# 	nome
+	# 	tornei['NOME']
+	
 	# except NameError:
 	# 	print("Torneo con questo nome presente, prova un alro nome\n")
+	
 	# else:
-		return {'NOME' : nome, 'giocatori' : {}}
+	
+	
 
 def aggiungiGiocatore(torneo, nome):
 	#controlla che non ci sia un giocatore con lo stesso NOME
-	for id in range(len(torneo['giocatori'])):
-		if torneo['giocatori'][id]['NOME'] == nome:
+	for id in range(len(torneo['GIOCATORI'])):
+		if torneo['GIOCATORI'][id]['NOME'] == nome:
 			print('Nome gia in uso: scegliere un altro NOME')
 			return torneo
 	
 	# crea un dizionario ausiliario che verra' copiato nel torneo, l'ID e' anche chiave (univoca)
-	nuovoID = torneo['NOME'] + '_' + str(len(torneo['giocatori']))
+	nuovoID = torneo['NOME'] + '_' + str(len(torneo['GIOCATORI']))
 	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'PUNTI' : 1440, 'boh' : 0}
 
 	# aggiunge il nuovo giocatore al torneo
-	torneo['giocatori'][len(torneo['giocatori'])] = nuovoGiocatore
+	torneo['GIOCATORI'][len(torneo['GIOCATORI'])] = nuovoGiocatore
 
 	return torneo
 
 def eliminaGiocatore(torneo, nome):
-	for id in range(len(torneo['giocatori'])):
-		if torneo['giocatori'][id]['NOME'] == nome:
-
+	for id in range(len(torneo['GIOCATORI'])):
+		if torneo['GIOCATORI'][id]['NOME'] == nome:
 			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
-			torneo['giocatori'][id]['NOME'] = 'ND'
-			torneo['giocatori'][id]['PUNTI'] = -9999
-			torneo['giocatori'][id]['boh'] = -1
+			torneo['GIOCATORI'][id]['NOME'] = 'ND'
+			torneo['GIOCATORI'][id]['PUNTI'] = -9999
+			torneo['GIOCATORI'][id]['boh'] = -1
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
 		print('Risultato della partita errato')
-		return 
+		return  
 	if (giocatoreX == giocatoreY):
 		print('Un giocatore non puo giocare contro se stesso')
 		return
@@ -157,8 +166,12 @@ def classifica(torneo):
 
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
+
+# il dizionario TORNEI contiene tutti i tornei (dizionari a loro volta) con il nome come chiave del torneo, all'int
+
+
 #
-#torneo = nuovoTorneo()                       Crea una nuova torneo vuota. Si usa per creare un nuovo torneo.
+#torneo = nuovoTorneo()                       Crea un nuovo dizionario torneo vuota. Si usa per creare un nuovo torneo.
 #
 #torneo = aggiungiGiocatore(torneo, 'NomeX') Aggiunge al torneo un nuovo Giocatore 'NOMEX'. Controlla per prima cosa che non esiste
 #                                              un altro giocatore con lo stesso NOME. In caso positivo viene aggiunto il Giocatore.
@@ -179,7 +192,36 @@ def classifica(torneo):
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
+HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n\t-n NOME_TORNEO\tper creare un torneo con il nome indicato\n'
+
+
+## sezione opzioni script
+if(len(sys.argv) > 1):                                              ## getting parameters if exist
+	options = sys.argv
+	
+	if(options[1] == '-n' or options[1] == '-new'):
+		if(len(options)>2):
+			nuovoTorneo = nuovoTorneo(options[2])
+			print("Torneo creato, segui l'help per popolarlo\n")
+		else:
+			print('Manca il nome del torneo!\n')
+	
+	if(options[1] == '--test'):
+		## test
+		torneo = nuovoTorneo('pingpong')
+		torneo = aggiungiGiocatore(torneo, 'michele')
+		torneo = aggiungiGiocatore(torneo, 'Aacca')
+		tornei = {torneo['NOME'] : torneo}
+		print('torneo: ', torneo)
+		
+else:                                  
+	print(HELP)
+
+
+
+
 torneo = nuovoTorneo('pingpong')
-torneo = aggiungiGiocatore(torneo, 'michele')
-torneo = aggiungiGiocatore(torneo, 'Aacca')
-print('torneo: ', torneo)
+tornei = {torneo['NOME'] : torneo}
+torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
+torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
+print('tornei: ', tornei)
