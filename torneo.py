@@ -27,16 +27,13 @@ def aggiungiGiocatore(torneo, nome):
 	return torneo
 
 def eliminaGiocatore(torneo, nome):
-	i = 0
-	while i < len(torneo):
-		if torneo[i] == nome:
-			# imposta valori oltre i limiti al posto di cancellare
-			torneo[i : i+4] = ['ND', -1, -9999, -1]
-			return
-		else:
-			i = i+4
-	print('Giocatore non eliminabile partecipante al torneo')
-	return
+	for id in range(len(torneo['giocatori'])):
+		if torneo['giocatori'][id]['NOME'] == nome:
+
+			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
+			torneo['giocatori'][id]['NOME'] = 'ND'
+			torneo['giocatori'][id]['PUNTI'] = -9999
+			torneo['giocatori'][id]['boh'] = -1
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
@@ -185,4 +182,4 @@ def classifica(torneo):
 torneo = nuovoTorneo('pingpong')
 torneo = aggiungiGiocatore(torneo, 'michele')
 torneo = aggiungiGiocatore(torneo, 'Aacca')
-print(torneo)
+print('torneo: ', torneo)
