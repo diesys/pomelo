@@ -1,28 +1,37 @@
 import math
 
-
-def nuovoTorneo():
-	return []
+# crea un nuovo torneo con 'torneo' come nome di default
+def nuovoTorneo(nome="torneo"):
+	# DA GESTIRE PER IL FUTURO POSSIBILI NOMI GIA' DEIFINITI O UGUALI, MAGARI FARE LISTA DI TORNEI
+	# try:
+	# 	nome
+	# except NameError:
+	# 	print("Torneo con questo nome presente, prova un alro nome\n")
+	# else:
+		return {'NOME' : nome, 'giocatori' : {}}
 
 def aggiungiGiocatore(torneo, nome):
-	i = 0
-	#controlla che non ci cia un giocatore con lo stesso nome
-	while i < len(torneo):
-		if torneo[i] == nome:
-			print('Nome gia in uso: scegliere un altro nome')
+	#controlla che non ci sia un giocatore con lo stesso NOME
+	for id in range(len(torneo['giocatori'])):
+		if torneo['giocatori'][id]['NOME'] == nome:
+			print('Nome gia in uso: scegliere un altro NOME')
 			return torneo
-		i = i + 4
-	numero = int((len(torneo) / 4)) + 1   # where len(torneo): 
-	giocatore = [nome, numero, 1440, 0]
-	torneo = torneo + giocatore
+	
+	# crea un dizionario ausiliario che verra' copiato nel torneo, l'ID e' anche chiave (univoca)
+	nuovoID = torneo['NOME'] + '_' + str(len(torneo['giocatori']))
+	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'PUNTI' : 1440, 'boh' : 0}
+
+	# aggiunge il nuovo giocatore al torneo
+	torneo['giocatori'][len(torneo['giocatori'])] = nuovoGiocatore
+
 	return torneo
 
 def eliminaGiocatore(torneo, nome):
 	i = 0
 	while i < len(torneo):
 		if torneo[i] == nome:
+			# imposta valori oltre i limiti al posto di cancellare
 			torneo[i : i+4] = ['ND', -1, -9999, -1]
-			#forza l'uscita
 			return
 		else:
 			i = i+4
@@ -30,18 +39,18 @@ def eliminaGiocatore(torneo, nome):
 	return
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
-	if risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0:
+	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
 		print('Risultato della partita errato')
 		return 
-	if giocatoreX == giocatoreY:
+	if (giocatoreX == giocatoreY):
 		print('Un giocatore non puo giocare contro se stesso')
 		return
-	if giocatoreX > int((len(torneo) / 4)) or giocatoreX < 0 or giocatoreY > int((len(torneo) / 4)) or giocatoreY < 0:
+	if (giocatoreX > int((len(torneo) / 4)) or giocatoreX < 0 or giocatoreY > int((len(torneo) / 4)) or giocatoreY < 0):
 		print('Almeno uno dei due giocatori non partecipa al torneo')
 		return
 	else:
 		i = 1
-		while i < len(torneo):
+		while (i < len(torneo)):
 			if torneo[i] == giocatoreX:
 				iX = i+1
 				punteggioX = torneo[i+1]
@@ -53,12 +62,12 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 				i = i+4
 		
 		#caso in cui il giocatore 'giocatoreX' e' stato eliminato dal torneo in precedenza
-		if i == len(torneo) + 1:
+		if (i == len(torneo) + 1):
 			print('Almeno uno dei due giocatori eliminato dal torneo')
 			return
 		j = 1
-		while j < len(torneo):
-			if torneo[j] == giocatoreY:
+		while (j < len(torneo)):
+			if (torneo[j] == giocatoreY):
 				jY = j + 1
 				punteggioY = torneo[j+1]
 				partiteY = torneo[j+2]
@@ -68,7 +77,7 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 				j = j+4
 		
 		#caso in cui il giocatore 'giocatoreY' e' stato eliminato dal torneo in precedenza
-		if j == len(torneo) + 1:
+		if (j == len(torneo) + 1):
 			print('Almeno uno dei due giocatori eliminato dal torneo')
 			return
 		
@@ -78,15 +87,15 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 		risultatoY = 1 - risultatoX
 
 		#calcolo coefficienti moltiplicativi kX e kY 
-		if partiteX > 8 and punteggioX > 1600:
+		if (partiteX > 8 and punteggioX > 1600):
 			kX = 10
-		elif partiteX < 6:
+		elif (partiteX < 6):
 			kX = 40
 		else:
 			kX = 20
-		if partiteY > 8 and punteggioY > 1600:
+		if (partiteY > 8 and punteggioY > 1600):
 			kY = 10
-		elif partiteY < 6:
+		elif (partiteY < 6):
 			kY = 40
 		else:
 			kY = 20
@@ -108,7 +117,7 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 		return 
 
 def classifica(torneo):
-	if len(torneo) > 4:
+	if (len(torneo) > 4):
 		i = 2
 		j = 2
 		while i < len(torneo):
@@ -138,7 +147,7 @@ def classifica(torneo):
 	
 	i = 0
 	
-	while i < len(torneo):
+	while (i < len(torneo)):
 		if (torneo[i+3] < 6):
 			print(torneo[i], 'nc', torneo[i+3])
 		else:
@@ -154,12 +163,12 @@ def classifica(torneo):
 #
 #torneo = nuovoTorneo()                       Crea una nuova torneo vuota. Si usa per creare un nuovo torneo.
 #
-#torneo = aggiungiGiocatore(torneo, 'NomeX') Aggiunge al torneo un nuovo Giocatore 'nomeX'. Controlla per prima cosa che non esiste
-#                                              un altro giocatore con lo stesso nome. In caso positivo viene aggiunto il Giocatore.
+#torneo = aggiungiGiocatore(torneo, 'NomeX') Aggiunge al torneo un nuovo Giocatore 'NOMEX'. Controlla per prima cosa che non esiste
+#                                              un altro giocatore con lo stesso NOME. In caso positivo viene aggiunto il Giocatore.
 #                                              Gli viene assegnato un punteggio iniziale di 1440 e gli viene associato un numero d' iscrizione 
 #                                              progressivo che lo rappresenta. Il Giocatore appena iscritto avra' fatto 0 partite.
 #
-#eliminaGiocatore(torneo,'nomeX')             Elimina dal torneo il Giocatore 'nomeX'. Nella torneo e nella classifica del torneo
+#eliminaGiocatore(torneo,'NOMEX')             Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del torneo
 #                                              al posto dei dati di tale giocatore sarà presente una riga del tipo ['ND',...] 
 #
 #aggiornaTorneo(torneo, m, n, r)             Calcola i punti ottenuti dopo che il giocatore m ha sfidato il giocatore n,
@@ -172,3 +181,8 @@ def classifica(torneo):
 #                                              di partite disputate.
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
+
+torneo = nuovoTorneo('pingpong')
+torneo = aggiungiGiocatore(torneo, 'michele')
+torneo = aggiungiGiocatore(torneo, 'Aacca')
+print(torneo)
