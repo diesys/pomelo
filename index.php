@@ -7,10 +7,17 @@
 
 ############## MUST USE (for the moment) --impweb param to avoid permission errors
 $output = shell_exec('./tornelo.py --update prova michele giovanni 1 --web 2>&1');
+
+echo '====== TORNEO', PHP_EOL;
 $output = shell_exec('./tornelo.py -i prova --web 2>&1');
 
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output));
+
+// echo '====== CLASSIFICA', PHP_EOL;
+// $output2 = shell_exec('./tornelo.py -r prova --web 2>&1');
+
+// echo $output2
 
 # get a json and dump
 // $json = file_get_contents('data/ping/ping.json');  
