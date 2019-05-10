@@ -19,7 +19,6 @@ def nuovoTorneo(nome="torneo"):
 	# else:
 	
 
-
 def aggiungiGiocatore(torneo, nome):
 	#controlla che non ci sia un giocatore con lo stesso NOME
 	for id in range(len(torneo['GIOCATORI'])):
@@ -42,128 +41,90 @@ def eliminaGiocatore(torneo, nome):
 			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
 			torneo['GIOCATORI'][id]['NOME'] = 'ND'
 			torneo['GIOCATORI'][id]['PUNTI'] = -9999
-			torneo['GIOCATORI'][id]['PARTITE'] = -1
+			torneo['GIOCATORI'][id]['MATCH'] = -1
+
+def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
+	for id in range(len(torneo['GIOCATORI'])):
+		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
+			punteggioX = torneo['GIOCATORI'][id]['PUNTI']
+			MATCHX = torneo['GIOCATORI'][id]['MATCH']
+	for id in range(len(torneo['GIOCATORI'])):
+		if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
+			punteggioY = torneo['GIOCATORI'][id]['PUNTI']
+			MATCHY = torneo['GIOCATORI'][id]['MATCH']
+
+	#calcola risultato per il giocatoreY
+	risultatoY = 1 - risultatoX
+
+	#calcola risultato atteso per il giocatoreX e il giocatoreY
+	attesoX = 1/2 + (math.atan((punteggioX - punteggioY)/200)) / math.pi
+	attesoY = 1 - attesoX
+	
+	#calcolo coefficienti moltiplicativi per il giocatoreX e il giocatoreY 
+	if (MATCHX > 8 and punteggioX > 1600):
+		coefficienteX = 10
+	elif (MATCHX < 6):
+		coefficienteX = 40
+	else:
+		coefficienteX = 20
+	if (MATCHY > 8 and punteggioY > 1600):
+		coefficienteY = 10
+	elif (MATCHY < 6):
+		coefficienteY = 40
+	else:
+		coefficienteY = 20
+
+	#calcolo punteggi parziali del giocatoreX e giocatoreY
+	parzialeX = round((risultatoX - attesoX) * coefficienteX)
+	parzialeY = round((risultatoY - attesoY) * coefficienteY)
+
+	#calcolo punteggi totali del giocatoreX e giocatoreY
+	punteggioX = punteggioX + parzialeX
+	punteggioY = punteggioY + parzialeY
+	
+	return [punteggioX, punteggioY]
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
 		print('Risultato della partita errato')
 		return  
+
 	if (giocatoreX == giocatoreY):
 		print('Un giocatore non puo giocare contro se stesso')
 		return
-	if (giocatoreX > int((len(torneo) / 4)) or giocatoreX < 0 or giocatoreY > int((len(torneo) / 4)) or giocatoreY < 0):
-		print('Almeno uno dei due giocatori non partecipa al torneo')
+	
+	trovatoX = False
+	for id in range(len(torneo['GIOCATORI'])):
+		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
+			trovatoX = True
+	if not trovatoX:
+		print('GiocatoreX non presente al torneo')
 		return
+
+	trovatoY = False
+	for id in range(len(torneo['GIOCATORI'])):
+		if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
+			trovatoY = True
+	if not trovatoY:
+		print('GiocatoreY non presente al torneo')
+		return
+	
 	else:
-		i = 1
-		while (i < len(torneo)):
-			if torneo[i] == giocatoreX:
-				iX = i+1
-				punteggioX = torneo[i+1]
-				partiteX = torneo[i+2]
+		#calcola nuovi punteggi del giocatoreX e giocatoreY
+		[nuovoPunteggioX, nuovoPunteggioY] = nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX)
 
-				#forza l'uscita
-				i = i + len(torneo) + 2
-			else:
-				i = i+4
-		
-		#caso in cui il giocatore 'giocatoreX' e' stato eliminato dal torneo in precedenza
-		if (i == len(torneo) + 1):
-			print('Almeno uno dei due giocatori eliminato dal torneo')
-			return
-		j = 1
-		while (j < len(torneo)):
-			if (torneo[j] == giocatoreY):
-				jY = j + 1
-				punteggioY = torneo[j+1]
-				partiteY = torneo[j+2]
-				#forza l'uscita
-				j = j + len(torneo) + 2
-			else:
-				j = j+4
-		
-		#caso in cui il giocatore 'giocatoreY' e' stato eliminato dal torneo in precedenza
-		if (j == len(torneo) + 1):
-			print('Almeno uno dei due giocatori eliminato dal torneo')
-			return
-		
-		#calcolo valore atteso per il giocatoreX e il giocatoreY
-		EX = 1/2 + (math.atan((punteggioX - punteggioY)/200)) / math.pi
-		EY = 1 - EX
-		risultatoY = 1 - risultatoX
+		#aggiornamento dati giocatoreX nel torneo
+		for id in range(len(torneo['GIOCATORI'])):
+			if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
+				torneo['GIOCATORI'][id]['PUNTI'] = nuovoPunteggioX
+				torneo['GIOCATORI'][id]['MATCH'] = torneo['GIOCATORI'][id]['MATCH'] + 1
 
-		#calcolo coefficienti moltiplicativi kX e kY 
-		if (partiteX > 8 and punteggioX > 1600):
-			kX = 10
-		elif (partiteX < 6):
-			kX = 40
-		else:
-			kX = 20
-		if (partiteY > 8 and punteggioY > 1600):
-			kY = 10
-		elif (partiteY < 6):
-			kY = 40
-		else:
-			kY = 20
-
-		#calcolo punteggi parziali del giocatoreX e giocatoreY
-		parzialeX = round((risultatoX - EX) * kX)
-		parzialeY = round((risultatoY - EY) * kY)
-
-		#calcolo punteggi totali del giocatoreX e giocatoreY
-		punteggioX = punteggioX + parzialeX
-		punteggioY = punteggioY + parzialeY
-
-		#aggiornamento torneo
-		torneo[iX] = punteggioX
-		torneo[iX+1] = torneo[iX+1] + 1
-		torneo[jY] = punteggioY
-		torneo[jY+1] = torneo[jY+1] + 1
-		
+		#aggiornamento dati giocatoreY nel torneo
+		for id in range(len(torneo['GIOCATORI'])):
+			if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
+				torneo['GIOCATORI'][id]['PUNTI'] = nuovoPunteggioY
+				torneo['GIOCATORI'][id]['MATCH'] = torneo['GIOCATORI'][id]['MATCH'] + 1
 		return 
-
-def classifica(torneo):
-	if (len(torneo) > 4):
-		i = 2
-		j = 2
-		while i < len(torneo):
-			massimo = torneo[i]
-			partiteMassimo = torneo[i+1] 
-			giocatoreMassimo = torneo[i-2 : i+2]
-			indiceMassimo = i
-			j = i+4
-			while j < len(torneo):
-				if torneo[j] > massimo:
-					massimo = torneo[j]
-					partiteMassimo = torneo[j+1]
-					giocatoreMassimo = torneo[j-2 : j+2]
-					indiceMassimo = j
-				#A parita' di punteggio il giocatore con piu' partite sara' ad una posizione piu' alta
-				elif torneo[j] == massimo and torneo[j+1] > partiteMassimo:
-					massimo = torneo[j]
-					partiteMassimo = torneo[j+1]
-					giocatoreMassimo = torneo[j-2 : j+2]
-					indiceMassimo = j
-				j = j+4
-			torneo[indiceMassimo-2 : indiceMassimo+2] = torneo[i-2 : i+2]
-			torneo[i-2 : i+2] = giocatoreMassimo
-			i = i+4
-	
-	print('------------------CLASSIFICA------------------\n')
-	
-	i = 0
-	
-	while (i < len(torneo)):
-		if (torneo[i+3] < 6):
-			print(torneo[i], 'nc', torneo[i+3])
-		else:
-			print(torneo[i], torneo[i+2 : i+4])
-		print('\n')
-		i = i+4
-	
-	print('##############################################')
-	return
-
 
 
 ####### sezione di output
@@ -178,6 +139,49 @@ def stampaFormattato(torneo):
 	print(torneo_formatted)
 
 
+# def classifica(torneo):
+# 	if (len(torneo) > 4):
+# 		i = 2
+# 		j = 2
+# 		while i < len(torneo):
+# 			massimo = torneo[i]
+# 			MATCHMassimo = torneo[i+1] 
+# 			giocatoreMassimo = torneo[i-2 : i+2]
+# 			indiceMassimo = i
+# 			j = i+4
+# 			while j < len(torneo):
+# 				if torneo[j] > massimo:
+# 					massimo = torneo[j]
+# 					MATCHMassimo = torneo[j+1]
+# 					giocatoreMassimo = torneo[j-2 : j+2]
+# 					indiceMassimo = j
+# 				#A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
+# 				elif torneo[j] == massimo and torneo[j+1] > MATCHMassimo:
+# 					massimo = torneo[j]
+# 					MATCHMassimo = torneo[j+1]
+# 					giocatoreMassimo = torneo[j-2 : j+2]
+# 					indiceMassimo = j
+# 				j = j+4
+# 			torneo[indiceMassimo-2 : indiceMassimo+2] = torneo[i-2 : i+2]
+# 			torneo[i-2 : i+2] = giocatoreMassimo
+# 			i = i+4
+	
+# 	print('------------------CLASSIFICA------------------\n')
+	
+# 	i = 0
+	
+# 	while (i < len(torneo)):
+# 		if (torneo[i+3] < 6):
+# 			print(torneo[i], 'nc', torneo[i+3])
+# 		else:
+# 			print(torneo[i], torneo[i+2 : i+4])
+# 		print('\n')
+# 		i = i+4
+	
+# 	print('##############################################')
+# 	return
+
+
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
 
@@ -189,7 +193,7 @@ def stampaFormattato(torneo):
 #torneo = aggiungiGiocatore(torneo, 'NomeX') Aggiunge al torneo un nuovo Giocatore 'NOMEX'. Controlla per prima cosa che non esiste
 #                                              un altro giocatore con lo stesso NOME. In caso positivo viene aggiunto il Giocatore.
 #                                              Gli viene assegnato un punteggio iniziale di 1440 e gli viene associato un numero d' iscrizione 
-#                                              progressivo che lo rappresenta. Il Giocatore appena iscritto avra' fatto 0 partite.
+#                                              progressivo che lo rappresenta. Il Giocatore appena iscritto avra' fatto 0 MATCH.
 #
 #eliminaGiocatore(torneo,'NOMEX')             Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del torneo
 #                                              al posto dei dati di tale giocatore sara' presente una riga del tipo ['ND',...] 
@@ -200,8 +204,8 @@ def stampaFormattato(torneo):
 #                                              Aggiorna quindi la torneo con i nuovi punteggi dei giocatori m e n.
 #
 #classifica(torneo)                           Ordina i giocatori nella torneo in ordine decrescente dei loro punteggi.
-#                                              A parita' di punteggio il giocatore con piu' partite sara' ad una posizione piu' alta
-#                                              di partite disputate.
+#                                              A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
+#                                              di MATCH disputate.
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
@@ -225,6 +229,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 		tornei = {torneo['NOME'] : torneo}
 		torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
 		torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
+		aggiornaTorneo(tornei['pingpong'], 'michele', 'Aacca', 1)
 
 		stampaFormattato(tornei)
 
