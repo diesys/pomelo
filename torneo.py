@@ -232,8 +232,20 @@ if(len(sys.argv) > 1):                                              ## getting p
 		aggiornaTorneo(tornei['pingpong'], 'michele', 'Aacca', 1)
 
 		stampaFormattato(tornei)
+		json.dump(tornei['pingpong'], sys.stdout)
+
+
 
 	if(options[1] == '-h' or options[1] == '--help'):	
 		print(HELP)
 else:                                  
 	print(HELP)	
+
+
+### DUMP DI UN DIZIONARIO IN UN JSON
+## SCRIVE SU FILE
+# with open('result.json', 'w') as fp:
+	# json.dump(tornei['pingpong'], fp)
+
+## STAMPA SU STD OUTPUT
+# json.dump('SomeText', sys.stdout)
