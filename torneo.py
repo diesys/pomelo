@@ -9,7 +9,7 @@ def nuovoTorneo(nome="torneo"):
 	
 	return torneo
 
-	# DA GESTIRE PER IL FUTURO POSSIBILI NOMI GIA' DEIFINITI O UGUALI, MAGARI FARE LISTA DI TORNEI
+	# DA GESTIRE PER IL FUTURO POSSIBILI NOMI GIA' DEIFINITI O UGUALI
 	# try:
 	# 	tornei['NOME']
 	
@@ -171,6 +171,7 @@ def classifica(torneo):
 def stampaFormattato(torneo):
 	caratteri_omessi = '"{}'
 	torneo_formatted = json.dumps(torneo, indent=3, separators=('', ':\t'))
+
 	for char in caratteri_omessi:
 		torneo_formatted = torneo_formatted.replace(char, '')
 
@@ -205,7 +206,7 @@ def stampaFormattato(torneo):
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
-HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n\t-n NOME_TORNEO\tper creare un torneo con il nome indicato\n'
+HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -n NOME_TORNEO\t\tper creare un torneo con il nome indicato\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
 
 
 ## sezione opzioni script
@@ -222,23 +223,17 @@ if(len(sys.argv) > 1):                                              ## getting p
 	if(options[1] == '--test'):
 		## test
 		torneo = nuovoTorneo('pingpong')
-		torneo = aggiungiGiocatore(torneo, 'michele')
-		torneo = aggiungiGiocatore(torneo, 'Aacca')
 		tornei = {torneo['NOME'] : torneo}
-		print('torneo: ', torneo)
-		
+		torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
+		torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
+
+		stampaFormattato(tornei)
+
+	if(options[1] == '-h' or options[1] == '--help'):	
+		print(HELP)
 else:                                  
 	print(HELP)
 
-
-
-
-torneo = nuovoTorneo('pingpong')
-tornei = {torneo['NOME'] : torneo}
-torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
-torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
-
-stampaFormattato(tornei)
 
 # print('tornei: ', tornei)
 # print('tornei: ', json.dumps(tornei, indent=2, separators=('',': \t')).replace('"', '').replace('{', '').replace('}', ''))
