@@ -15,7 +15,7 @@ def importaJSON(torneo):
 	# leggi da file
 	with open(tornei_dir + '/' + torneo + '/' + torneo + '.json', 'r') as json_torneo:
 		dict_torneo = json.load(json_torneo)
-		print(dict_torneo)
+		# print(dict_torneo)
 	
 	return dict_torneo
 
@@ -53,7 +53,7 @@ def aggiungiGiocatore(torneo, nome):
     
 	#controlla che non ci sia un giocatore con lo stesso NOME
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == nome:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == nome:
 			print('Nome gia in uso: scegliere un altro NOME')
 			return torneo
 	
@@ -62,7 +62,7 @@ def aggiungiGiocatore(torneo, nome):
 	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'PUNTI' : 1440, 'MATCH' : 0}
 
 	# aggiunge il nuovo giocatore al torneo
-	torneo['GIOCATORI'][len(torneo['GIOCATORI'])] = nuovoGiocatore
+	torneo['GIOCATORI'][str(len(torneo['GIOCATORI']))] = nuovoGiocatore
 
 	# scrivi su file
 	scriviJSON(torneo)
@@ -75,11 +75,11 @@ def eliminaGiocatore(torneo, nome):
     # ['ND',...] 
 	
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == nome:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == nome:
 			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
-			torneo['GIOCATORI'][id]['NOME'] = 'ND'
-			torneo['GIOCATORI'][id]['PUNTI'] = -9999
-			torneo['GIOCATORI'][id]['MATCH'] = -1
+			torneo['GIOCATORI'][str(id)]['NOME'] = 'ND'
+			torneo['GIOCATORI'][str(id)]['PUNTI'] = -9999
+			torneo['GIOCATORI'][str(id)]['MATCH'] = -1
 	
 	# scrivi su file
 	scriviJSON(torneo)
@@ -89,14 +89,14 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
     # è 1 se vince il primo giocatore, 0 se perde e 0.5 se pareggiano.
 	
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
-			punteggioX = torneo['GIOCATORI'][id]['PUNTI']
-			matchX = torneo['GIOCATORI'][id]['MATCH']
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
+			punteggioX = torneo['GIOCATORI'][str(id)]['PUNTI']
+			matchX = torneo['GIOCATORI'][str(id)]['MATCH']
 	
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
-			punteggioY = torneo['GIOCATORI'][id]['PUNTI']
-			matchY = torneo['GIOCATORI'][id]['MATCH']
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
+			punteggioY = torneo['GIOCATORI'][str(id)]['PUNTI']
+			matchY = torneo['GIOCATORI'][str(id)]['MATCH']
 
 	#calcola risultato per il giocatoreY
 	risultatoY = 1 - risultatoX
@@ -146,7 +146,7 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 	
 	trovatoX = False
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
 			trovatoX = True
 	if not trovatoX:
 		print('GiocatoreX non presente al torneo')
@@ -154,7 +154,7 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 
 	trovatoY = False
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
 			trovatoY = True
 	if not trovatoY:
 		print('GiocatoreY non presente al torneo')
@@ -166,15 +166,15 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 
 		#aggiornamento dati giocatoreX nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
-			if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
-				torneo['GIOCATORI'][id]['PUNTI'] = nuovoPunteggioX
-				torneo['GIOCATORI'][id]['MATCH'] = torneo['GIOCATORI'][id]['MATCH'] + 1
+			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
+				torneo['GIOCATORI'][str(id)]['PUNTI'] = nuovoPunteggioX
+				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
 		#aggiornamento dati giocatoreY nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
-			if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
-				torneo['GIOCATORI'][id]['PUNTI'] = nuovoPunteggioY
-				torneo['GIOCATORI'][id]['MATCH'] = torneo['GIOCATORI'][id]['MATCH'] + 1
+			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
+				torneo['GIOCATORI'][str(id)]['PUNTI'] = nuovoPunteggioY
+				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 		return 
 
 	# scrivi su file
