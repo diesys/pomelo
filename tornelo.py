@@ -261,7 +261,7 @@ def stampaFormattato(torneo):
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
-HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -r TORNEO GIOCATORE\t\t(--remove) azzera i valori di GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
+HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -r TORNEO GIOCATORE\t\t(--remove) azzera i valori di GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  --impweb\t\t\tidentico a import ma con workaround per evitare problemi con php (usare solo per php!)\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
 
 
 ## sezione opzioni script
@@ -283,6 +283,19 @@ if(len(sys.argv) > 1):                                              ## getting p
 		if(len(options) > 2):
 			torneo_test = options[2]
 			torneo = importaTorneo(torneo_test, True) 			# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			tornei = {torneo['NOME'] : torneo}
+			
+			stampaFormattato(tornei[torneo_test])
+
+		else:
+			print('Manca il nome del torneo!')
+
+	
+	elif(options[1] == '--impweb'):
+		## test
+		if(len(options) > 2):
+			torneo_test = options[2]
+			torneo = importaTorneo(torneo_test) 			# True come parametro opzionale x funzionare coi permessi da shell e non da web
 			tornei = {torneo['NOME'] : torneo}
 			
 			stampaFormattato(tornei[torneo_test])
