@@ -1,6 +1,6 @@
 <?php 
 
-$command = escapeshellcmd('./torneo.py --test');
+$command = escapeshellcmd('./tornelo.py --test');
 $output = shell_exec($command);
 
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
