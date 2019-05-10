@@ -1,22 +1,28 @@
 #!/usr/bin/env python3
 
-import math, sys, json
+import math, sys, json, os.path
 
 # crea un nuovo torneo con 'torneo' come nome di default
 def nuovoTorneo(nome="torneo"):
 
-	torneo = {'NOME' : nome, 'GIOCATORI' : {} }
+	file_path = nome + '/' + nome + '.json'
 	
-	return torneo
+	dir_path = os.path.dirname(file_path)
+	print(dir_path, file_path)
+	
+	if not os.path.exists(dir_path):
+		os.makedirs(dir_path)
 
-	# DA GESTIRE PER IL FUTURO POSSIBILI NOMI GIA' DEIFINITI O UGUALI
-	# try:
-	# 	tornei['NOME']
+		torneo = { 'NOME' : nome, 'GIOCATORI' : {}, 'FILENAME' : file_path }
+
+		with open(file_path, 'w') as fp:
+			json.dump(torneo, fp)
+		
+		return torneo
 	
-	# except NameError:
-	# 	print("Torneo con questo nome presente, prova un alro nome\n")
-	
-	# else:
+	else:
+		print('Nome presente, cambiare nome per favore.\n')
+		return
 	
 
 def aggiungiGiocatore(torneo, nome):
