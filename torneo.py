@@ -1,6 +1,6 @@
 #!/bin/python3
 
-import math, sys
+import math, sys, json
 
 # crea un nuovo torneo con 'torneo' come nome di default
 def nuovoTorneo(nome="torneo"):
@@ -18,7 +18,7 @@ def nuovoTorneo(nome="torneo"):
 	
 	# else:
 	
-	
+
 
 def aggiungiGiocatore(torneo, nome):
 	#controlla che non ci sia un giocatore con lo stesso NOME
@@ -224,4 +224,5 @@ torneo = nuovoTorneo('pingpong')
 tornei = {torneo['NOME'] : torneo}
 torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
 torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
-print('tornei: ', tornei)
+# print('tornei: ', tornei)
+print('tornei: ', json.dumps(tornei, indent=2))
