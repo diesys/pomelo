@@ -273,24 +273,26 @@ if(len(sys.argv) > 1):                                              ## getting p
 			nuovoTorneo = nuovoTorneo(options[2])
 			tornei = {options[2]: nuovoTorneo}
 
-			print("Torneo creato, segui l'help per popolarlo\n")
+			print("Torneo creato, segui l'help per popolarlo")
 		else:
-			print('Manca il nome del torneo!\n')
+			print('Manca il nome del torneo!')
 	
 
 	elif(options[1] == '-i' or options[1] == '--import'):
 		## test
 		if(len(options) > 2):
 			torneo_test = options[2]
+			torneo = importaTorneo(torneo_test, True) 			# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			tornei = {torneo['NOME'] : torneo}
+			
+			stampaFormattato(tornei[torneo_test])
+
 		else:
-			print('Manca il nome del torneo!\n')
+			print('Manca il nome del torneo!')
 
 		
-		torneo = importaTorneo(torneo_test, True) 			# True come parametro opzionale x funzionare coi permessi da shell e non da web
 		
-		tornei = {torneo['NOME'] : torneo}
 		
-		stampaFormattato(tornei[torneo_test])
 	
 
 	elif(options[1] == '-a' or options[1] == '--add'):
@@ -305,10 +307,30 @@ if(len(sys.argv) > 1):                                              ## getting p
 				aggiungiGiocatore(torneo, giocatore)
 
 			else:
-				print('Manca il nome del giocatore!\n')
+				print('Manca il nome del giocatore!')
 
 		else:
-			print('Manca il nome del torneo!\n')
+			print('Manca il nome del torneo!')
+	
+	
+	elif(options[1] == '-u' or options[1] == '--update'):
+		## test
+		if(len(options) > 2):
+			torneo = options[2]
+			torneo = importaTorneo(torneo, True)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			
+			if(len(options) > 5):
+				giocatore1 = options[3]
+				giocatore2 = options[4]
+				esito_match = float(options[5])			# [0, 0.5, 1]
+
+				aggiornaTorneo(torneo, giocatore1, giocatore2, esito_match)
+
+			else:
+				print('Manca qualcosa! Inserisci Giocatore1 Giocatore2 Risultato')
+
+		else:
+			print('Manca il nome del torneo!')
 		
 		# stampaFormattato(tornei[torneo_test])
 
@@ -332,7 +354,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 		# stampa su std output
 		# json.dump(tornei['pingpong'], sys.stdout)
 	
-	
+
 	elif(options[1] == '--impweb'):
 		## test
 		if(len(options) > 2):
