@@ -261,7 +261,7 @@ def stampaFormattato(torneo):
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
-HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -n NOME_TORNEO\t\tper creare un torneo con il nome indicato\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
+HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -r TORNEO GIOCATORE\t\t(--remove) azzera i valori di GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
 
 
 ## sezione opzioni script
@@ -290,10 +290,6 @@ if(len(sys.argv) > 1):                                              ## getting p
 		else:
 			print('Manca il nome del torneo!')
 
-		
-		
-		
-	
 
 	elif(options[1] == '-a' or options[1] == '--add'):
 		## test
@@ -305,6 +301,24 @@ if(len(sys.argv) > 1):                                              ## getting p
 				giocatore = options[3]
 
 				aggiungiGiocatore(torneo, giocatore)
+
+			else:
+				print('Manca il nome del giocatore!')
+
+		else:
+			print('Manca il nome del torneo!')
+	
+	
+	elif(options[1] == '-r' or options[1] == '--remove'):
+		## test
+		if(len(options) > 2):
+			torneo = options[2]
+			torneo = importaTorneo(torneo, True)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			
+			if(len(options) > 3):
+				giocatore = options[3]
+
+				eliminaGiocatore(torneo, giocatore)
 
 			else:
 				print('Manca il nome del giocatore!')
