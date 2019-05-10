@@ -25,6 +25,8 @@ def importaTorneo(torneo, web=False):
 		if(not web):
 			os.chmod(file_path, 0o666)
 	
+	aggiornaRanking(dict_torneo)
+	
 	return dict_torneo
 
 # crea un nuovo torneo con 'torneo' come nome di default
@@ -38,7 +40,7 @@ def nuovoTorneo(nome="torneo", web=False):
 	# dir_path = os.path.dirname(tornei_dir + '/' + nome + '/' + file_name)
 	
 	# dizionario torneo base vuoto
-	torneo = { 'NOME' : nome, 'FILE' : file_path, 'GIOCATORI' : {}, 'MATCHES' : {}  }
+	torneo = { 'NOME' : nome, 'FILE' : file_path, 'GIOCATORI' : {}, 'MATCHES' : {}, 'RANKING' : [] }
 	
 	# controlla se esiste la cartella col nome del torneo
 	if not os.path.exists(dir_path):
@@ -70,7 +72,7 @@ def aggiungiGiocatore(torneo, nome, web=False):
 	
 	# crea un dizionario ausiliario che verra' copiato nel torneo, l'ID e' anche chiave (univoca)
 	nuovoID = torneo['NOME'] + '_' + str(len(torneo['GIOCATORI']))
-	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'PUNTI' : 1440, 'MATCH' : 0}
+	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'RANK' : 1440, 'MATCH' : 0}
 
 	# aggiunge il nuovo giocatore al torneo
 	torneo['GIOCATORI'][str(len(torneo['GIOCATORI']))] = nuovoGiocatore
@@ -90,7 +92,7 @@ def eliminaGiocatore(torneo, nome, web=False):
 		if torneo['GIOCATORI'][str(id)]['NOME'] == nome:
 			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
 			torneo['GIOCATORI'][str(id)]['NOME'] = 'ND'
-			torneo['GIOCATORI'][str(id)]['PUNTI'] = -9999
+			torneo['GIOCATORI'][str(id)]['RANK'] = -9999
 			torneo['GIOCATORI'][str(id)]['MATCH'] = -1
 	
 	# scrivi su file
@@ -103,12 +105,12 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
-			punteggioX = int(torneo['GIOCATORI'][str(id)]['PUNTI'])
+			punteggioX = int(torneo['GIOCATORI'][str(id)]['RANK'])
 			matchX = int(torneo['GIOCATORI'][str(id)]['MATCH'])
 	
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
-			punteggioY = int(torneo['GIOCATORI'][str(id)]['PUNTI'])
+			punteggioY = int(torneo['GIOCATORI'][str(id)]['RANK'])
 			matchY = int(torneo['GIOCATORI'][str(id)]['MATCH'])
 
 	#calcola risultato per il giocatoreY
@@ -180,18 +182,18 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX, web=False):
 		#aggiornamento dati giocatoreX nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
 			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
-				torneo['GIOCATORI'][str(id)]['PUNTI'] = nuovoPunteggioX
+				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggioX
 				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
 		#aggiornamento dati giocatoreY nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
 			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
-				torneo['GIOCATORI'][str(id)]['PUNTI'] = nuovoPunteggioY
+				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggioY
 				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
-	# scrivi su file
-	# nuovoTorneo = scriviTorneo(torneo)
-	# os.chmod(torneo['FILE'], 0o666)
+	# aggiorna classifica
+	aggiornaRanking(torneo)
+
 	return scriviTorneo(torneo, web)
 
 
@@ -207,47 +209,18 @@ def stampaFormattato(torneo, web=False):
 	print(torneo_formatted)
 
 
-# def classifica(torneo):
-# 	if (len(torneo) > 4):
-# 		i = 2
-# 		j = 2
-# 		while i < len(torneo):
-# 			massimo = torneo[i]
-# 			MATCHMassimo = torneo[i+1] 
-# 			giocatoreMassimo = torneo[i-2 : i+2]
-# 			indiceMassimo = i
-# 			j = i+4
-# 			while j < len(torneo):
-# 				if torneo[j] > massimo:
-# 					massimo = torneo[j]
-# 					MATCHMassimo = torneo[j+1]
-# 					giocatoreMassimo = torneo[j-2 : j+2]
-# 					indiceMassimo = j
-# 				#A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
-# 				elif torneo[j] == massimo and torneo[j+1] > MATCHMassimo:
-# 					massimo = torneo[j]
-# 					MATCHMassimo = torneo[j+1]
-# 					giocatoreMassimo = torneo[j-2 : j+2]
-# 					indiceMassimo = j
-# 				j = j+4
-# 			torneo[indiceMassimo-2 : indiceMassimo+2] = torneo[i-2 : i+2]
-# 			torneo[i-2 : i+2] = giocatoreMassimo
-# 			i = i+4
-	
-# 	print('------------------CLASSIFICA------------------\n')
-	
-# 	i = 0
-	
-# 	while (i < len(torneo)):
-# 		if (torneo[i+3] < 6):
-# 			print(torneo[i], 'nc', torneo[i+3])
-# 		else:
-# 			print(torneo[i], torneo[i+2 : i+4])
-# 		print('\n')
-# 		i = i+4
-	
-# 	print('##############################################')
-# 	return
+def aggiornaRanking(torneo, web=False):
+	classifica = []
+
+	for i in torneo['GIOCATORI']:
+		if(torneo['GIOCATORI'][i]['RANK'] > 0):						# rank non negativi
+			nome = torneo['GIOCATORI'][i]['NOME']
+			rank = torneo['GIOCATORI'][i]['RANK']
+
+			classifica.append((nome, rank))
+			classifica = sorted(classifica, key=lambda giocatore: giocatore[1], reverse=True)
+
+	torneo['RANKING'] = classifica
 
 
 ######################################################################################################################################################
@@ -260,7 +233,7 @@ def stampaFormattato(torneo, web=False):
 #
 #
 #
-#classifica(torneo)                           Ordina i giocatori nella torneo in ordine decrescente dei loro punteggi.
+#aggiornaRanking(torneo)                           Ordina i giocatori nella torneo in ordine decrescente dei loro punteggi.
 #                                              A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
 #                                              di MATCH disputate.
 #                                              Stampa, quindi, la classifica aggiornata.
@@ -373,15 +346,17 @@ if(len(sys.argv) > 1):                                              ## getting p
 			torneo = options[2]
 			torneo = importaTorneo(torneo, web)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
 			
-			if(len(options) > 5):
-				giocatore1 = options[3]
-				giocatore2 = options[4]
-				esito_match = float(options[5])			# [0, 0.5, 1]
+			caratteri_omessi = ",'[(]"
+			caratteri_sostituiti = ")"
 
-				aggiornaTorneo(torneo, giocatore1, giocatore2, esito_match, web)
+			ranking = ' ' + str(torneo['RANKING'])
 
-			else:
-				print('Manca qualcosa! Inserisci Giocatore1 Giocatore2 Risultato')
+			for char in caratteri_omessi:
+				ranking = ranking.replace(char, '')
+
+			ranking = ranking.replace(caratteri_sostituiti, '\n')		
+
+			print(ranking)
 
 		else:
 			print('Manca il nome del torneo!')
