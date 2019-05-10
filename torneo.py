@@ -29,7 +29,7 @@ def aggiungiGiocatore(torneo, nome):
 	
 	# crea un dizionario ausiliario che verra' copiato nel torneo, l'ID e' anche chiave (univoca)
 	nuovoID = torneo['NOME'] + '_' + str(len(torneo['GIOCATORI']))
-	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'PUNTI' : 1440, 'boh' : 0}
+	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'PUNTI' : 1440, 'MATCH' : 0}
 
 	# aggiunge il nuovo giocatore al torneo
 	torneo['GIOCATORI'][len(torneo['GIOCATORI'])] = nuovoGiocatore
@@ -42,7 +42,7 @@ def eliminaGiocatore(torneo, nome):
 			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
 			torneo['GIOCATORI'][id]['NOME'] = 'ND'
 			torneo['GIOCATORI'][id]['PUNTI'] = -9999
-			torneo['GIOCATORI'][id]['boh'] = -1
+			torneo['GIOCATORI'][id]['PARTITE'] = -1
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
@@ -164,6 +164,19 @@ def classifica(torneo):
 	print('##############################################')
 	return
 
+
+
+##################### sezione di output
+
+def stampaFormattato(torneo):
+	caratteri_omessi = '"{}'
+	torneo_formatted = json.dumps(torneo, indent=3, separators=('', ':\t'))
+	for char in caratteri_omessi:
+		torneo_formatted = torneo_formatted.replace(char, '')
+
+	print(torneo_formatted)
+
+
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
 
@@ -224,5 +237,9 @@ torneo = nuovoTorneo('pingpong')
 tornei = {torneo['NOME'] : torneo}
 torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
 torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
+
+stampaFormattato(tornei)
+
 # print('tornei: ', tornei)
-print('tornei: ', json.dumps(tornei, indent=2))
+# print('tornei: ', json.dumps(tornei, indent=2, separators=('',': \t')).replace('"', '').replace('{', '').replace('}', ''))
+# print('tornei: ', json.dumps(tornei, indent=2, separators=('',': \t')).replace('"', '').replace('{', '').replace('}', ''))
