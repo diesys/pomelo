@@ -1,17 +1,58 @@
 #!/usr/bin/env python3
 
-import math, sys, json
+import math, sys, json, os.path
+
+# cartella dei tornei
+tornei_dir = os.path.dirname('data/')
+
+def scriviTorneo(torneo):
+	# scrivi su file
+	with open(torneo['FILE'], 'w') as file_json:
+		json.dump(torneo, file_json)
+
+def importaTorneo(torneo):
+	# leggi da file
+	with open(tornei_dir + '/' + torneo + '/' + torneo + '.json', 'r') as json_torneo:
+		dict_torneo = json.load(json_torneo)
+		# print(dict_torneo)
+	
+	return dict_torneo
 
 # crea un nuovo torneo con 'torneo' come nome di default
 def nuovoTorneo(nome="torneo"):
-	torneo = {'NOME' : nome, 'GIOCATORI' : {} }
+
+	# percorso del file e cartella che conterra' il dizionario
+	file_path = tornei_dir + '/' + nome + '/' + nome + '.json'
+	dir_path = os.path.dirname(file_path)
+	# dir_path = os.path.dirname(tornei_dir + '/' + nome + '/' + file_name)
+	
+	# dizionario torneo base vuoto
+	torneo = { 'NOME' : nome, 'FILE' : file_path, 'GIOCATORI' : {}, 'MATCHES' : {}  }
+	
+	# controlla se esiste la cartella col nome del torneo
+	if not os.path.exists(dir_path):
+		os.makedirs(dir_path)
+
+		# controlla se esiste il file json del torneo se no lo crea e ci mette il contenuto dell'attuale dizionario
+		if not os.path.exists(file_path):
+			with open(file_path, 'w') as fp:
+				json.dump(torneo, fp)
+
+	else:
+		print('Nome presente, cambiare nome per favore.\n')
+		return
+	
 	return torneo
 
-
 def aggiungiGiocatore(torneo, nome):
+    # Aggiunge al torneo un nuovo Giocatore 'nome'. Controlla per prima cosa che
+    # non esiste un altro giocatore con lo stesso nome. In caso positivo viene
+    # aggiunto il Giocatore. Gli viene assegnato un punteggio iniziale di 1440 e
+    # gli viene associato un numero d' iscrizione.
+    
 	#controlla che non ci sia un giocatore con lo stesso NOME
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == nome:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == nome:
 			print('Nome gia in uso: scegliere un altro NOME')
 			return torneo
 	
@@ -20,27 +61,41 @@ def aggiungiGiocatore(torneo, nome):
 	nuovoGiocatore = {'NOME' : nome, 'ID' : nuovoID, 'PUNTI' : 1440, 'MATCH' : 0}
 
 	# aggiunge il nuovo giocatore al torneo
-	torneo['GIOCATORI'][len(torneo['GIOCATORI'])] = nuovoGiocatore
+	torneo['GIOCATORI'][str(len(torneo['GIOCATORI']))] = nuovoGiocatore
+
+	# scrivi su file
+	scriviTorneo(torneo)
 
 	return torneo
 
 def eliminaGiocatore(torneo, nome):
+    # Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del
+    # torneo al posto dei dati di tale giocatore sara' presente una riga del tipo
+    # ['ND',...] 
+	
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == nome:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == nome:
 			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
-			torneo['GIOCATORI'][id]['NOME'] = 'ND'
-			torneo['GIOCATORI'][id]['PUNTI'] = -9999
-			torneo['GIOCATORI'][id]['MATCH'] = -1
+			torneo['GIOCATORI'][str(id)]['NOME'] = 'ND'
+			torneo['GIOCATORI'][str(id)]['PUNTI'] = -9999
+			torneo['GIOCATORI'][str(id)]['MATCH'] = -1
+	
+	# scrivi su file
+	scriviTorneo(torneo)
 
 def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
+    # Calcola i nuovi di due giocatori dopo una partita. Il risultato 
+    # è 1 se vince il primo giocatore, 0 se perde e 0.5 se pareggiano.
+	
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
-			punteggioX = torneo['GIOCATORI'][id]['PUNTI']
-			MATCHX = torneo['GIOCATORI'][id]['MATCH']
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
+			punteggioX = int(torneo['GIOCATORI'][str(id)]['PUNTI'])
+			matchX = int(torneo['GIOCATORI'][str(id)]['MATCH'])
+	
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
-			punteggioY = torneo['GIOCATORI'][id]['PUNTI']
-			MATCHY = torneo['GIOCATORI'][id]['MATCH']
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
+			punteggioY = int(torneo['GIOCATORI'][str(id)]['PUNTI'])
+			matchY = int(torneo['GIOCATORI'][str(id)]['MATCH'])
 
 	#calcola risultato per il giocatoreY
 	risultatoY = 1 - risultatoX
@@ -50,15 +105,15 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	attesoY = 1 - attesoX
 	
 	#calcolo coefficienti moltiplicativi per il giocatoreX e il giocatoreY 
-	if (MATCHX > 8 and punteggioX > 1600):
+	if (matchX > 8 and punteggioX > 1600):
 		coefficienteX = 10
-	elif (MATCHX < 6):
+	elif (matchX < 6):
 		coefficienteX = 40
 	else:
 		coefficienteX = 20
-	if (MATCHY > 8 and punteggioY > 1600):
+	if (matchY > 8 and punteggioY > 1600):
 		coefficienteY = 10
-	elif (MATCHY < 6):
+	elif (matchY < 6):
 		coefficienteY = 40
 	else:
 		coefficienteY = 20
@@ -74,6 +129,12 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	return [punteggioX, punteggioY]
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
+    # Calcola i punti ottenuti dopo che il giocatoreX ha sfidato il giocatoreY,
+    # ottenendo un risultatoX = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1
+    # (vittoria). (giocatoreX e giocatoreY sono i numeri d' iscrizione dei
+    # due giocatori che partecipano al torneo). Aggiorna quindi la torneo con i
+    # nuovi punteggi dei giocatori giocatoreX e giocatoreY.
+
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
 		print('Risultato della partita errato')
 		return  
@@ -84,7 +145,7 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 	
 	trovatoX = False
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
 			trovatoX = True
 	if not trovatoX:
 		print('GiocatoreX non presente al torneo')
@@ -92,7 +153,7 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 
 	trovatoY = False
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
 			trovatoY = True
 	if not trovatoY:
 		print('GiocatoreY non presente al torneo')
@@ -104,16 +165,19 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 
 		#aggiornamento dati giocatoreX nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
-			if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
-				torneo['GIOCATORI'][id]['PUNTI'] = nuovoPunteggioX
-				torneo['GIOCATORI'][id]['MATCH'] = torneo['GIOCATORI'][id]['MATCH'] + 1
+			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
+				torneo['GIOCATORI'][str(id)]['PUNTI'] = nuovoPunteggioX
+				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
 		#aggiornamento dati giocatoreY nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
-			if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
-				torneo['GIOCATORI'][id]['PUNTI'] = nuovoPunteggioY
-				torneo['GIOCATORI'][id]['MATCH'] = torneo['GIOCATORI'][id]['MATCH'] + 1
+			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
+				torneo['GIOCATORI'][str(id)]['PUNTI'] = nuovoPunteggioY
+				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 		return 
+
+	# scrivi su file
+	scriviTorneo(torneo)
 
 
 ####### sezione di output
@@ -136,20 +200,9 @@ def stampaFormattato(torneo):
 # il dizionario TORNEI contiene tutti i tornei (dizionari a loro volta) con il nome come chiave del torneo, all'int
 
 #
-#torneo = nuovoTorneo()                       Crea un nuovo dizionario torneo vuota. Si usa per creare un nuovo torneo.
-#
-#torneo = aggiungiGiocatore(torneo, 'NomeX') Aggiunge al torneo un nuovo Giocatore 'NOMEX'. Controlla per prima cosa che non esiste
-#                                              un altro giocatore con lo stesso NOME. In caso positivo viene aggiunto il Giocatore.
-#                                              Gli viene assegnato un punteggio iniziale di 1440 e gli viene associato un numero d' iscrizione 
 #                                              progressivo che lo rappresenta. Il Giocatore appena iscritto avra' fatto 0 MATCH.
 #
-#eliminaGiocatore(torneo,'NOMEX')             Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del torneo
-#                                              al posto dei dati di tale giocatore sara' presente una riga del tipo ['ND',...] 
 #
-#aggiornaTorneo(torneo, m, n, r)             Calcola i punti ottenuti dopo che il giocatore m ha sfidato il giocatore n,
-#                                              ottenendo un risultato r = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1 (vittoria).
-#                                              (m e n sono i numeri d' iscrizione dei due giocatori che partecipano al torneo).
-#                                              Aggiorna quindi la torneo con i nuovi punteggi dei giocatori m e n.
 #
 #classifica(torneo)                           Ordina i giocatori nella torneo in ordine decrescente dei loro punteggi.
 #                                              A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
@@ -173,13 +226,19 @@ if(len(sys.argv) > 1):                                              ## getting p
 	
 	if(options[1] == '--test'):
 		## test
-		torneo = nuovoTorneo('pingpong')
-		tornei = {torneo['NOME'] : torneo}
-		torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
-		torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
-		aggiornaTorneo(tornei['pingpong'], 'michele', 'Aacca', 1)
+		torneo_test = 'ping'
 
-		stampaFormattato(tornei)
+		# torneo = nuovoTorneo(torneo_test)
+		torneo = importaTorneo(torneo_test)
+		tornei = {torneo['NOME'] : torneo}
+		# torneo = aggiungiGiocatore(tornei[torneo_test], 'Aacca')
+		# torneo = aggiungiGiocatore(tornei[torneo_test], 'michele')
+		# aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
+		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 0)
+
+		stampaFormattato(tornei[torneo_test])
+		# stampa su std output
+		# json.dump(tornei['pingpong'], sys.stdout)
 
 	if(options[1] == '-h' or options[1] == '--help'):	
 		print(HELP)
