@@ -4,20 +4,9 @@ import math, sys, json
 
 # crea un nuovo torneo con 'torneo' come nome di default
 def nuovoTorneo(nome="torneo"):
-
 	torneo = {'NOME' : nome, 'GIOCATORI' : {} }
-	
 	return torneo
 
-	# DA GESTIRE PER IL FUTURO POSSIBILI NOMI GIA' DEIFINITI O UGUALI
-	# try:
-	# 	tornei['NOME']
-	
-	# except NameError:
-	# 	print("Torneo con questo nome presente, prova un alro nome\n")
-	
-	# else:
-	
 
 def aggiungiGiocatore(torneo, nome):
 	#controlla che non ci sia un giocatore con lo stesso NOME
@@ -139,47 +128,6 @@ def stampaFormattato(torneo):
 	print(torneo_formatted)
 
 
-# def classifica(torneo):
-# 	if (len(torneo) > 4):
-# 		i = 2
-# 		j = 2
-# 		while i < len(torneo):
-# 			massimo = torneo[i]
-# 			MATCHMassimo = torneo[i+1] 
-# 			giocatoreMassimo = torneo[i-2 : i+2]
-# 			indiceMassimo = i
-# 			j = i+4
-# 			while j < len(torneo):
-# 				if torneo[j] > massimo:
-# 					massimo = torneo[j]
-# 					MATCHMassimo = torneo[j+1]
-# 					giocatoreMassimo = torneo[j-2 : j+2]
-# 					indiceMassimo = j
-# 				#A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
-# 				elif torneo[j] == massimo and torneo[j+1] > MATCHMassimo:
-# 					massimo = torneo[j]
-# 					MATCHMassimo = torneo[j+1]
-# 					giocatoreMassimo = torneo[j-2 : j+2]
-# 					indiceMassimo = j
-# 				j = j+4
-# 			torneo[indiceMassimo-2 : indiceMassimo+2] = torneo[i-2 : i+2]
-# 			torneo[i-2 : i+2] = giocatoreMassimo
-# 			i = i+4
-	
-# 	print('------------------CLASSIFICA------------------\n')
-	
-# 	i = 0
-	
-# 	while (i < len(torneo)):
-# 		if (torneo[i+3] < 6):
-# 			print(torneo[i], 'nc', torneo[i+3])
-# 		else:
-# 			print(torneo[i], torneo[i+2 : i+4])
-# 		print('\n')
-# 		i = i+4
-	
-# 	print('##############################################')
-# 	return
 
 
 ######################################################################################################################################################
