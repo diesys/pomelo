@@ -6,8 +6,8 @@
 // $output = shell_exec('./tornelo.py --testImp CIAO 2>&1');
 
 ############## MUST USE (for the moment) --impweb param to avoid permission errors
-// $output = shell_exec('./tornelo.py --impweb prova 2>&1');
 $output = shell_exec('./tornelo.py --update prova michele giovanni 1 --web 2>&1');
+$output = shell_exec('./tornelo.py -i prova --web 2>&1');
 
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output));

@@ -12,7 +12,7 @@ def scriviTorneo(torneo, web=False):
 		json.dump(torneo, file_json)
 
 		# permission bad fix
-		if(web):
+		if(not web):
 			os.chmod(torneo['FILE'], 0o666)
 	
 
@@ -22,7 +22,7 @@ def importaTorneo(torneo, web=False):
 	with open(file_path, 'r') as file_json:
 		dict_torneo = json.load(file_json)
 		
-		if(web):
+		if(not web):
 			os.chmod(file_path, 0o666)
 	
 	return dict_torneo
@@ -273,8 +273,8 @@ HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\
 if(len(sys.argv) > 1):                                              ## getting parameters if exist
 	options = sys.argv
 	
-	## workaround for php permissions
-	if(options[-1] == "--web"):
+	## check if there is '--web' option (workaround for php permissions)
+	if any("--web" in o for o in options):
 		web = True
 	else:
 		web = False
@@ -350,7 +350,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 	elif(options[1] == '-u' or options[1] == '--update'):
 		if(len(options) > 2):
 			torneo = options[2]
-			torneo = importaTorneo(torneo, True)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			torneo = importaTorneo(torneo, web)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
 			
 			if(len(options) > 5):
 				giocatore1 = options[3]
@@ -371,7 +371,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 	elif(options[1] == '-r' or options[1] == '--ranking'):
 		if(len(options) > 2):
 			torneo = options[2]
-			torneo = importaTorneo(torneo, True)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			torneo = importaTorneo(torneo, web)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
 			
 			if(len(options) > 5):
 				giocatore1 = options[3]
