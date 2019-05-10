@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python
 
 import math, sys, json
 
@@ -138,7 +138,7 @@ def classifica(torneo):
 					partiteMassimo = torneo[j+1]
 					giocatoreMassimo = torneo[j-2 : j+2]
 					indiceMassimo = j
-				#A parita' di punteggio il giocatore con piu' partite sarà ad una posizione piu' alta
+				#A parita' di punteggio il giocatore con piu' partite sara' ad una posizione piu' alta
 				elif torneo[j] == massimo and torneo[j+1] > partiteMassimo:
 					massimo = torneo[j]
 					partiteMassimo = torneo[j+1]
@@ -166,7 +166,7 @@ def classifica(torneo):
 
 
 
-##################### sezione di output
+####### sezione di output
 
 def stampaFormattato(torneo):
 	caratteri_omessi = '"{}'
@@ -183,7 +183,6 @@ def stampaFormattato(torneo):
 
 # il dizionario TORNEI contiene tutti i tornei (dizionari a loro volta) con il nome come chiave del torneo, all'int
 
-
 #
 #torneo = nuovoTorneo()                       Crea un nuovo dizionario torneo vuota. Si usa per creare un nuovo torneo.
 #
@@ -193,7 +192,7 @@ def stampaFormattato(torneo):
 #                                              progressivo che lo rappresenta. Il Giocatore appena iscritto avra' fatto 0 partite.
 #
 #eliminaGiocatore(torneo,'NOMEX')             Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del torneo
-#                                              al posto dei dati di tale giocatore sarà presente una riga del tipo ['ND',...] 
+#                                              al posto dei dati di tale giocatore sara' presente una riga del tipo ['ND',...] 
 #
 #aggiornaTorneo(torneo, m, n, r)             Calcola i punti ottenuti dopo che il giocatore m ha sfidato il giocatore n,
 #                                              ottenendo un risultato r = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1 (vittoria).
@@ -201,7 +200,7 @@ def stampaFormattato(torneo):
 #                                              Aggiorna quindi la torneo con i nuovi punteggi dei giocatori m e n.
 #
 #classifica(torneo)                           Ordina i giocatori nella torneo in ordine decrescente dei loro punteggi.
-#                                              A parita' di punteggio il giocatore con piu' partite sarà ad una posizione piu' alta
+#                                              A parita' di punteggio il giocatore con piu' partite sara' ad una posizione piu' alta
 #                                              di partite disputate.
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
@@ -232,9 +231,4 @@ if(len(sys.argv) > 1):                                              ## getting p
 	if(options[1] == '-h' or options[1] == '--help'):	
 		print(HELP)
 else:                                  
-	print(HELP)
-
-
-# print('tornei: ', tornei)
-# print('tornei: ', json.dumps(tornei, indent=2, separators=('',': \t')).replace('"', '').replace('{', '').replace('}', ''))
-# print('tornei: ', json.dumps(tornei, indent=2, separators=('',': \t')).replace('"', '').replace('{', '').replace('}', ''))
+	print(HELP)	
