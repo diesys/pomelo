@@ -175,10 +175,9 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
 				torneo['GIOCATORI'][str(id)]['PUNTI'] = nuovoPunteggioY
 				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
-		return 
 
 	# scrivi su file
-	scriviTorneo(torneo)
+	return scriviTorneo(torneo)
 
 
 ####### sezione di output
@@ -266,13 +265,17 @@ if(len(sys.argv) > 1):                                              ## getting p
 		else:
 			print('Manca il nome del torneo!\n')
 	
-	if(options[1] == '--test'):
+	elif(options[1] == '--testNew'):
 		## test
-		torneo_test = 'ping'
+		if(len(options)>2):
+			torneo_test = options[2]	
+		else:
+			torneo_test = 'ping'
 
 		torneo = nuovoTorneo(torneo_test)
-		# torneo = importaTorneo(torneo_test)
+		
 		tornei = {torneo['NOME'] : torneo}
+		
 		torneo = aggiungiGiocatore(tornei[torneo_test], 'Aacca')
 		torneo = aggiungiGiocatore(tornei[torneo_test], 'michele')
 		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
@@ -280,8 +283,33 @@ if(len(sys.argv) > 1):                                              ## getting p
 		stampaFormattato(tornei[torneo_test])
 		# stampa su std output
 		# json.dump(tornei['pingpong'], sys.stdout)
+	
+	elif(options[1] == '--testImp'):
+		## test
+		if(len(options) > 2):
+			torneo_test = options[2]
+		else:
+			torneo_test = 'ping'
 
-	if(options[1] == '-h' or options[1] == '--help'):	
+		# torneo = nuovoTorneo(torneo_test)
+		torneo = importaTorneo(torneo_test)
+		
+		tornei = {torneo['NOME'] : torneo}
+		
+		# torneo = aggiungiGiocatore(tornei[torneo_test], 'Aacca')
+		# torneo = aggiungiGiocatore(tornei[torneo_test], 'michele')
+		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
+
+		stampaFormattato(tornei[torneo_test])
+		print('ciao')
+		
+		# stampa raw su std output
+		# json.dump(tornei[torneo_test], sys.stdout)
+
+	elif(options[1] == '-h' or options[1] == '--help'):	
 		print(HELP)
+	
+	else:                                  
+		print(HELP)	
 else:                                  
 	print(HELP)	
