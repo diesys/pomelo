@@ -46,6 +46,11 @@ def nuovoTorneo(nome="torneo"):
 	return torneo
 
 def aggiungiGiocatore(torneo, nome):
+    # Aggiunge al torneo un nuovo Giocatore 'nome'. Controlla per prima cosa che
+    # non esiste un altro giocatore con lo stesso nome. In caso positivo viene
+    # aggiunto il Giocatore. Gli viene assegnato un punteggio iniziale di 1440 e
+    # gli viene associato un numero d' iscrizione.
+    
 	#controlla che non ci sia un giocatore con lo stesso NOME
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][id]['NOME'] == nome:
@@ -65,6 +70,10 @@ def aggiungiGiocatore(torneo, nome):
 	return torneo
 
 def eliminaGiocatore(torneo, nome):
+    # Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del
+    # torneo al posto dei dati di tale giocatore sara' presente una riga del tipo
+    # ['ND',...] 
+	
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][id]['NOME'] == nome:
 			# imposta valori oltre i limiti al posto di cancellare, preserva l'ID
@@ -76,6 +85,9 @@ def eliminaGiocatore(torneo, nome):
 	scriviJSON(torneo)
 
 def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
+    # Calcola i nuovi di due giocatori dopo una partita. Il risultato 
+    # è 1 se vince il primo giocatore, 0 se perde e 0.5 se pareggiano.
+	
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
 			punteggioX = torneo['GIOCATORI'][id]['PUNTI']
@@ -118,8 +130,11 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	return [punteggioX, punteggioY]
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
-
-	# importaJSON(torneo)
+    # Calcola i punti ottenuti dopo che il giocatoreX ha sfidato il giocatoreY,
+    # ottenendo un risultatoX = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1
+    # (vittoria). (giocatoreX e giocatoreY sono i numeri d' iscrizione dei
+    # due giocatori che partecipano al torneo). Aggiorna quindi la torneo con i
+    # nuovi punteggi dei giocatori giocatoreX e giocatoreY.
 
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
 		print('Risultato della partita errato')
@@ -226,20 +241,9 @@ def stampaFormattato(torneo):
 # il dizionario TORNEI contiene tutti i tornei (dizionari a loro volta) con il nome come chiave del torneo, all'int
 
 #
-#torneo = nuovoTorneo()                       Crea un nuovo dizionario torneo vuota. Si usa per creare un nuovo torneo.
-#
-#torneo = aggiungiGiocatore(torneo, 'NomeX') Aggiunge al torneo un nuovo Giocatore 'NOMEX'. Controlla per prima cosa che non esiste
-#                                              un altro giocatore con lo stesso NOME. In caso positivo viene aggiunto il Giocatore.
-#                                              Gli viene assegnato un punteggio iniziale di 1440 e gli viene associato un numero d' iscrizione 
 #                                              progressivo che lo rappresenta. Il Giocatore appena iscritto avra' fatto 0 MATCH.
 #
-#eliminaGiocatore(torneo,'NOMEX')             Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del torneo
-#                                              al posto dei dati di tale giocatore sara' presente una riga del tipo ['ND',...] 
 #
-#aggiornaTorneo(torneo, m, n, r)             Calcola i punti ottenuti dopo che il giocatore m ha sfidato il giocatore n,
-#                                              ottenendo un risultato r = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1 (vittoria).
-#                                              (m e n sono i numeri d' iscrizione dei due giocatori che partecipano al torneo).
-#                                              Aggiorna quindi la torneo con i nuovi punteggi dei giocatori m e n.
 #
 #classifica(torneo)                           Ordina i giocatori nella torneo in ordine decrescente dei loro punteggi.
 #                                              A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
@@ -272,20 +276,10 @@ if(len(sys.argv) > 1):                                              ## getting p
 		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
 
 		# stampaFormattato(tornei)
+		# stampa su std output
 		# json.dump(tornei['pingpong'], sys.stdout)
-
-
 
 	if(options[1] == '-h' or options[1] == '--help'):	
 		print(HELP)
 else:                                  
 	print(HELP)	
-
-
-### DUMP DI UN DIZIONARIO IN UN JSON
-## SCRIVE SU FILE
-# with open('result.json', 'w') as fp:
-	# json.dump(tornei['pingpong'], fp)
-
-## STAMPA SU STD OUTPUT
-# json.dump('SomeText', sys.stdout)
