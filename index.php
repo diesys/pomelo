@@ -1,12 +1,23 @@
 <?php 
 
-$command = escapeshellcmd('./tornelo.py --testNew ba');
-$output = shell_exec($command);
+// $command = escapeshellcmd('./tornelo.py --testImp');
+// $output = shell_exec($command);
+// $output = shell_exec('./tornelo.py --testNew ciao 2>&1');
+// $output = shell_exec('./tornelo.py --testImp CIAO 2>&1');
+$output = shell_exec('./tornelo.py --impweb ping 2>&1');
 
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-// echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output));
+echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output));
 
-echo $output, $command;
+# get a json and dump
+// $json = file_get_contents('data/ping/ping.json');  
+// $json_output = json_decode($json, true); 
+// echo $json_output;
+
+// foreach ($json_output as $trend){         
+//    echo $trend['text']."\n";     
+//   } 
+
 
 # trasforma il dizionario python in un array php
 // $data =  json_decode($output, true);

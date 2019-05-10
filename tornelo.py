@@ -6,16 +6,24 @@ import math, sys, json, os.path
 tornei_dir = os.path.dirname('data/')
 
 
-def scriviTorneo(torneo):
+def scriviTorneo(torneo, web=False):
 	# scrivi su file
 	with open(torneo['FILE'], 'w') as file_json:
 		json.dump(torneo, file_json)
 
-def importaTorneo(torneo):
+		# permission bad fix
+		if(web):
+			os.chmod(torneo['FILE'], 0o666)
+	
+
+def importaTorneo(torneo, web=False):
 	# leggi da file
-	with open(tornei_dir + '/' + torneo + '/' + torneo + '.json', 'r') as json_torneo:
-		dict_torneo = json.load(json_torneo)
-		# print(dict_torneo)
+	file_path = tornei_dir + '/' + torneo + '/' + torneo + '.json'
+	with open(file_path, 'r') as file_json:
+		dict_torneo = json.load(file_json)
+		
+		if(web):
+			os.chmod(file_path, 0o666)
 	
 	return dict_torneo
 
@@ -177,6 +185,8 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
 	# scrivi su file
+	# nuovoTorneo = scriviTorneo(torneo)
+	# os.chmod(torneo['FILE'], 0o666)
 	return scriviTorneo(torneo)
 
 
@@ -258,24 +268,62 @@ HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\
 if(len(sys.argv) > 1):                                              ## getting parameters if exist
 	options = sys.argv
 	
-	if(options[1] == '-n' or options[1] == '-new'):
+	if(options[1] == '-n' or options[1] == '--new'):
 		if(len(options)>2):
 			nuovoTorneo = nuovoTorneo(options[2])
+			tornei = {options[2]: nuovoTorneo}
+
 			print("Torneo creato, segui l'help per popolarlo\n")
 		else:
 			print('Manca il nome del torneo!\n')
 	
+
+	elif(options[1] == '-i' or options[1] == '--import'):
+		## test
+		if(len(options) > 2):
+			torneo_test = options[2]
+		else:
+			print('Manca il nome del torneo!\n')
+
+		
+		torneo = importaTorneo(torneo_test, True) 			# True come parametro opzionale x funzionare coi permessi da shell e non da web
+		
+		tornei = {torneo['NOME'] : torneo}
+		
+		stampaFormattato(tornei[torneo_test])
+	
+
+	elif(options[1] == '-a' or options[1] == '--add'):
+		## test
+		if(len(options) > 2):
+			torneo = options[2]
+			torneo = importaTorneo(torneo, True)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			
+			if(len(options) > 3):
+				giocatore = options[3]
+
+				aggiungiGiocatore(torneo, giocatore)
+
+			else:
+				print('Manca il nome del giocatore!\n')
+
+		else:
+			print('Manca il nome del torneo!\n')
+		
+		# stampaFormattato(tornei[torneo_test])
+
+
 	elif(options[1] == '--testNew'):
 		## test
-		if(len(options)>2):
-			torneo_test = options[2]	
+		if(len(options) > 2):
+			torneo_test = options[2]
 		else:
 			torneo_test = 'ping'
 
 		torneo = nuovoTorneo(torneo_test)
-		
-		tornei = {torneo['NOME'] : torneo}
-		
+
+		tornei = {torneo['NOME']: torneo}
+
 		torneo = aggiungiGiocatore(tornei[torneo_test], 'Aacca')
 		torneo = aggiungiGiocatore(tornei[torneo_test], 'michele')
 		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
@@ -284,7 +332,8 @@ if(len(sys.argv) > 1):                                              ## getting p
 		# stampa su std output
 		# json.dump(tornei['pingpong'], sys.stdout)
 	
-	elif(options[1] == '--testImp'):
+	
+	elif(options[1] == '--impweb'):
 		## test
 		if(len(options) > 2):
 			torneo_test = options[2]
@@ -301,10 +350,9 @@ if(len(sys.argv) > 1):                                              ## getting p
 		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
 
 		stampaFormattato(tornei[torneo_test])
-		print('ciao')
-		
 		# stampa raw su std output
 		# json.dump(tornei[torneo_test], sys.stdout)
+		
 
 	elif(options[1] == '-h' or options[1] == '--help'):	
 		print(HELP)
