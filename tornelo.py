@@ -2,28 +2,48 @@
 
 import math, sys, json, os.path
 
+# cartella dei tornei
+tornei_dir = os.path.dirname('data/')
+
+
+def scriviJSON(torneo):
+	# scrivi su file
+	with open(torneo['FILE'], 'w') as file_json:
+		json.dump(torneo, file_json)
+
+def importaJSON(torneo):
+	# leggi da file
+	with open(tornei_dir + '/' + torneo + '/' + torneo + '.json', 'r') as json_torneo:
+		dict_torneo = json.load(json_torneo)
+		print(dict_torneo)
+	
+	return dict_torneo
+
 # crea un nuovo torneo con 'torneo' come nome di default
 def nuovoTorneo(nome="torneo"):
 
-	file_path = nome + '/' + nome + '.json'
-	
+	# percorso del file e cartella che conterra' il dizionario
+	file_path = tornei_dir + '/' + nome + '/' + nome + '.json'
 	dir_path = os.path.dirname(file_path)
-	print(dir_path, file_path)
+	# dir_path = os.path.dirname(tornei_dir + '/' + nome + '/' + file_name)
 	
+	# dizionario torneo base vuoto
+	torneo = { 'NOME' : nome, 'GIOCATORI' : {}, 'FILE' : file_path }
+	
+	# controlla se esiste la cartella col nome del torneo
 	if not os.path.exists(dir_path):
 		os.makedirs(dir_path)
 
-		torneo = { 'NOME' : nome, 'GIOCATORI' : {}, 'FILENAME' : file_path }
+		# controlla se esiste il file json del torneo se no lo crea e ci mette il contenuto dell'attuale dizionario
+		if not os.path.exists(file_path):
+			with open(file_path, 'w') as fp:
+				json.dump(torneo, fp)
 
-		with open(file_path, 'w') as fp:
-			json.dump(torneo, fp)
-		
-		return torneo
-	
 	else:
 		print('Nome presente, cambiare nome per favore.\n')
 		return
 	
+	return torneo
 
 def aggiungiGiocatore(torneo, nome):
 	#controlla che non ci sia un giocatore con lo stesso NOME
@@ -39,6 +59,9 @@ def aggiungiGiocatore(torneo, nome):
 	# aggiunge il nuovo giocatore al torneo
 	torneo['GIOCATORI'][len(torneo['GIOCATORI'])] = nuovoGiocatore
 
+	# scrivi su file
+	scriviJSON(torneo)
+
 	return torneo
 
 def eliminaGiocatore(torneo, nome):
@@ -48,16 +71,20 @@ def eliminaGiocatore(torneo, nome):
 			torneo['GIOCATORI'][id]['NOME'] = 'ND'
 			torneo['GIOCATORI'][id]['PUNTI'] = -9999
 			torneo['GIOCATORI'][id]['MATCH'] = -1
+	
+	# scrivi su file
+	scriviJSON(torneo)
 
 def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][id]['NOME'] == giocatoreX:
 			punteggioX = torneo['GIOCATORI'][id]['PUNTI']
-			MATCHX = torneo['GIOCATORI'][id]['MATCH']
+			matchX = torneo['GIOCATORI'][id]['MATCH']
+	
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][id]['NOME'] == giocatoreY:
 			punteggioY = torneo['GIOCATORI'][id]['PUNTI']
-			MATCHY = torneo['GIOCATORI'][id]['MATCH']
+			matchY = torneo['GIOCATORI'][id]['MATCH']
 
 	#calcola risultato per il giocatoreY
 	risultatoY = 1 - risultatoX
@@ -67,15 +94,15 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	attesoY = 1 - attesoX
 	
 	#calcolo coefficienti moltiplicativi per il giocatoreX e il giocatoreY 
-	if (MATCHX > 8 and punteggioX > 1600):
+	if (matchX > 8 and punteggioX > 1600):
 		coefficienteX = 10
-	elif (MATCHX < 6):
+	elif (matchX < 6):
 		coefficienteX = 40
 	else:
 		coefficienteX = 20
-	if (MATCHY > 8 and punteggioY > 1600):
+	if (matchY > 8 and punteggioY > 1600):
 		coefficienteY = 10
-	elif (MATCHY < 6):
+	elif (matchY < 6):
 		coefficienteY = 40
 	else:
 		coefficienteY = 20
@@ -91,6 +118,9 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	return [punteggioX, punteggioY]
 
 def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
+
+	# importaJSON(torneo)
+
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
 		print('Risultato della partita errato')
 		return  
@@ -132,6 +162,8 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 				torneo['GIOCATORI'][id]['MATCH'] = torneo['GIOCATORI'][id]['MATCH'] + 1
 		return 
 
+	# scrivi su file
+	scriviJSON(torneo)
 
 ####### sezione di output
 
@@ -231,14 +263,16 @@ if(len(sys.argv) > 1):                                              ## getting p
 	
 	if(options[1] == '--test'):
 		## test
-		torneo = nuovoTorneo('pingpong')
-		tornei = {torneo['NOME'] : torneo}
-		torneo = aggiungiGiocatore(tornei['pingpong'], 'michele')
-		torneo = aggiungiGiocatore(tornei['pingpong'], 'Aacca')
-		aggiornaTorneo(tornei['pingpong'], 'michele', 'Aacca', 1)
+		torneo_test = 'ping'
 
-		stampaFormattato(tornei)
-		json.dump(tornei['pingpong'], sys.stdout)
+		torneo = nuovoTorneo(torneo_test)
+		tornei = {torneo['NOME'] : torneo}
+		torneo = aggiungiGiocatore(tornei[torneo_test], 'michele')
+		torneo = aggiungiGiocatore(tornei[torneo_test], 'Aacca')
+		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
+
+		# stampaFormattato(tornei)
+		# json.dump(tornei['pingpong'], sys.stdout)
 
 
 
