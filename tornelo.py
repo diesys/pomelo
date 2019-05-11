@@ -212,7 +212,6 @@ def stampaFormattato(torneo, web=False):
 
 def aggiornaRanking(torneo, web=False):
 	classifica = []
-	stabile = False
 
 	for i in torneo['GIOCATORI']:
 		if(torneo['GIOCATORI'][i]['RANK'] > 0):						# rank non negativi
@@ -222,6 +221,9 @@ def aggiornaRanking(torneo, web=False):
 			
 			if(torneo['GIOCATORI'][i]['MATCH'] > 5):
 				stabile = True
+			
+			else:
+				stabile = False
 
 			classifica.append((nome, rank, partite, stabile))
 			classifica = sorted(classifica, key=lambda giocatore: (giocatore[1], giocatore[2]), reverse=True) #sort su due criteri (punteggio, partite)
