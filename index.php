@@ -9,13 +9,21 @@
 $output = shell_exec('./tornelo.py --update prova michele giovanni 1 --web 2>&1');
 
 echo '====== TORNEO', PHP_EOL;
-$output = shell_exec('./tornelo.py -i prova --web 2>&1');
-
+shell_exec('./tornelo.py --import prova --web 2>&1');
+$output = shell_exec('./tornelo.py --print prova --web 2>&1');
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output));
 
-// echo '====== CLASSIFICA', PHP_EOL;
-// $output2 = shell_exec('./tornelo.py -r prova --web 2>&1');
+
+echo '====== CLASSIFICA', PHP_EOL;
+$output2 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
+# inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+
+echo '====== PARTITE', PHP_EOL;
+$output2 = shell_exec('./tornelo.py --match prova --web 2>&1');
+# inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
 
 // echo $output2
 
