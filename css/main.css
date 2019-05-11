@@ -29,6 +29,7 @@ body {
     background: #fff;
     padding: 0;
     height: 56px;
+    z-index: 10;
 }
 #titolo > h1 {
     position: absolute;
