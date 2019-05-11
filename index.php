@@ -35,9 +35,16 @@ echo "<!doctype html>
             position: fixed;
             width: 100%;
             top: 0;
+            left: 0;
             margin: 0;
             background: #fff;
             padding: .9em;
+            height: 80px;
+        }
+        #titolo > h1 {
+            position: absolute;
+            left: 48%;
+            transform: translateX(-50%);
         }
         #content {
             margin-top: 145px;
@@ -54,9 +61,10 @@ $output = shell_exec('./tornelo.py --update prova aaaa bbbb 0.5 --web 2>&1');
 
 echo "<body><center>";
 
-echo "<span>
-        <img id='logo' src='img/antipong_idle2.gif' height='100px' width='100px' alt='Smash the ball, smash fascism!' />
-        <h1 id='titolo'>Torneo di ping-pong 2019</h1></span>";
+echo "
+<img id='logo' src='img/antipong_idle2.gif' height='100px' width='100px' alt='Smash the ball, smash fascism!' />
+<span id='titolo'>
+        <h1 id='itolo'>Torneo '19</h1></span>";
 
 echo "<div id='content'><h2>CLASSIFICA</h2>", "<br/>";
 
