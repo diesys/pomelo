@@ -369,9 +369,9 @@ if(len(sys.argv) > 1):                                              ## getting p
 
 			matches = matches.replace('[', '')
 			matches = matches.replace('],', '\n')
-			matches = matches.replace(', 0.0', ': 1')
+			matches = matches.replace(', 0.0', ': 2')
 			matches = matches.replace(', 0.5', ': X')
-			matches = matches.replace(', 1.0', ': 2')
+			matches = matches.replace(', 1.0', ': 1')
 			matches = matches.replace(', ', ' - ')
 
 			caratteri_omessi = "[]'"
