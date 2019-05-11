@@ -28,14 +28,14 @@ body {
     margin: 0;
     background: #fff;
     padding: 0;
-    height: 65px;
+    height: 56px;
 }
 #titolo > h1 {
     position: absolute;
     left: 50%;
-    transform: translateX(calc(-50% - 10px));
+    transform: translate(calc(-50% - 0px), calc(-50% - 2px));
     font-size: 25px;
-    top: 0;
+    top: 50%;
     text-shadow: 1px 2px 4px rgba(0,0,0,.1);
 }
 #content {
@@ -46,4 +46,31 @@ body {
     border: 8px solid #fff;
     box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
     border-radius: 12px;
+}
+
+h2.titleSection {
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+
+
+/* BOOTSTRAP */
+
+.btn.bigFontButton {
+    height: 38px;
+    padding: 0 0px;
+    width: 34px;
+}
+.btn.bigFontButton > span {
+    font-size: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% - 1px),calc(-50% + 1px));
+}
+
+.input-padding {
+    margin-bottom: 40px;
 }

@@ -24,14 +24,14 @@
             <?php 
                 $output = shell_exec('./tornelo.py --update prova aaaa dddd 0 --web 2>&1');
 
-                echo "<div id='content'><h2>CLASSIFICA</h2>", "<br/>";
+                echo "<h2 class='titleSection'>CLASSIFICA</h2>", "<br/>";
 
                 $output2 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
                 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
 
                 // echo "<br/>== PARTITE ==", "<br/><br/>";
-                echo "<h2>PARTITE</h2>", "<br/>";
+                echo "<h2 class='titleSection'>PARTITE</h2>", "<br/>";
                 $output3 = shell_exec('./tornelo.py --match prova --web 2>&1');
                 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output3));

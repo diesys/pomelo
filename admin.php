@@ -26,7 +26,6 @@
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <link rel='stylesheet' media='screen' href='https://fontlibrary.org/face/raleway' type='text/css'/>
     <link rel='icon' href='img/antipong_favicon.png'>
-    <link rel="stylesheet" href="css/main.css" />
     <meta name="HandheldFriendly" content="true" />
 	<meta name="mobile-web-app-capable" content="yes">
 
@@ -36,47 +35,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
+    <link rel="stylesheet" href="css/main.css" />
+</head>
     <body>
         <center>
 
             <img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
             
             <span id='titolo'>
-                <h1 id='itolo'>Torneo '19</h1>
+                <h1 id='itolo'>Admin | TornELO</h1>
             </span>
 
-                <h4 id='sottotitolo'>Pagina di amministrazione</h4>
+            <div id='content' class="container">
 
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Partita</span>
-                    </div>
-                    <input type="text" aria-label="Giocatore 1" class="form-control">
-                    <input type="text" aria-label="Giocatore 2" class="form-control">
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+
+                <h2 class="titleSection">Modifica torneo</h2>
+
+                <div class="input-group input-padding">
+                    <!-- <div class="input-group-prepend">
+                        <span class="input-group-text">Match</span>
+                    </div> -->
+                    <input type="text" aria-label="Giocatore1" placeholder="Giocatore 1" class="form-control">
+                    <input type="text" aria-label="Giocatore2" placeholder="Giocatore 2" class="form-control">
+                    <select class="custom-select col-xs-2" id="inputGroupSelect01">
+                        <option selected>esito</option>
+                        <option value="1">1</option>
+                        <option value="0.5">x</option>
+                        <option value="0">2</option>
                     </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="button"><span class="bigFontButton">+</span></button>
+                    </div>
+
                 </div>
-
-            <?php 
-                echo "<div id='content'><h2>CLASSIFICA</h2>", "<br/>";
-
-                $output2 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
-                # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
-
-                // echo "<br/>== PARTITE ==", "<br/><br/>";
-                echo "<h2>PARTITE</h2>", "<br/>";
-                $output3 = shell_exec('./tornelo.py --match prova --web 2>&1');
-                # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output3));
+            </div>
             
-            
-                echo "</div>";
-            ?>
+            <div class="container">
+                <h2 class='titleSection'>DUMP TORNEO</h2>
+
+                <div class="row">
+                        <div class="col">
+                            <?php 
+                                $output1 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
+                                # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+                            ?>
+                        </div>
+                        <div class="col">
+                            <?php 
+                                $output2 = shell_exec('./tornelo.py --match prova --web 2>&1');
+                                # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+                            ?>
+                        </div>
+                    </div>
+
+            </div>";
 
 
 
