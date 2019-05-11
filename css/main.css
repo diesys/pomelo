@@ -40,7 +40,7 @@ body {
     text-shadow: 1px 2px 4px rgba(0,0,0,.1);
 }
 #content {
-    margin-top: 100px;
+    margin-top: 80px;
 }
 #qr {
     margin: 20px 0;
@@ -49,11 +49,22 @@ body {
     border-radius: 12px;
 }
 
-h2.titleSection {
+.titleSection {
     font-size: 22px;
     font-weight: bold;
-    text-transform: uppercase;
     margin: 20px 0;
+    text-align: center;
+}
+h2.titleSection {
+    text-transform: uppercase;
+    font-size: 22px;
+}
+h4.titleSection {
+    font-size: 18px;
+}
+
+p.centered {
+    text-align: center;
 }
 
 

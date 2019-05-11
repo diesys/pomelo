@@ -366,7 +366,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 			ranking_str = ' ' + str(ranking['stabili']) 
 
 			if(instabili):
-				ranking_str += '\n== INSTABILI ==\n ' + str(ranking['instabili'])
+				ranking_str += '\n===== INSTABILI =====\n ' + str(ranking['instabili'])
 
 			for char in caratteri_omessi:
 				ranking_str = ranking_str.replace(char, '')
