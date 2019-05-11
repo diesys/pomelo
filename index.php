@@ -26,7 +26,7 @@ echo "<!doctype html>
             left: 10px;
             z-index: 100;
             border-radius: 100px;
-            border: 15px solid #fff;
+            border: 10px solid #fff;
             box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
         }
         
@@ -43,14 +43,20 @@ echo "<!doctype html>
         }
         #titolo > h1 {
             position: absolute;
-            left: 48%;
+            left: 49%;
             transform: translateX(-50%);
             font-size: 25px;
             top: 0;
             text-shadow: 1px 2px 4px rgba(0,0,0,.1);
         }
         #content {
-            margin-top: 145px;
+            margin-top: 100px;
+        }
+        #qr {
+            margin: 20px 0;
+            border: 8px solid #fff;
+            box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
+            border-radius: 12px;
         }
     </style>
     
@@ -81,7 +87,12 @@ $output3 = shell_exec('./tornelo.py --match prova --web 2>&1');
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output3));
 
-echo "</div></center></body></html>";
+
+echo "</div>
+
+        <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
+
+</center></body></html>";
 
     // echo $output2
 
