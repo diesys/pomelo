@@ -1,0 +1,26 @@
+//TODO: 
+    per i futuro aggiungere variabile url per il torneo e git sui json ad ogni submit di dati così da avere una timeline (commit con ora data e tipo di azione)
+
+//TODO: 
+    fare qr da mettere al torneo per i risultati
+
+//TODO: ADMIN!!!
+    i giocatori conviene aggiungerli a mano e le partite invece fare una pagina admin.php con password x inserire i risultati (così che non debba aggiungere tutto io ogni partita)
+
+//TODO: 
+    la pagine pricipale deve contenere classifica, partite giocate
+
+//TODO: 
+    domanda: ma il ranking tiene conto anche del ranking degli altri a ritroso? ha senso?
+
+//TODO:
+    fare funzione per stampa output bello per liste
+
+//TODO:
+    i match non sono ordinati?
+
+//TODO:
+    a parita' di rank conta il numero di partite giocate
+
+//TODO:
+    inserire data/ora per partite
