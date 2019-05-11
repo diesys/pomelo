@@ -47,7 +47,7 @@
                 <h1 id='itolo'>Admin | TornELO</h1>
             </span>
 
-            <div id='content' class="container">
+            <div id='content' class="container-fluid">
 
                 <h2 class="titleSection">Modifica torneo</h2>
 
@@ -61,7 +61,7 @@
                     <input type="text" aria-label="Giocatore1" placeholder="Giocatore 1" class="form-control">
                     <input type="text" aria-label="Giocatore2" placeholder="Giocatore 2" class="form-control">
                     
-                    <select class="custom-select col-1" id="inputGroupSelect01">
+                    <select class="custom-select col-2" id="inputGroupSelect01">
                         <option selected>esito</option>
                         <option value="1">1</option>
                         <option value="0.5">x</option>
