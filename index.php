@@ -38,13 +38,16 @@ echo "<!doctype html>
             left: 0;
             margin: 0;
             background: #fff;
-            padding: .9em;
-            height: 80px;
+            padding: 0;
+            height: 65px;
         }
         #titolo > h1 {
             position: absolute;
             left: 48%;
             transform: translateX(-50%);
+            font-size: 25px;
+            top: 0;
+            text-shadow: 1px 2px 4px rgba(0,0,0,.1);
         }
         #content {
             margin-top: 145px;
@@ -62,7 +65,7 @@ $output = shell_exec('./tornelo.py --update prova aaaa bbbb 0.5 --web 2>&1');
 echo "<body><center>";
 
 echo "
-<img id='logo' src='img/antipong_idle2.gif' height='100px' width='100px' alt='Smash the ball, smash fascism!' />
+<img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
 <span id='titolo'>
         <h1 id='itolo'>Torneo '19</h1></span>";
 
