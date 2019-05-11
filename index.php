@@ -1,5 +1,4 @@
-<?php 
-echo "<!doctype html>
+<!doctype html>
 <html lang='it'>
   <head>
     <!-- Required meta tags -->
@@ -60,39 +59,41 @@ echo "<!doctype html>
         }
     </style>
     
-    
-    ";
+    <body>
+        <center>
+
+        <img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
+
+        <?php 
+            $output = shell_exec('./tornelo.py --update prova aaaa bbbb 0.5 --web 2>&1');
+
+            echo "
+            <span id='titolo'>
+                    <h1 id='itolo'>Torneo '19</h1></span>";
+
+            echo "<div id='content'><h2>CLASSIFICA</h2>", "<br/>";
+
+            $output2 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
+            # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+            echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+
+            // echo "<br/>== PARTITE ==", "<br/><br/>";
+            echo "<h2>PARTITE</h2>", "<br/>";
+            $output3 = shell_exec('./tornelo.py --match prova --web 2>&1');
+            # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+            echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output3));
+        
+        
+            echo "</div>";
+        ?>
 
 
-$output = shell_exec('./tornelo.py --update prova aaaa bbbb 0.5 --web 2>&1');
-
-
-
-echo "<body><center>";
-
-echo "
-<img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
-<span id='titolo'>
-        <h1 id='itolo'>Torneo '19</h1></span>";
-
-echo "<div id='content'><h2>CLASSIFICA</h2>", "<br/>";
-
-$output2 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
-# inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
-
-// echo "<br/>== PARTITE ==", "<br/><br/>";
-echo "<h2>PARTITE</h2>", "<br/>";
-$output3 = shell_exec('./tornelo.py --match prova --web 2>&1');
-# inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output3));
-
-
-echo "</div>
 
         <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
 
-</center></body></html>";
+</center>
+</body>
+</html>
 
     // echo $output2
 
@@ -153,4 +154,3 @@ echo "</div>
     // }
 
     // echo build_table($data);
-?>
