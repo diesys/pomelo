@@ -240,7 +240,7 @@ def aggiornaRanking(torneo, web=False):
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
-HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -d TORNEO GIOCATORE\t\t(--delete) cancella (azzera i valori di) GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  -m TORNEO\t\t\t(--match) mostra la lista dei match di TORNEO\n  -p TORNEO\t\t\t(--print) mostra tutto il contenuto di TORNEO\n  -r TORNEO\t\t\t(--ranking) mostra la classifica di TORNEO\n\n  --web\t\t\t\tda aggiungere come ULTIMO parametro, serve a non causare problemi di permessi di scrittura (USARE SOLO IN PHP!)\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
+HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -d TORNEO GIOCATORE\t\t(--delete) cancella (azzera i valori di) GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  -m TORNEO\t\t\t(--match) mostra la lista dei match di TORNEO\n  -l \t\t\t\t(--list) mostra la lista dei tornei in \'data/\'  -g TORNEO\t\t\t(--giocatori) mostra la lista dei giocatori in TORNEO\n\n  -p TORNEO\t\t\t(--print) mostra tutto il contenuto di TORNEO\n  -r TORNEO\t\t\t(--ranking) mostra la classifica di TORNEO\n\n  --web\t\t\t\tda aggiungere come ULTIMO parametro, serve a non causare problemi di permessi di scrittura (USARE SOLO IN PHP!)\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
 
 
 ## sezione opzioni script
@@ -354,6 +354,47 @@ if(len(sys.argv) > 1):                                              ## getting p
 			ranking = ranking.replace(caratteri_sostituiti, '\n')		
 
 			print(ranking)
+
+		else:
+			print('Manca il nome del torneo!')
+	
+	## lista dei tornei
+	elif(options[1] == '-l' or options[1] == '--list'):
+
+			caratteri_omessi = "'[]"
+
+			tornei = ' ' + str(os.listdir('data/'))
+
+			for char in caratteri_omessi:
+				tornei = tornei.replace(char, '')
+			
+			tornei = tornei.replace(',', '\n')		
+
+			print(tornei)
+	
+	
+	## lista dei giocatori
+	elif(options[1] == '-g' or options[1] == '--giocatori'):
+		if(len(options) > 2):
+			torneo = options[2]
+			torneo = importaTorneo(torneo, web)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			
+			caratteri_omessi = ",'[(]"
+			caratteri_sostituiti = ")"
+
+			giocatori = []
+
+			for gid in torneo['GIOCATORI']:
+				giocatori.append((torneo['GIOCATORI'][gid]['NOME'], torneo['GIOCATORI'][gid]['MATCH']))
+
+			giocatori = ' ' + str(giocatori)
+
+			for char in caratteri_omessi:
+				giocatori = giocatori.replace(char, '')
+
+			giocatori = giocatori.replace(caratteri_sostituiti, '\n')	
+
+			print(giocatori)
 
 		else:
 			print('Manca il nome del torneo!')
