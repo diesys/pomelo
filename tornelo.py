@@ -349,6 +349,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 		if(len(options) > 2):
 			torneo = options[2]
 			torneo = importaTorneo(torneo, web)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
+			instabili = False
 			
 			caratteri_omessi = ",'[(]"
 			caratteri_sostituiti = ")"
@@ -359,15 +360,20 @@ if(len(sys.argv) > 1):                                              ## getting p
 					ranking['stabili'].append(giocatore[0:3])
 				else:
 					ranking['instabili'].append(giocatore[0:3])
+					instabili = True
+
 			
-			ranking = ' ' + str(ranking['stabili']) + '\n== INSTABILI ==\n' + str(ranking['instabili'])
+			ranking_str = ' ' + str(ranking['stabili']) 
+
+			if(instabili):
+				ranking_str += '\n== INSTABILI ==\n ' + str(ranking['instabili'])
 
 			for char in caratteri_omessi:
-				ranking = ranking.replace(char, '')
+				ranking_str = ranking_str.replace(char, '')
 
-			ranking = ranking.replace(caratteri_sostituiti, '\n')		
+			ranking_str = ranking_str.replace(caratteri_sostituiti, '\n')		
 
-			print(ranking)
+			print(ranking_str)
 
 		else:
 			print('Manca il nome del torneo!')
