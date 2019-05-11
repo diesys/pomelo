@@ -364,9 +364,8 @@ if(len(sys.argv) > 1):                                              ## getting p
 			torneo = options[2]
 			torneo = importaTorneo(torneo, web)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
 			
-
-			matches = ' ' + str(torneo['MATCHES'])
-
+			# stampa la lista invertita per visualizzare l'ultima in alto
+			matches = ' ' + str(torneo['MATCHES'][::-1])
 
 			matches = matches.replace('[', '')
 			matches = matches.replace('],', '\n')
@@ -378,9 +377,8 @@ if(len(sys.argv) > 1):                                              ## getting p
 			caratteri_omessi = "[]'"
 			for char in caratteri_omessi:
 				matches = matches.replace(char, '')
-			
-			print(matches)
 
+			print(matches)
 		else:
 			print('Manca il nome del torneo!')
 		

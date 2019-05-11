@@ -1,31 +1,78 @@
 <?php 
+echo "<!doctype html>
+<html lang='it'>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <link rel='stylesheet' media='screen' href='https://fontlibrary.org/face/raleway' type='text/css'/>
+    <link rel='icon' href='img/antipong_favicon.png'>
+    
+    <style>
+        body { 
+            font-family: 'RalewayRegular'; 
+            font-weight: normal; 
+            font-style: normal; 
+            background: #eee;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            top: 0;
+        }
 
-// $command = escapeshellcmd('./tornelo.py --testImp');
-// $output = shell_exec($command);
-// $output = shell_exec('./tornelo.py --testNew ciao 2>&1');
-// $output = shell_exec('./tornelo.py --testImp CIAO 2>&1');
+        #logo {
+            position: fixed;
+            top: 0px;
+            left: 10px;
+            z-index: 100;
+            border-radius: 100px;
+            border: 15px solid #fff;
+            box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
+        }
+        
+        #titolo {
+            box-shadow: 0 -5px 30px -8px rgba(0,0,0,.4);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            margin: 0;
+            background: #fff;
+            padding: .9em;
+        }
+        #content {
+            margin-top: 145px;
+        }
+    </style>
+    
+    
+    ";
 
-############## MUST USE (for the moment) --impweb param to avoid permission errors
+
 $output = shell_exec('./tornelo.py --update prova aaaa bbbb 0.5 --web 2>&1');
 
-// echo '====== TORNEO', PHP_EOL;
-// shell_exec('./tornelo.py --import prova --web 2>&1');
-// $output = shell_exec('./tornelo.py --print prova --web 2>&1');
-// # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-// echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output));
 
 
-echo "== CLASSIFICA ==", "<br/><br/>";
+echo "<body><center>";
+
+echo "<span>
+        <img id='logo' src='img/antipong_idle2.gif' height='100px' width='100px' alt='Smash the ball, smash fascism!' />
+        <h1 id='titolo'>Torneo di ping-pong 2019</h1></span>";
+
+echo "<div id='content'><h2>CLASSIFICA</h2>", "<br/>";
+
 $output2 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
 
-echo "<br/>== PARTITE ==", "<br/><br/>";
+// echo "<br/>== PARTITE ==", "<br/><br/>";
+echo "<h2>PARTITE</h2>", "<br/>";
 $output3 = shell_exec('./tornelo.py --match prova --web 2>&1');
 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output3));
 
-// echo $output2
+echo "</div></center></body></html>";
+
+    // echo $output2
 
 # get a json and dump
 // $json = file_get_contents('data/ping/ping.json');  
