@@ -353,12 +353,12 @@ if(len(sys.argv) > 1):                                              ## getting p
 
 			ranking = {'stabili': [], 'instabili': []}
 			for giocatore in torneo['RANKING']:
-       			if (giocatore[-1]):
-					ranking['stabili'].append(el)
+				if (giocatore[-1]):
+					ranking['stabili'].append(giocatore)
 				else:
-					ranking['instabili'].append(el)
+					ranking['instabili'].append(giocatore)
 
-			ranking = ' ' + str(ranking['stabili']) + '\n == INSTABILI \n' + str(ranking['instabili'])
+			ranking = ' ' + str(ranking['stabili']) + '\n== INSTABILI ==\n' + str(ranking['instabili'])
 
 			for char in caratteri_omessi:
 				ranking = ranking.replace(char, '')
