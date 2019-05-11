@@ -1,0 +1,49 @@
+body { 
+    font-family: 'RalewayRegular'; 
+    font-weight: normal; 
+    font-style: normal; 
+    background: #eee;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+}
+
+#logo {
+    position: fixed;
+    top: 0px;
+    left: 10px;
+    z-index: 100;
+    border-radius: 100px;
+    border: 10px solid #fff;
+    box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
+}
+
+#titolo {
+    box-shadow: 0 -5px 30px -8px rgba(0,0,0,.4);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background: #fff;
+    padding: 0;
+    height: 65px;
+}
+#titolo > h1 {
+    position: absolute;
+    left: 49%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    top: 0;
+    text-shadow: 1px 2px 4px rgba(0,0,0,.1);
+}
+#content {
+    margin-top: 100px;
+}
+#qr {
+    margin: 20px 0;
+    border: 8px solid #fff;
+    box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
+    border-radius: 12px;
+}

@@ -4,27 +4,20 @@
 //TODO: 
     fare qr da mettere al torneo per i risultati
 
-//TODO: ADMIN!!!
+//TODO: ADMIN!!! con input bootstrap
     i giocatori conviene aggiungerli a mano e le partite invece fare una pagina admin.php con password x inserire i risultati (così che non debba aggiungere tutto io ogni partita)
 
 //TODO: 
     la pagine pricipale deve contenere classifica, partite giocate
 
-//TODO: 
-    domanda: ma il ranking tiene conto anche del ranking degli altri a ritroso? ha senso?
-
 //TODO:
     fare funzione per stampa output bello per liste
 
 //TODO:
-    i match non sono ordinati?
+    inserire data/ora per partite
 
 //TODO:
     a parita' di rank conta il numero di partite giocate
 
-//TODO:
-    inserire data/ora per partite
-
-fare html con dentro PHP non viceversa.. viene più pulito! e fare admin con input bootstrap
 
 CLASSIFICA parità numero partite e minimo num di partite x starci (sennò stanno in mezzo di partenza)
