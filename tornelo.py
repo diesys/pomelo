@@ -224,7 +224,7 @@ def aggiornaRanking(torneo, web=False):
 				stabile = True
 
 			classifica.append((nome, rank, partite, stabile))
-			classifica = sorted(classifica, key=lambda giocatore: giocatore[1], reverse=True)
+			classifica = sorted(classifica, key=lambda giocatore: (giocatore[1], giocatore[2]), reverse=True) #sort su due criteri (punteggio, partite)
 
 	torneo['RANKING'] = classifica
 
