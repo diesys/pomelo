@@ -218,8 +218,9 @@ def aggiornaRanking(torneo, web=False):
 		if(torneo['GIOCATORI'][i]['RANK'] > 0):						# rank non negativi
 			nome = torneo['GIOCATORI'][i]['NOME']
 			rank = torneo['GIOCATORI'][i]['RANK']
-			partite = torneo['GIOCATORI'][i]['MATCHES']
-			if(torneo['GIOCATORI'][i]['MATCH'] > 5)
+			partite = torneo['GIOCATORI'][i]['MATCH']
+			
+			if(torneo['GIOCATORI'][i]['MATCH'] > 5):
 				stabile = True
 
 			classifica.append((nome, rank, partite, stabile))
