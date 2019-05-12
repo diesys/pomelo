@@ -85,4 +85,5 @@ p.centered {
 
 .input-padding {
     margin-bottom: 40px;
+    max-width: 800px;
 }

@@ -35,7 +35,7 @@
                 <h1 id='itolo'>Torneo '19</h1>
             </span>
 
-            <div class="container-fluid">
+            <div id="content" class="container-fluid">
                 <center>
                     <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
                 </center> 

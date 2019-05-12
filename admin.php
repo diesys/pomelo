@@ -39,18 +39,18 @@
     </head>
     
     <body>
-        <!-- <center> -->
-
-            <img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
+        
+        <img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
+        
+        <span id='titolo'>
+            <h1 id='itolo'>Admin | TornELO</h1>
+        </span>
+        
+        <div id='content' class="container-fluid">
             
-            <span id='titolo'>
-                <h1 id='itolo'>Admin | TornELO</h1>
-            </span>
-
-            <div id='content' class="container-fluid">
-
-                <h2 class="titleSection">Modifica torneo</h2>
-
+            <h2 class="titleSection">Modifica torneo</h2>
+            
+            <center>
                 <div class="input-group input-padding">
                     <select class="custom-select col-2" id="inputGroupSelect01">
                         <option selected>Torneo</option>
@@ -71,78 +71,74 @@
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="button"><span class="bigFontButton">+</span></button>
                     </div>
-
                 </div>
-            </div>
+            </center>
+
+        </div>
             
-            <div class="container-fluid">
-                
-                <h2 class='titleSection'>Dettagli TORNEi</h2>
+        <div class="container-fluid">
+            
+            <h2 class='titleSection'>Dettagli TORNEi</h2>
 
-                <div class="row">
-                    <div class="col-sm-6 col-xs-push-6">
-                        <h2 class='titleSection'>Singolo</h2>
-                        <div class="row">
+            <div class="row">
+                <div class="col-sm-6 col-xs-push-6">
+                    <h2 class='titleSection'>Singolo</h2>
+                    <div class="row">
 
-                            <div class="col-lg-6">        
-                                <h4 class='titleSection'>Ranking</h4>
-                                <p class="centered">
-                                    <?php 
-                                        $output1 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
-                                        # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                                        echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
-                                    ?>
-                                </p>
-                            </div>
+                        <div class="col-lg-6">        
+                            <h4 class='titleSection'>Ranking</h4>
+                            <p class="centered">
+                                <?php 
+                                    $output1 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
+                                    # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                    echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+                                ?>
+                            </p>
+                        </div>
+                    
+                        <div class="col-lg-6">
+                            <h4 class='titleSection'>Partite</h4>
+                            <p class="centered">
+                                <?php 
+                                $output2 = shell_exec('./tornelo.py --match prova --web 2>&1');
+                                # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-push-6">
+                    <h2 class='titleSection'>Doppio</h2>
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <h4 class='titleSection'>Ranking</h4>
+                            <p class="centered">
+                                <?php 
+                                $output1 = shell_exec('./tornelo.py --ranking cippo --web 2>&1');
+                                # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+                                ?>
+                            </p>
+                        </div>
                         
-                            <div class="col-lg-6">
-                                <h4 class='titleSection'>Partite</h4>
-                                <p class="centered">
-                                    <?php 
-                                    $output2 = shell_exec('./tornelo.py --match prova --web 2>&1');
+                        <div class="col-lg-6">
+                            <h4 class='titleSection'>Partite</h4>
+                            <p class="centered">
+                                <?php 
+                                    $output2 = shell_exec('./tornelo.py --match cippo --web 2>&1');
                                     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                     echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
                                     ?>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-push-6">
-                        <h2 class='titleSection'>Doppio</h2>
-
-                        <div class="row">
-
-                            <div class="col-lg-6">
-                                <h4 class='titleSection'>Ranking</h4>
-                                <p class="centered">
-                                    <?php 
-                                    $output1 = shell_exec('./tornelo.py --ranking cippo --web 2>&1');
-                                    # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                                    echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
-                                    ?>
-                                </p>
-                            </div>
-                            
-                            <div class="col-lg-6">
-                                <h4 class='titleSection'>Partite</h4>
-                                <p class="centered">
-                                    <?php 
-                                        $output2 = shell_exec('./tornelo.py --match cippo --web 2>&1');
-                                        # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                                        echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
-                                        ?>
-                                </p>
-                            </div>
+                            </p>
                         </div>
                     </div>
                 </div>
-
             </div>
 
+        </div>
 
-
-            <!-- <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' /> -->
-
-        <!-- </center> -->
     </body>
 </html>
