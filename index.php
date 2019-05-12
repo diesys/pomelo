@@ -1,88 +1,112 @@
-<?php 
-echo "<!doctype html>
+<!doctype html>
 <html lang='it'>
   <head>
     <!-- Required meta tags -->
+    <title>TornELO</title>
     <meta charset='utf-8'>
+	<meta name="description" content="TornELO is a self-hosted opensource tournament server and script" />
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <link rel='stylesheet' media='screen' href='https://fontlibrary.org/face/raleway' type='text/css'/>
     <link rel='icon' href='img/antipong_favicon.png'>
+    <meta name="HandheldFriendly" content="true" />
+	<meta name="mobile-web-app-capable" content="yes">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
-    <style>
-        body { 
-            font-family: 'RalewayRegular'; 
-            font-weight: normal; 
-            font-style: normal; 
-            background: #eee;
-            margin: 0;
-            padding: 0;
-            left: 0;
-            top: 0;
-        }
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-        #logo {
-            position: fixed;
-            top: 0px;
-            left: 10px;
-            z-index: 100;
-            border-radius: 100px;
-            border: 15px solid #fff;
-            box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
-        }
-        
-        #titolo {
-            box-shadow: 0 -5px 30px -8px rgba(0,0,0,.4);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            margin: 0;
-            background: #fff;
-            padding: 0;
-            height: 65px;
-        }
-        #titolo > h1 {
-            position: absolute;
-            left: 48%;
-            transform: translateX(-50%);
-            font-size: 25px;
-            top: 0;
-            text-shadow: 1px 2px 4px rgba(0,0,0,.1);
-        }
-        #content {
-            margin-top: 145px;
-        }
-    </style>
-    
-    
-    ";
+<?php 
+    $output1 = shell_exec('./tornelo.py --update prova dddd cccc 0 --web 2>&1');
+    # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+    // echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+?>
 
+    <body>
+        <!-- <center> -->
 
-$output = shell_exec('./tornelo.py --update prova aaaa bbbb 0.5 --web 2>&1');
+            <img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
+            
+            <span id='titolo'>
+                <h1 id='itolo'>Torneo '19</h1>
+            </span>
 
+            <div class="container-fluid">
+                <center>
+                    <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
+                </center> 
+                
+                <h2 class='titleSection'>Dettagli TORNEi</h2>
 
+                <div class="row">
+                    <div class="col-sm-6 col-xs-push-6">
+                        <h2 class='titleSection'>Singolo</h2>
+                        <div class="row">
 
-echo "<body><center>";
+                            <div class="col-md-6">        
+                                <h4 class='titleSection'>Ranking</h4>
+                                <p class="centered">
+                                    <?php 
+                                        $output1 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
+                                        # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                        echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+                                    ?>
+                                </p>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <h4 class='titleSection'>Partite</h4>
+                                <p class="centered">
+                                    <?php 
+                                    $output2 = shell_exec('./tornelo.py --match prova --web 2>&1');
+                                    # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                    echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+                                    ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-push-6">
+                        <h2 class='titleSection'>Doppio</h2>
 
-echo "
-<img id='logo' src='img/antipong_idle2.gif' height='70px' width='70px' alt='Smash the ball, smash fascism!' />
-<span id='titolo'>
-        <h1 id='itolo'>Torneo '19</h1></span>";
+                        <div class="row">
 
-echo "<div id='content'><h2>CLASSIFICA</h2>", "<br/>";
+                            <div class="col-md-6">
+                                <h4 class='titleSection'>Ranking</h4>
+                                <p class="centered">
+                                    <?php 
+                                    $output1 = shell_exec('./tornelo.py --ranking cippo --web 2>&1');
+                                    # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                    echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+                                    ?>
+                                </p>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h4 class='titleSection'>Partite</h4>
+                                <p class="centered">
+                                    <?php 
+                                        $output2 = shell_exec('./tornelo.py --match cippo --web 2>&1');
+                                        # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
+                                        echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+                                        ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-$output2 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
-# inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+            </div>
 
-// echo "<br/>== PARTITE ==", "<br/><br/>";
-echo "<h2>PARTITE</h2>", "<br/>";
-$output3 = shell_exec('./tornelo.py --match prova --web 2>&1');
-# inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output3));
+        <!-- </center> -->
+    </body>
+</html>
 
-echo "</div></center></body></html>";
-
+<?php
     // echo $output2
 
 # get a json and dump

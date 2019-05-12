@@ -1,0 +1,88 @@
+body { 
+    font-family: 'RalewayRegular'; 
+    font-weight: normal; 
+    font-style: normal; 
+    background: #eee;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+}
+
+#logo {
+    position: fixed;
+    top: 0px;
+    left: 10px;
+    z-index: 100;
+    border-radius: 100px;
+    border: 10px solid #fff;
+    box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
+}
+
+#titolo {
+    box-shadow: 0 -5px 30px -8px rgba(0,0,0,.4);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background: #fff;
+    padding: 0;
+    height: 56px;
+    z-index: 10;
+}
+#titolo > h1 {
+    position: absolute;
+    left: 50%;
+    transform: translate(calc(-50% - 0px), calc(-50% - 2px));
+    font-size: 25px;
+    top: 50%;
+    text-shadow: 1px 2px 4px rgba(0,0,0,.1);
+}
+#content {
+    margin-top: 80px;
+}
+#qr {
+    margin: 20px 0;
+    border: 8px solid #fff;
+    box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
+    border-radius: 12px;
+}
+
+.titleSection {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 20px 0;
+    text-align: center;
+}
+h2.titleSection {
+    text-transform: uppercase;
+    font-size: 22px;
+}
+h4.titleSection {
+    font-size: 18px;
+}
+
+p.centered {
+    text-align: center;
+}
+
+
+/* BOOTSTRAP */
+
+.btn.bigFontButton {
+    height: 38px;
+    padding: 0 0px;
+    width: 34px;
+}
+.btn.bigFontButton > span {
+    font-size: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% - 1px),calc(-50% + 1px));
+}
+
+.input-padding {
+    margin-bottom: 40px;
+}
