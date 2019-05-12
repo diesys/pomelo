@@ -36,6 +36,9 @@
             </span>
 
             <div class="container-fluid">
+                <center>
+                    <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
+                </center> 
                 
                 <h2 class='titleSection'>Dettagli TORNEi</h2>
 
@@ -44,7 +47,7 @@
                         <h2 class='titleSection'>Singolo</h2>
                         <div class="row">
 
-                            <div class="col-lg-6">        
+                            <div class="col-md-6">        
                                 <h4 class='titleSection'>Ranking</h4>
                                 <p class="centered">
                                     <?php 
@@ -55,7 +58,7 @@
                                 </p>
                             </div>
                         
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <h4 class='titleSection'>Partite</h4>
                                 <p class="centered">
                                     <?php 
@@ -72,7 +75,7 @@
 
                         <div class="row">
 
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <h4 class='titleSection'>Ranking</h4>
                                 <p class="centered">
                                     <?php 
@@ -83,7 +86,7 @@
                                 </p>
                             </div>
                             
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <h4 class='titleSection'>Partite</h4>
                                 <p class="centered">
                                     <?php 
