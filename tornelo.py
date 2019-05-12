@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import math, sys, json, os.path
+import math, sys, json, os.path, time
 
 # cartella dei tornei
 tornei_dir = os.path.dirname('data/')
@@ -191,9 +191,12 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX, web=False):
 				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggioY
 				torneo['GIOCATORI'][str(id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
+	now = time.localtime()
+	dataora = str(now[3]) + ':' + str(now[4]) + ' - ' + str(now[2]) + '/' + str(now[1])
+
 	# aggiorna classifica
 	aggiornaRanking(torneo)
-	torneo['MATCHES'].append((giocatoreX, giocatoreY, risultatoX))
+	torneo['MATCHES'].append((giocatoreX, giocatoreY, risultatoX, '(' + dataora + ')'))
 
 	return scriviTorneo(torneo, web)
 
@@ -366,7 +369,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 			ranking_str = ' ' + str(ranking['stabili']) 
 
 			if(instabili):
-				ranking_str += '\n===== INSTABILI =====\n ' + str(ranking['instabili'])
+				ranking_str += '\n== Match < 5 ==\n ' + str(ranking['instabili'])
 
 			for char in caratteri_omessi:
 				ranking_str = ranking_str.replace(char, '')
@@ -433,9 +436,13 @@ if(len(sys.argv) > 1):                                              ## getting p
 			matches = matches.replace(', 0.0', ': 2')
 			matches = matches.replace(', 0.5', ': X')
 			matches = matches.replace(', 1.0', ': 1')
+			matches = matches.replace('1,', '1')
+			matches = matches.replace('X,', 'X')
+			matches = matches.replace('2,', '2')
 			matches = matches.replace(', ', ' - ')
+			# matches = matches.replace('- (', ' ')
 
-			caratteri_omessi = "[]'"
+			caratteri_omessi = "[]',"
 			for char in caratteri_omessi:
 				matches = matches.replace(char, '')
 
