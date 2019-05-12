@@ -10,9 +10,6 @@
 //TODO: ADMIN!!! con input bootstrap
     i giocatori conviene aggiungerli a mano e le partite invece fare una pagina admin.php con password x inserire i risultati (così che non debba aggiungere tutto io ogni partita)
 
-//TODO: 
-    la pagine pricipale deve contenere classifica, partite giocate
-
 //TODO:
     fare funzione per stampa output bello per liste
 
