@@ -40,8 +40,6 @@
                     <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
                 </center> 
                 
-                <h2 class='titleSection'>Dettagli TORNEi</h2>
-
                 <div class="row">
                     <div class="col-sm-6 col-xs-push-6">
                         <h2 class='titleSection'>Singolo</h2>
