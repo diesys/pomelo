@@ -21,7 +21,7 @@
   </head>
 
 <?php 
-    $output1 = shell_exec('./tornelo.py --update prova dddd cccc 0 --web 2>&1');
+    // $output1 = shell_exec('./tornelo.py --update prova dddd cccc 0 --web 2>&1');
     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
     // echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
 ?>
@@ -49,7 +49,7 @@
                                 <h4 class='titleSection'>Ranking</h4>
                                 <p class="centered">
                                     <?php 
-                                        $output1 = shell_exec('./tornelo.py --ranking prova --web 2>&1');
+                                        $output1 = shell_exec('./tornelo.py --ranking singoloProva --web 2>&1');
                                         # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                         echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
                                     ?>
@@ -60,7 +60,7 @@
                                 <h4 class='titleSection'>Partite</h4>
                                 <p class="centered">
                                     <?php 
-                                    $output2 = shell_exec('./tornelo.py --match prova --web 2>&1');
+                                    $output2 = shell_exec('./tornelo.py --match singoloProva --web 2>&1');
                                     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                     echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
                                     ?>
@@ -77,7 +77,7 @@
                                 <h4 class='titleSection'>Ranking</h4>
                                 <p class="centered">
                                     <?php 
-                                    $output1 = shell_exec('./tornelo.py --ranking cippo --web 2>&1');
+                                    $output1 = shell_exec('./tornelo.py --ranking doppioProva --web 2>&1');
                                     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                     echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
                                     ?>
@@ -88,7 +88,7 @@
                                 <h4 class='titleSection'>Partite</h4>
                                 <p class="centered">
                                     <?php 
-                                        $output2 = shell_exec('./tornelo.py --match cippo --web 2>&1');
+                                        $output2 = shell_exec('./tornelo.py --match doppioProva --web 2>&1');
                                         # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                         echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
                                         ?>
