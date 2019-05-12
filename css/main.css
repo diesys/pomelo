@@ -7,6 +7,7 @@ body {
     padding: 0;
     left: 0;
     top: 0;
+    position: absolute;
 }
 
 #logo {
@@ -67,13 +68,32 @@ p.centered {
     text-align: center;
 }
 
+.adminButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 56px;
+    z-index: 10;
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    padding: 10px 14px 10px 14px;
+    transition: all .3s;
+    color: #999;
+}
+.adminButton:hover, .adminButton:active {
+    color: #777;
+    background: #ebebeb;
+}
+
 
 /* BOOTSTRAP */
 
 .btn.bigFontButton {
     height: 38px;
-    padding: 0 0px;
+    padding: 0;
     width: 34px;
+}
+.btn.bigFontButton ion-icon {
+    transform: translateY(2px);
 }
 .btn.bigFontButton > span {
     font-size: 40px;

@@ -33,7 +33,11 @@
             
             <span id='titolo'>
                 <h1 id='itolo'>Torneo '19</h1>
+                <a href="admin.php" class="adminButton">
+                    <ion-icon size="large" name="create"></ion-icon>
+                </a>
             </span>
+            
 
             <div id="content" class="container-fluid">
                 <center>
@@ -101,6 +105,9 @@
             </div>
 
         <!-- </center> -->
+        <!-- ion-icons -->
+        <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+
     </body>
 </html>
 

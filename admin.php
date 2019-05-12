@@ -44,6 +44,9 @@
         
         <span id='titolo'>
             <h1 id='itolo'>Admin | TornELO</h1>
+            <a href="./" class="adminButton">
+                <ion-icon size="large" name="paper"></ion-icon>
+            </a>
         </span>
         
         <div id='content' class="container-fluid">
@@ -69,7 +72,10 @@
                     </select>
                     
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit"><span class="bigFontButton">+</span></button>
+                        <!-- <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit"><span class="bigFontButton">+</span></button> -->
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                            <ion-icon size="large" name="ios-add"></ion-icon>
+                        </button>
                     </div>
 
                     <?php
@@ -146,6 +152,9 @@
             </div>
 
         </div>
+
+        <!-- ion-icons -->
+        <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
 
     </body>
 </html>
