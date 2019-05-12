@@ -121,13 +121,13 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	attesoY = 1 - attesoX
 	
 	#calcolo coefficienti moltiplicativi per il giocatoreX e il giocatoreY 
-	if (matchX > 8 and punteggioX > 1600):
+	if (matchX > 9 and punteggioX > 1569):
 		coefficienteX = 10
 	elif (matchX < 6):
 		coefficienteX = 40
 	else:
 		coefficienteX = 20
-	if (matchY > 8 and punteggioY > 1600):
+	if (matchY > 9 and punteggioY > 1569):
 		coefficienteY = 10
 	elif (matchY < 6):
 		coefficienteY = 40
