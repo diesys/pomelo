@@ -55,35 +55,38 @@
             
             <center>
                 <div class="input-group input-padding">
-                    <select class="custom-select col-2" id="inputGroupSelect01">
-                        <option selected>Torneo</option>
-                        <option value="singolo">singolo</option>
-                        <option value="doppio">doppio</option>
-                    </select>
+                    <!-- <form name="addMatch" action="" method="post"> -->
 
-                    <input type="text" aria-label="Giocatore1" placeholder="Giocatore 1" class="form-control">
-                    <input type="text" aria-label="Giocatore2" placeholder="Giocatore 2" class="form-control">
-                    
-                    <select class="custom-select col-2" id="inputGroupSelect01">
-                        <option selected>esito</option>
-                        <option value="1">1</option>
-                        <option value="0.5">x</option>
-                        <option value="0">2</option>
-                    </select>
-                    
-                    <div class="input-group-append">
-                        <!-- <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit"><span class="bigFontButton">+</span></button> -->
-                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
-                            <ion-icon size="large" name="ios-add"></ion-icon>
-                        </button>
-                    </div>
+                        <select name="torneo" class="custom-select col-2" id="inputGroupSelect01">
+                            <option selected>Torneo</option>
+                            <option value="singolo">singolo</option>
+                            <option value="doppio">doppio</option>
+                        </select>
 
-                    <?php
-                        // if (isset($_POST['action'])) {
-                        //     echo '<br />The ' . $_POST['submit'] . ' submit button was pressed<br />';
-                        // }
-                    ?>
+                        <input type="text" aria-label="Gioc1" name="Gioc1" placeholder="Giocatore 1" class="form-control">
+                        <input type="text" aria-label="Gioc2" name="Gioc2" placeholder="Giocatore 2" class="form-control">
+                        
+                        <select name="esito" class="custom-select col-2" id="inputGroupSelect01">
+                            <option selected>esito</option>
+                            <option value="1">1</option>
+                            <option value="0.5">x</option>
+                            <option value="0">2</option>
+                        </select>
+                        
+                        <div class="input-group-append">
+                            <!-- <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit"><span class="bigFontButton">+</span></button> -->
+                            <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                                <ion-icon size="large" name="ios-add"></ion-icon>
+                            </button>
+                        </div>
 
+                        <?php
+                            if (isset($_POST['esito'])) {
+                                echo $_POST['torneo'], $_POST['Gioc1'], $_POST['Gioc2'], $_POST['esito'];
+                            }
+                        ?>
+
+                    <!-- </form> -->
                 </div>
             </center>
 
