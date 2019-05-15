@@ -52,47 +52,109 @@
         <div id='content' class="container-fluid">
             
             <h2 class="titleSection">Modifica torneo</h2>
+            <h3 class="titleSection">Aggiungi partita</h3>
             
             <center>
-                <div class="input-group input-padding">
-                    <select class="custom-select col-2" id="inputGroupSelect01">
-                        <option selected>Torneo</option>
-                        <option value="singolo">singolo</option>
-                        <option value="doppio">doppio</option>
+                  <form action="./admin.php" method="post">
+                    <input type="hidden" name="torneo" value="singolo">
+                  <div class="input-group input-padding">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">singolo</span>
+                    </div>
+                    <select class="custom-select" name="giocatore1" required>
+                      <option value="" disabled selected>Giocatore 1</option>
+                      <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?>
                     </select>
 
-                    <input type="text" aria-label="Giocatore1" placeholder="Giocatore 1" class="form-control">
-                    <input type="text" aria-label="Giocatore2" placeholder="Giocatore 2" class="form-control">
+                    <select class="custom-select" name="giocatore2" required>
+                      <option value="" disabled selected>Giocatore 1</option>
+                      <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?>
+                    </select>
                     
-                    <select class="custom-select col-2" id="inputGroupSelect01">
-                        <option selected>esito</option>
+                    <select class="custom-select col-2" id="inputGroupSelect02" name="esito" required>
+                        <option disabled selected value="">esito</option>
                         <option value="1">1</option>
-                        <option value="0.5">x</option>
                         <option value="0">2</option>
                     </select>
                     
                     <div class="input-group-append">
-                        <!-- <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit"><span class="bigFontButton">+</span></button> -->
                         <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
                             <ion-icon size="large" name="ios-add"></ion-icon>
                         </button>
                     </div>
+                   </div>
+               		</form>
 
-                    <?php
-                        // if (isset($_POST['action'])) {
-                        //     echo '<br />The ' . $_POST['submit'] . ' submit button was pressed<br />';
-                        // }
-                    ?>
+              		<form action="./admin.php" method="post">
+                    <input type="hidden" name="torneo" value="doppio">
+                        <div class="input-group input-padding">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">doppio</span>
+                    </div>
+                    <select class="custom-select" name="giocatore1" required>
+                			<option value="" disabled selected>Giocatore 1</option>
+                      <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?>
+                    </select>
 
-                </div>
+                    <select class="custom-select" name="giocatore2" required>
+                			<option value="" disabled selected>Giocatore 2</option>
+                      <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?>
+                    </select>
+                    
+                    <select class="custom-select col-2" id="inputGroupSelect02" name="esito" required>
+                        <option disabled selected value="">esito</option>
+                        <option value="1">1</option>
+                        <option value="0">2</option>
+                    </select>
+                    
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                            <ion-icon size="large" name="ios-add"></ion-icon>
+                        </button>
+                    </div>
+                    </div>
+		                </form>
+
+
+		<?php $torneo = $_POST["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"]; if ($g1==$g2 and $g1!=""){?>
+		<div class="alert alert-danger" role="alert"> Un giocatore non può giocare contro se stesso.</div>
+    <?php } elseif ($torneo and $g1 and $g2 and $esito> -1){ ?>
+      <div class="alert alert-primary" role="alert"> Nuova partita inserita: <?php echo $g1." contro ".$g2.", esito = ".$esito." (torneo ".$torneo.")<br><strong>";
+      $command = "./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"; echo $command."</strong><br>"; echo shell_exec("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"); echo "</div>";}?>
+
+            <h3 class="titleSection">Aggiungi giocatore</h3>
+            <form action="./admin.php" method="post">
+                  <div class="input-group input-padding">
+                    <div class="input-group-append">
+                    <select class="custom-select" name="torneo" required>
+                      <option value="" disabled selected>Torneo</option>
+                      <option value="singolo">singolo</option>
+                      <option value="doppio">doppio</option>
+                    </select>
+                    <input type="text" class="form-control" name="nome" required placeholder="Nome">
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                            <ion-icon size="large" name="ios-add"></ion-icon>
+                        </button>
+                    </div>
+         		</form>
+<?php
+        $torneo = $_POST["torneo"];
+        $nome = $_POST["nome"];
+        if ($torneo and $nome){
+          $out = shell_exec("./tornelo.py -a $torneo $nome --web 2>&1");
+          if ($out ==""){ ?>
+            <div class="alert alert-primary" role="alert">Nuova iscrizione al torneo <?php echo $torneo.": ".$nome;?>.</div>
+
+<?php }else{ ?>
+  <div class="alert alert-danger" role="alert">Errore: il giocatore <?php echo $nome ?> è già iscritto al torneo <?php echo $torneo; ?>.</div>
+<?php }}?>
+
             </center>
 
         </div>
             
         <div class="container-fluid">
-            
             <h2 class='titleSection'>Dettagli TORNEi</h2>
-
             <div class="row">
                 <div class="col-sm-6 col-xs-push-6">
                     <h2 class='titleSection'>Singolo</h2>
@@ -102,7 +164,7 @@
                             <h4 class='titleSection'>Ranking</h4>
                             <p class="centered">
                                 <?php 
-                                    $output1 = shell_exec('./tornelo.py --ranking singoloProva --web 2>&1');
+                                    $output1 = shell_exec('./tornelo.py --ranking singolo --web 2>&1');
                                     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                     echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
                                 ?>
@@ -113,7 +175,7 @@
                             <h4 class='titleSection'>Partite</h4>
                             <p class="centered">
                                 <?php 
-                                $output2 = shell_exec('./tornelo.py --match singoloProva --web 2>&1');
+                                $output2 = shell_exec('./tornelo.py --match singolo --web 2>&1');
                                 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
                                 ?>
@@ -130,7 +192,7 @@
                             <h4 class='titleSection'>Ranking</h4>
                             <p class="centered">
                                 <?php 
-                                $output1 = shell_exec('./tornelo.py --ranking doppioProva --web 2>&1');
+                                $output1 = shell_exec('./tornelo.py --ranking doppio --web 2>&1');
                                 # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                 echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
                                 ?>
@@ -141,10 +203,10 @@
                             <h4 class='titleSection'>Partite</h4>
                             <p class="centered">
                                 <?php 
-                                    $output2 = shell_exec('./tornelo.py --match doppioProva --web 2>&1');
+                                    $output2 = shell_exec('./tornelo.py --match doppio --web 2>&1');
                                     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
                                     echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
-                                    ?>
+                                ?>
                             </p>
                         </div>
                     </div>

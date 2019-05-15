@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-import math, sys, json
+from math import atan, pi
+import sys, json
+from collections import OrderedDict
 
-
-class Torneo(object):
+class TornElo(object):
     def __init__(self,nome):
         self.nome = nome
         self.giocatori = {}
 
     def __str__(self):
-        s  = ""
-        s += "="*(len(self.nome)+2)+"\n"
-        s += " "+self.nome+"\n"
-        s += "="*(len(self.nome)+2)+"\n"
-        for id in self.giocatori:
+        s = "="*(len(self.nome)+2)+"\n "+self.nome+"\n"+"="*(len(self.nome)+2)+"\n"
+        for id in self.classifica():
             s+=str(self.giocatori[id]['NOME'])
             s+=" ("+str(self.giocatori[id]['ID'])+"):"
             s+="\t"+str(self.giocatori[id]['PUNTI'])+" pt"
@@ -93,7 +91,7 @@ class Torneo(object):
         risultatoY = 1 - risultatoX
         
         #calcola risultato atteso per il giocatoreX e il giocatoreY
-        attesoX = 1/2 + (math.atan((punteggioX - punteggioY)/200)) / math.pi
+        attesoX = 1/2 + (atan((punteggioX - punteggioY)/200)) / pi
         attesoY = 1 - attesoX
 
         #calcolo coefficienti moltiplicativi per il giocatoreX e il giocatoreY 
@@ -150,15 +148,7 @@ class Torneo(object):
 
     def classifica(self):
         """
-        Da fare
+        Ordina il dizionario self.giocatori rispetto ai punteggi
         """
-        return Null
-
-t = Torneo("TornElo")
-t.aggiungiGiocatore("Adrian")
-t.aggiungiGiocatore("Jose")
-t.aggiungiGiocatore("Clara")
-t.aggiornaPunteggi("Adrian","Jose",1)
-t.aggiornaPunteggi("Jose","Clara",1)
-t.aggiornaPunteggi("Clara","Adrian",1)
-print(t)
+        classifica = OrderedDict(sorted(self.giocatori.items(), key = lambda kv: kv[1]['PUNTI'], reverse=True))
+        return classifica 
