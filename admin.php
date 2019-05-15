@@ -51,8 +51,8 @@
         
         <div id='content' class="container-fluid">
             
-            <h2 class="titleSection">Modifica torneo</h2>
-            <h3 class="titleSection">Aggiungi partita</h3>
+            <!-- <h2 class="titleSection">Modifica torneo</h2> -->
+            <h2 class="titleSection">Aggiungi partita</h2>
             
             <center>
                   <form action="./admin.php" method="post">
@@ -119,7 +119,7 @@
 		<?php $torneo = $_POST["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"]; if ($g1==$g2 and $g1!=""){?>
 		<div class="alert alert-danger" role="alert"> Un giocatore non può giocare contro se stesso.</div>
     <?php } elseif ($torneo and $g1 and $g2 and $esito> -1){ ?>
-      <div class="alert alert-primary" role="alert"> Nuova partita inserita: <?php echo $g1." contro ".$g2.", esito = ".$esito." (torneo ".$torneo.")<br><strong>";
+      <div class="alert alert-primary" role="alert"> Nuova partita inserita: <?php echo $g1." vs ".$g2.", esito = ".$esito." (torneo ".$torneo.")<br><strong>";
       $command = "./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"; echo $command."</strong><br>"; echo shell_exec("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"); echo "</div>";}?>
 
             <h3 class="titleSection">Aggiungi giocatore</h3>
