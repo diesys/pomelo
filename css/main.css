@@ -107,3 +107,14 @@ p.centered {
     margin-bottom: 40px;
     max-width: 800px;
 }
+
+.alert {
+    max-width: 400px;
+    border-radius: 25px;
+    box-shadow: 0 2px 15px -10px rgba(0, 0, 0, .3);
+    border-color: rgba(0, 0, 0, .1);
+}
+.alert.alert-success {
+    background: #8ae09f;
+    color: #13421e;
+}

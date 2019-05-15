@@ -1,4 +1,5 @@
 <?php
+    session_start();
 
     $valid_passwords = array ("uova" => "frittata");
     $valid_users = array_keys($valid_passwords);
@@ -13,6 +14,8 @@
         header('HTTP/1.0 401 Unauthorized');
         die ("Not authorized");
     }
+    
+    // usando $_SESSION per prevenire il reinvio dei moduli $_POST
 
 ?>
 
@@ -116,14 +119,28 @@
 		                </form>
 
 
-		<?php $torneo = $_POST["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"]; if ($g1==$g2 and $g1!=""){?>
+        <?php
+            if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_POST["torneo"]) and isset($_POST["esito"])) {
+                $torneo = $_POST["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"]; 
+                if ($g1==$g2 and $g1!=""){
+        
+        ?>
 		<div class="alert alert-danger" role="alert"> Un giocatore non può giocare contro se stesso.</div>
-    <?php } elseif ($torneo and $g1 and $g2 and $esito> -1){ ?>
-      <div class="alert alert-primary" role="alert"> Nuova partita inserita: <?php echo $g1." vs ".$g2.", esito = ".$esito." (torneo ".$torneo.")<br><strong>";
-      $command = "./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"; echo $command."</strong><br>"; echo shell_exec("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"); echo "</div>";}?>
+<?php } elseif ($torneo and $g1 and $g2 and $esito> -1){ ?>
+      <div class="alert alert-success" role="alert">
+          <?php 
+            if( isset($_SESSION)) {
+                echo "<strong>".$g1."</strong>  vs  <strong>".$g2."</strong> (".$esito.")<br/><ion-icon name='md-checkmark-circle-outline'></ion-icon> inserito nel torneo ".$torneo."!";
+                echo shell_exec("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"); echo "</div>";
+                // si assicura che all'aggiornamento della pagina non re-inserisca la partita
+                session_destroy(); 
+            }
 
-            <h3 class="titleSection">Aggiungi giocatore</h3>
-            <form action="./admin.php" method="post">
+            
+            }}?>
+
+            <h2 style="display:none" class="titleSection">Aggiungi giocatore</h2>
+            <form  style="display:none" action="./admin.php" method="post">
                   <div class="input-group input-padding">
                     <div class="input-group-append">
                     <select class="custom-select" name="torneo" required>
@@ -138,12 +155,14 @@
                     </div>
          		</form>
 <?php
-        $torneo = $_POST["torneo"];
-        $nome = $_POST["nome"];
-        if ($torneo and $nome){
-          $out = shell_exec("./tornelo.py -a $torneo $nome --web 2>&1");
-          if ($out ==""){ ?>
-            <div class="alert alert-primary" role="alert">Nuova iscrizione al torneo <?php echo $torneo.": ".$nome;?>.</div>
+        if(isset($_POST["torneo"]) and isset($_POST["nome"])){
+            $torneo = $_POST["torneo"];
+            $nome = $_POST["nome"];
+            
+            $out = shell_exec("./tornelo.py -a $torneo $nome --web 2>&1");
+            if ($out ==""){ ?>
+                <div class="alert alert-success" role="alert">Nuova iscrizione al torneo <?php echo $torneo.": ".$nome;?>.</div>
+            }
 
 <?php }else{ ?>
   <div class="alert alert-danger" role="alert">Errore: il giocatore <?php echo $nome ?> è già iscritto al torneo <?php echo $torneo; ?>.</div>
