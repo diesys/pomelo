@@ -401,23 +401,31 @@ if(len(sys.argv) > 1):                                              ## getting p
 		if(len(options) > 2):
 			torneo = options[2]
 			torneo = importaTorneo(torneo, web)				# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			
-			caratteri_omessi = ",'[(]"
-			caratteri_sostituiti = ")"
 
 			giocatori = []
 
 			for gid in torneo['GIOCATORI']:
-				giocatori.append((torneo['GIOCATORI'][gid]['NOME'], torneo['GIOCATORI'][gid]['MATCH']))
+				# giocatori.append((torneo['GIOCATORI'][gid]['NOME'], torneo['GIOCATORI'][gid]['MATCH']))
+				giocatori.append(torneo['GIOCATORI'][gid]['NOME'])
 
-			giocatori = ' ' + str(giocatori)
 
-			for char in caratteri_omessi:
-				giocatori = giocatori.replace(char, '')
+			if any("--web" in o for o in options):
+				for giocatore in giocatori:
+					print("<option value='" + giocatore + "'>" + giocatore + "</option>")
+			
+			else:
+				giocatori = str(giocatori)
+				caratteri_omessi = "'[(])"
+				caratteri_sostituiti = ", "
 
-			giocatori = giocatori.replace(caratteri_sostituiti, '\n')	
+				for char in caratteri_omessi:
+					giocatori = giocatori.replace(char, '')
 
-			print(giocatori)
+				giocatori = giocatori.replace(caratteri_sostituiti, '\n')	
+				print(giocatori)
+
+
+
 
 		else:
 			print('Manca il nome del torneo!')
