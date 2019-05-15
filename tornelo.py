@@ -408,6 +408,7 @@ if(len(sys.argv) > 1):                                              ## getting p
 				# giocatori.append((torneo['GIOCATORI'][gid]['NOME'], torneo['GIOCATORI'][gid]['MATCH']))
 				giocatori.append(torneo['GIOCATORI'][gid]['NOME'])
 
+			giocatori.sort()
 
 			if any("--web" in o for o in options):
 				for giocatore in giocatori:
