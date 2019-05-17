@@ -369,9 +369,9 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			caratteri_sostituiti = ")"
 
 			if(torneo['NOME'] == 'singolo'):
-				numero_partite = 8
-			else:
 				numero_partite = 16
+			else:
+				numero_partite = 8
 
 			ranking = {'stabili': [], 'instabili': []}
 			for giocatore in torneo['RANKING']:
