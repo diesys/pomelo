@@ -54,8 +54,9 @@
                                 <p class="centered">
                                     <?php 
                                         $output1 = shell_exec('./tornelo.py --ranking singolo --web 2>&1');
+                                        echo $output1;
                                         # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                                        echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+                                        // echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
                                     ?>
                                 </p>
                             </div>
@@ -65,8 +66,9 @@
                                 <p class="centered">
                                     <?php 
                                     $output2 = shell_exec('./tornelo.py --match singolo --web 2>&1');
+                                    echo $output2;
                                     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                                    echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+                                    // echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
                                     ?>
                                 </p>
                             </div>
@@ -82,8 +84,9 @@
                                 <p class="centered">
                                     <?php 
                                     $output1 = shell_exec('./tornelo.py --ranking doppio --web 2>&1');
+                                    echo $output1;
                                     # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                                    echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
+                                    // echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output1));
                                     ?>
                                 </p>
                             </div>
@@ -93,8 +96,9 @@
                                 <p class="centered">
                                     <?php 
                                         $output2 = shell_exec('./tornelo.py --match doppio --web 2>&1');
+                                        echo $output2;
                                         # inserisce una <br/> dopo il newline (nl2br) e sostituisce i tre spazi (formattati in python json)
-                                        echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
+                                        // echo nl2br(str_replace("   ", '&nbsp;&nbsp;&nbsp;&nbsp;', $output2));
                                         ?>
                                 </p>
                             </div>
