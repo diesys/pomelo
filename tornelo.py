@@ -368,6 +368,11 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			caratteri_omessi = ",'[(]"
 			caratteri_sostituiti = ")"
 
+			if(torneo['NOME'] == 'singolo'):
+				numero_partite = 8
+			else:
+				numero_partite = 16
+
 			ranking = {'stabili': [], 'instabili': []}
 			for giocatore in torneo['RANKING']:
 				if (giocatore[-1]):
@@ -382,7 +387,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 				# giocatori stabili
 				for giocatore in ranking['stabili']:
 					# i evidenzia i primi 8 giocatori, selezionati per le eliminatorie
-					if(ranking['stabili'].index(giocatore) < 8):
+					if(ranking['stabili'].index(giocatore) < numero_partite):
 						classColore = 'table-success'
 					else:
 						classColore = ''
