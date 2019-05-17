@@ -380,9 +380,13 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 				print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
 
 				# giocatori stabili
-				i = 1
 				for giocatore in ranking['stabili']:
-					print("<tr>")
+					# i evidenzia i primi 8 giocatori, selezionati per le eliminatorie
+					if(ranking['stabili'].index(giocatore) < 8):
+						classColore = 'table-success'
+					else:
+						classColore = ''
+					print("<tr class='" + classColore + "'>")
 					print("    <td>" + str(giocatore[0]) + "</td>")
 					print("    <td>" + str(giocatore[1]) + "</td>")
 					print("    <td>" + str(giocatore[2]) + "</td>")
