@@ -32,7 +32,7 @@
             <img id='logo' src='img/antipong_idle2.gif' height='90px' width='90px' alt='Smash the ball, smash fascism!' />
             
             <span id='titolo'>
-                <h1 id='itolo'>Torneo '19</h1>
+                <h1 id='itolo'>PingPong '19</h1>
                 <a href="admin.php" class="adminButton">
                     <ion-icon size="large" name="create"></ion-icon>
                 </a>
@@ -42,15 +42,42 @@
             <div id="content" class="container-fluid">
                 <center>
                     <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
+                     <!-- <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target="#singoloRanking" type="button" aria-expanded="false">
+                        <ion-icon name="analytics"></ion-icon> singol rank
+                    </button>
+                    <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target="#singoloPartite" type="button" aria-expanded="false">
+                        <ion-icon name="calendar"></ion-icon> s match
+                    </button>
+                    <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target=".collapse-ranking" type="button" aria-expanded="true">
+                        <ion-icon name="analytics"></ion-icon> ranks
+                    </button>
+                    <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target=".collapse-partite" type="button" aria-expanded="false">
+                        <ion-icon name="calendar"></ion-icon> match
+                    </button> -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="mostraMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Mostra
+                        </button>
+                        <div class="dropdown-menu" id="mostraMenu">
+                            <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target=".collapse-ranking" type="button" aria-expanded="true">
+                                <ion-icon name="analytics"></ion-icon> Ranking
+                            </button>
+                            <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target=".collapse-partite" type="button" aria-expanded="false">
+                                <ion-icon name="calendar"></ion-icon> Partite
+                            </button>
+                        </div>
+                    </div>
                 </center> 
                 
                 <div class="row">
-                    <div class="col-sm-6 col-xs-push-6">
-                        <h2 class='titleSection'>Singolo</h2>
-                        <div class="row">
+                    <!-- <div class="col-sm-6 col-xs-push-6"> -->
+                    <!-- <div class="col-sm-12 col-xs-push-12"> -->
+                        <!-- <h2 class="titleSection">Singolo</h2> -->
+                        
+                        <!-- <div class="row" id="singolo"> -->
 
-                            <div class="col-md-6">        
-                                <h4 class='titleSection'>Ranking</h4>
+                            <div class="col-md-6 collapse collapse-ranking" id="singoloRanking">        
+                                <h4 class='titleSection'>Singolo</h4>
                                 <p class="centered">
                                     <?php 
                                         $output1 = shell_exec('./tornelo.py --ranking singolo --web 2>&1');
@@ -61,8 +88,8 @@
                                 </p>
                             </div>
                         
-                            <div class="col-md-6">
-                                <h4 class='titleSection'>Partite</h4>
+                            <div class="col-md-6 collapse collapse-partite" id="singoloPartite">
+                                <h4 class='titleSection'">Singolo</h4>
                                 <p class="centered">
                                     <?php 
                                     $output2 = shell_exec('./tornelo.py --match singolo --web 2>&1');
@@ -72,15 +99,16 @@
                                     ?>
                                 </p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-push-6">
-                        <h2 class='titleSection'>Doppio</h2>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    <!-- <div class="col-sm-6 col-xs-push-6"> -->
+                    <!-- <div class="col-sm-12 col-xs-push-12"> -->
+                        <!-- <h2 class="titleSection">Doppio</h2> -->
 
-                        <div class="row">
+                        <!-- <div class="row" id="doppio"> -->
 
-                            <div class="col-md-6">
-                                <h4 class='titleSection'>Ranking</h4>
+                            <div class="col-md-6 collapse collapse-ranking" id="doppioRanking">
+                                <h4 class='titleSection'>Doppio</h4>
                                 <p class="centered">
                                     <?php 
                                     $output1 = shell_exec('./tornelo.py --ranking doppio --web 2>&1');
@@ -91,8 +119,8 @@
                                 </p>
                             </div>
                             
-                            <div class="col-md-6">
-                                <h4 class='titleSection'>Partite</h4>
+                            <div class="col-md-6 collapse collapse-partite" id="doppioPartite">
+                                <h4 class='titleSection'>Doppio</h4>
                                 <p class="centered">
                                     <?php 
                                         $output2 = shell_exec('./tornelo.py --match doppio --web 2>&1');
@@ -102,8 +130,8 @@
                                         ?>
                                 </p>
                             </div>
-                        </div>
-                    </div>
+                        <!-- </div> -->
+                    <!-- </div> -->
                 </div>
 
             </div>
