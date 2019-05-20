@@ -55,14 +55,14 @@
                         <ion-icon name="calendar"></ion-icon> match
                     </button> -->
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="mostraMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mostra
+                        <button class="btn  dropdown-toggle" type="button" id="mostraMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <ion-icon name="eye"></ion-icon> Mostra 
                         </button>
                         <div class="dropdown-menu" id="mostraMenu">
-                            <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target=".collapse-ranking" type="button" aria-expanded="true">
+                            <button class="dropdown-item" data-toggle="collapse" data-target=".collapse-ranking" type="button" aria-expanded="true">
                                 <ion-icon name="analytics"></ion-icon> Ranking
                             </button>
-                            <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target=".collapse-partite" type="button" aria-expanded="false">
+                            <button class="dropdown-item" data-toggle="collapse" data-target=".collapse-partite" type="button" aria-expanded="false">
                                 <ion-icon name="calendar"></ion-icon> Partite
                             </button>
                         </div>
