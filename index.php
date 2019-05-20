@@ -54,18 +54,27 @@
                     <button class="dropdown-item btn btn-primary" data-toggle="collapse" data-target=".collapse-partite" type="button" aria-expanded="false">
                         <ion-icon name="calendar"></ion-icon> match
                     </button> -->
-                    <div class="dropdown">
+                    <!-- <div class="dropdown">
                         <button class="btn  dropdown-toggle" type="button" id="mostraMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <ion-icon name="eye"></ion-icon> Mostra 
                         </button>
                         <div class="dropdown-menu" id="mostraMenu">
-                            <button class="dropdown-item" data-toggle="collapse" data-target=".collapse-ranking" type="button" aria-expanded="true">
-                                <ion-icon name="analytics"></ion-icon> Ranking
+                            <button class="dropdown-item" data-toggle="collapse" data-target=".collapse-singolo" type="button" aria-expanded="true">
+                                <ion-icon name="ios-contact"></ion-icon> Singolo
                             </button>
-                            <button class="dropdown-item" data-toggle="collapse" data-target=".collapse-partite" type="button" aria-expanded="false">
-                                <ion-icon name="calendar"></ion-icon> Partite
+                            <button class="dropdown-item" data-toggle="collapse" data-target=".collapse-doppio" type="button" aria-expanded="false">
+                                <ion-icon name="ios-contacts"></ion-icon> Doppio
                             </button>
                         </div>
+                    </div> -->
+                    <br>
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button class="btn btn-outline-primary" onclick="$(this).toggleClass('active')" data-toggle="collapse" data-target=".collapse-singolo" type="button" aria-expanded="true">
+                            <ion-icon name="ios-contact" size="large"></ion-icon> <ion-icon name="ios-contact" size="large"></ion-icon> 
+                        </button>
+                        <button class="btn btn-outline-danger" onclick="$(this).toggleClass('active')" data-toggle="collapse" data-target=".collapse-doppio" type="button" aria-expanded="false">
+                            <ion-icon name="ios-contacts" size="large"></ion-icon> <ion-icon name="ios-contacts" size="large"></ion-icon>
+                        </button>
                     </div>
                 </center> 
                 
@@ -74,10 +83,10 @@
                     <!-- <div class="col-sm-12 col-xs-push-12"> -->
                         <!-- <h2 class="titleSection">Singolo</h2> -->
                         
-                        <!-- <div class="row" id="singolo"> -->
+                        <!-- <div class="row collapse-singolo" id="singolo"> -->
 
-                            <div class="col-md-6 collapse collapse-ranking" id="singoloRanking">        
-                                <h4 class='titleSection'>Singolo</h4>
+                            <div class="col collapse collapse-ranking collapse-singolo" id="singoloRanking">        
+                                <h4 class='titleSection'>Ranking (singolo)</h4>
                                 <p class="centered">
                                     <?php 
                                         $output1 = shell_exec('./tornelo.py --ranking singolo --web 2>&1');
@@ -88,8 +97,8 @@
                                 </p>
                             </div>
                         
-                            <div class="col-md-6 collapse collapse-partite" id="singoloPartite">
-                                <h4 class='titleSection'">Singolo</h4>
+                            <div class="col collapse collapse-partite collapse-singolo" id="singoloPartite">
+                                <h4 class='titleSection'">Partite (singolo)</h4>
                                 <p class="centered">
                                     <?php 
                                     $output2 = shell_exec('./tornelo.py --match singolo --web 2>&1');
@@ -105,10 +114,10 @@
                     <!-- <div class="col-sm-12 col-xs-push-12"> -->
                         <!-- <h2 class="titleSection">Doppio</h2> -->
 
-                        <!-- <div class="row" id="doppio"> -->
+                        <!-- <div class="row collapse-doppio" id="doppio"> -->
 
-                            <div class="col-md-6 collapse collapse-ranking" id="doppioRanking">
-                                <h4 class='titleSection'>Doppio</h4>
+                            <div class="col collapse collapse-ranking collapse-doppio" id="doppioRanking">
+                                <h4 class='titleSection'>Ranking (doppio)</h4>
                                 <p class="centered">
                                     <?php 
                                     $output1 = shell_exec('./tornelo.py --ranking doppio --web 2>&1');
@@ -119,8 +128,8 @@
                                 </p>
                             </div>
                             
-                            <div class="col-md-6 collapse collapse-partite" id="doppioPartite">
-                                <h4 class='titleSection'>Doppio</h4>
+                            <div class="col collapse collapse-partite collapse-doppio" id="doppioPartite">
+                                <h4 class='titleSection'>Partite (doppio)</h4>
                                 <p class="centered">
                                     <?php 
                                         $output2 = shell_exec('./tornelo.py --match doppio --web 2>&1');

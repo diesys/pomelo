@@ -91,6 +91,9 @@ p.centered {
 
 
 /* BOOTSTRAP */
+.btn > ion-icon {
+    vertical-align: middle;
+}
 
 .btn.bigFontButton {
     height: 38px;
