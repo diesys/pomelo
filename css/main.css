@@ -128,6 +128,13 @@ p.centered {
 }
 
 /* fix button touch active */
-.btn-outline-danger:not(:disabled):not(.disabled):active {
+.btn-outline-danger.collapsed,
+.btn-outline-primary.collapsed {
     background: none;
+}
+.btn-outline-danger.collapsed > ion-icon {
+    color: #dc3545;
+}
+.btn-outline-primary.collapsed > ion-icon {
+    color: #007bff;
 }
