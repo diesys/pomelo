@@ -126,3 +126,8 @@ p.centered {
     background: #8ae09f;
     color: #13421e;
 }
+
+/* fix button touch active */
+.btn-outline-danger:not(:disabled):not(.disabled):active {
+    background: none;
+}
