@@ -245,61 +245,105 @@ def aggiornaRanking(torneo, web=False):
 
 	torneo['RANKING'] = classifica
 
-def stampaRankingHtml(stabili, instabili, numero_partite):
-	print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
+def rankingHtml(torneo):
+	# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
+	rankingTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>\n"
 	
 	# giocatori stabili
-	for giocatore in stabili:
+	for giocatore in torneo['stabili']:
 		# i evidenzia i primi 8 giocatori, selezionati per le eliminatorie
-		if(stabili.index(giocatore) < numero_partite):
+		if(torneo['stabili'].index(giocatore) < numero_partite):
 			classColore = 'table-success'
 		else:
 			classColore = ''
 		
-		print("<tr class='" + classColore + "'>")
-		print("    <td>" + str(giocatore[0]) + "</td>")
-		print("    <td>" + str(giocatore[1]) + "</td>")
-		print("    <td>" + str(giocatore[2]) + "</td>")
-		print("</tr>")
+		rankingTable += "<tr class='" + classColore + "'>\n"
+		# print("<tr class='" + classColore + "'>")
+		rankingTable += "    <td>" + str(giocatore[0]) + "</td>\n"
+		# print("    <td>" + str(giocatore[0]) + "</td>")
+		rankingTable += "    <td>" + str(giocatore[1]) + "</td>\n"
+		# print("    <td>" + str(giocatore[1]) + "</td>")
+		rankingTable += "    <td>" + str(giocatore[2]) + "</td>\n"
+		# print("    <td>" + str(giocatore[2]) + "</td>")
+		rankingTable += "</tr>\n"
+		# print("</tr>")
 
-	if(len(instabili)):
-		print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>")
-		# giocatori stabili
-		for giocatore in instabili:
-			print("<tr>")
-			print("    <td>" + str(giocatore[0]) + "</td>")
-			print("    <td>" + str(giocatore[1]) + "</td>")
-			print("    <td>" + str(giocatore[2]) + "</td>")
-			print("</tr>")
+	if(len(torneo['instabili'])):
+		# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>")
+		rankingInstabiliTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>\n"
+		
+		# giocatori instabili
+		for giocatore in torneo['instabili']:
+			rankingInstabiliTable += "<tr>\n"
+			# print("<tr>")
+			rankingInstabiliTable += "    <td>" + str(giocatore[0]) + "</td>\n"
+			# print("    <td>" + str(giocatore[0]) + "</td>")
+			rankingInstabiliTable += "    <td>" + str(giocatore[1]) + "</td>\n"
+			# print("    <td>" + str(giocatore[1]) + "</td>")
+			rankingInstabiliTable += "    <td>" + str(giocatore[2]) + "</td>\n"
+			# print("    <td>" + str(giocatore[2]) + "</td>")
+			rankingInstabiliTable += "</tr>\n"
+			# print("</tr>")
 
-		print("</table>")
+		rankingInstabiliTable += "</table>\n"
+		# print("</table>")
 
-def stampaPartiteHtml(partite):
-	print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>")
+		return rankingTable + rankingInstabiliTable
+
+def partiteHtml(partite):
+	partiteTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>\n"
+	# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>")
 	
 	for match in partite:
-		print("<tr>")
-		print("    <td>" + str(match[0]) + "</td>")
-		print("    <td>" + str(match[1]) + "</td>")
+		partiteTable += "<tr>\n"
+		partiteTable += "    <td>" + str(match[0]) + "</td>\n"
+		partiteTable += "    <td>" + str(match[1]) + "</td>\n"
 		# rimuove la virgola e cambia sistema risultato da algoritmo (0,1) a 1, x, 2
-		print("    <td>" + str(2 - int(match[2])) + "</td>")
+		partiteTable += "    <td>" + str(2 - int(match[2])) + "</td>\n"
 		# rimuove le parentesi
-		print("    <td>" + str(match[3])[1:-1] + "</td>")
-		print("</tr>")
+		partiteTable += "    <td>" + str(match[3])[1:-1] + "</td>\n"
+		partiteTable += "</tr>\n"
 	
-	print("</table>")
+		# print("<tr>")
+		# print("    <td>" + str(match[0]) + "</td>")
+		# print("    <td>" + str(match[1]) + "</td>")
+		# # rimuove la virgola e cambia sistema risultato da algoritmo (0,1) a 1, x, 2
+		# print("    <td>" + str(2 - int(match[2])) + "</td>")
+		# # rimuove le parentesi
+		# print("    <td>" + str(match[3])[1:-1] + "</td>")
+		# print("</tr>")
+	
+	partiteTable += "</table>"
+	
+	return partiteTable
+	# print("</table>")
 
 def selectGiocatoriHmtl(giocatori):
+	select = ""
 	for giocatore in giocatori:
-		print("<option value='" + giocatore + "'>" + giocatore + "</option>")
+		# print("<option value='" + giocatore + "'>" + giocatore + "</option>")
+		select += "<option value='" + giocatore + "'>" + giocatore + "</option>\n"
+	
+	return select
 
 
 def costruisciIndexHtml(torneo):
-	blocchi = ['<!--  #### RANKING_SINGOLO #### -->', '<!--  #### MATCH_SINGOLO #### -->', '<!--  #### RANKING_DOPPIO #### -->', '<!--  #### MATCH_DOPPIO #### -->']
+	# blocchi = ['<!--  #### RANKING_SINGOLO #### -->', '<!--  #### MATCH_SINGOLO #### -->', '<!--  #### RANKING_DOPPIO #### -->', '<!--  #### MATCH_DOPPIO #### -->']
 
-	with open('_index.html', 'r') as index_template:
-		for blocco in blocchi:
-			print(blocco)
+	# with open('_index.html', 'r') as index_template:
+	# 	for blocco in blocchi:
+	# 		print(blocco)
+
+	partiteSingolo = partiteHtml(torneo['singolo'])
+	rankingSingolo = rankingHtml(torneo['singolo'])
+	partiteDoppio = partiteHtml(torneo['doppio'])
+	rankingDoppio = rankingHtml(torneo['doppio'])
+	
+	index_template = open('index.html', 'w')
+	index_template.format(MATCH_SINGOLO=partiteSingolo, RANKING_SINGOLO=rankingSingolo, MATCH_DOPPIO=partiteDoppio, RANKING_DOPPIO=rankingDoppio)
+	new_index = open('index.html', 'w')
+	new_index.write(index_template)
+	new_index.close()
 
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
@@ -339,6 +383,9 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 		else:
 			print('Manca il nome del torneo!')
 
+	elif(options[1] == '-AA'):
+		costruisciIndexHtml(options[2])
+	
 	elif(options[1] == '-i' or options[1] == '--import'):
 		if(len(options) > 2):
 			torneo_test = options[2]
@@ -437,7 +484,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 					instabili = True
 
 			if any("--web" in o for o in options):
-				stampaRankingHtml(ranking['stabili'], ranking['instabili'], numero_partite)
+				print(rankingHtml(ranking))
 
 			else:
 				ranking_str = ' ' + str(ranking['stabili'])
@@ -485,7 +532,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			giocatori.sort()
 
 			if any("--web" in o for o in options):
-				selectGiocatoriHmtl(giocatori)
+				print(selectGiocatoriHmtl(giocatori))
 
 			else:
 				giocatori = str(giocatori)
@@ -510,7 +557,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			matches = torneo['MATCHES'][::-1]
 
 			if any("--web" in o for o in options):
-				stampaPartiteHtml(matches)
+				print(partiteHtml(matches))
 
 			else:
 				matches = ' ' + str(matches)

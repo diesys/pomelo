@@ -26,7 +26,8 @@
     
     <span id='titolo'>
         <h1 id='itolo'>PingPong '19</h1>
-        <a href='admin.php' class='adminButton'>
+        <!-- <a href='admin.php' class='adminButton'> -->
+        <a href='#' class='adminButton'>
             <ion-icon size='large' name='create'></ion-icon>
         </a>
     </span>
@@ -54,10 +55,12 @@
                 <p class='centered'>
                     <!-- #### RANKING_SINGOLO #### -->
                     
-                    <?php 
+                    {RANKING_SINGOLO}
+                    
+                    <!-- <?php 
                         $output1 = shell_exec('./tornelo.py --ranking singolo --web 2>&1');
                         echo $output1;
-                    ?>
+                    ?> -->
                 </p>
             </div>
             
@@ -66,10 +69,12 @@
                 <p class='centered'>
                     <!-- #### MATCH_SINGOLO #### -->
                     
-                    <?php 
+                    {MATCH_SINGOLO}
+
+                    <!-- <?php 
                         $output2 = shell_exec('./tornelo.py --match singolo --web 2>&1');
                         echo $output2;
-                    ?>
+                    ?> -->
                 </p>
             </div>
             
@@ -78,10 +83,12 @@
                 <p class='centered'>
                     <!-- #### RANKING_DOPPIO #### -->
                     
-                    <?php 
+                    {RANKING_DOPPIO}
+
+                    <!-- <?php 
                         $output1 = shell_exec('./tornelo.py --ranking doppio --web 2>&1');
                         echo $output1;
-                    ?>
+                    ?> -->
                 </p>
             </div>
             
@@ -90,10 +97,12 @@
                 <p class='centered'>
                     <!-- #### MATCH_DOPPIO #### -->
                     
-                    <?php 
+                    {MATCH_DOPPIO}
+
+                    <!-- <?php 
                         $output2 = shell_exec('./tornelo.py --match doppio --web 2>&1');
                         echo $output2;
-                    ?>
+                    ?> -->
                 </p>
             </div>
         </div>
