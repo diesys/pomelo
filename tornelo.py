@@ -292,7 +292,15 @@ def stampaPartiteHtml(partite):
 def selectGiocatoriHmtl(giocatori):
 	for giocatore in giocatori:
 		print("<option value='" + giocatore + "'>" + giocatore + "</option>")
-		
+
+
+def costruisciIndexHtml(torneo):
+	blocchi = ['<!--  #### RANKING_SINGOLO #### -->', '<!--  #### MATCH_SINGOLO #### -->', '<!--  #### RANKING_DOPPIO #### -->', '<!--  #### MATCH_DOPPIO #### -->']
+
+	with open('_index.html', 'r') as index_template:
+		for blocco in blocchi:
+			print(blocco)
+
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
 
