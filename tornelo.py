@@ -245,7 +245,54 @@ def aggiornaRanking(torneo, web=False):
 
 	torneo['RANKING'] = classifica
 
+def stampaRankingHtml(stabili, instabili, numero_partite):
+	print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
+	
+	# giocatori stabili
+	for giocatore in stabili:
+		# i evidenzia i primi 8 giocatori, selezionati per le eliminatorie
+		if(stabili.index(giocatore) < numero_partite):
+			classColore = 'table-success'
+		else:
+			classColore = ''
+		
+		print("<tr class='" + classColore + "'>")
+		print("    <td>" + str(giocatore[0]) + "</td>")
+		print("    <td>" + str(giocatore[1]) + "</td>")
+		print("    <td>" + str(giocatore[2]) + "</td>")
+		print("</tr>")
 
+	if(len(instabili)):
+		print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>")
+		# giocatori stabili
+		for giocatore in instabili:
+			print("<tr>")
+			print("    <td>" + str(giocatore[0]) + "</td>")
+			print("    <td>" + str(giocatore[1]) + "</td>")
+			print("    <td>" + str(giocatore[2]) + "</td>")
+			print("</tr>")
+
+		print("</table>")
+
+def stampaPartiteHtml(partite):
+	print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>")
+	
+	for match in partite:
+		print("<tr>")
+		print("    <td>" + str(match[0]) + "</td>")
+		print("    <td>" + str(match[1]) + "</td>")
+		# rimuove la virgola e cambia sistema risultato da algoritmo (0,1) a 1, x, 2
+		print("    <td>" + str(2 - int(match[2])) + "</td>")
+		# rimuove le parentesi
+		print("    <td>" + str(match[3])[1:-1] + "</td>")
+		print("</tr>")
+	
+	print("</table>")
+
+def selectGiocatoriHmtl(giocatori):
+	for giocatore in giocatori:
+		print("<option value='" + giocatore + "'>" + giocatore + "</option>")
+		
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
 
@@ -382,32 +429,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 					instabili = True
 
 			if any("--web" in o for o in options):
-				print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
-
-				# giocatori stabili
-				for giocatore in ranking['stabili']:
-					# i evidenzia i primi 8 giocatori, selezionati per le eliminatorie
-					if(ranking['stabili'].index(giocatore) < numero_partite):
-						classColore = 'table-success'
-					else:
-						classColore = ''
-					print("<tr class='" + classColore + "'>")
-					print("    <td>" + str(giocatore[0]) + "</td>")
-					print("    <td>" + str(giocatore[1]) + "</td>")
-					print("    <td>" + str(giocatore[2]) + "</td>")
-					print("</tr>")
-
-				if(len(ranking['instabili'])):
-					print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>")
-					# giocatori stabili
-					for giocatore in ranking['instabili']:
-						print("<tr>")
-						print("    <td>" + str(giocatore[0]) + "</td>")
-						print("    <td>" + str(giocatore[1]) + "</td>")
-						print("    <td>" + str(giocatore[2]) + "</td>")
-						print("</tr>")
-
-				print("</table>")
+				stampaRankingHtml(ranking['stabili'], ranking['instabili'], numero_partite)
 
 			else:
 				ranking_str = ' ' + str(ranking['stabili'])
@@ -455,8 +477,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			giocatori.sort()
 
 			if any("--web" in o for o in options):
-				for giocatore in giocatori:
-					print("<option value='" + giocatore + "'>" + giocatore + "</option>")
+				selectGiocatoriHmtl(giocatori)
 
 			else:
 				giocatori = str(giocatori)
@@ -481,17 +502,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			matches = torneo['MATCHES'][::-1]
 
 			if any("--web" in o for o in options):
-				print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>")
-				for match in matches:
-					print("<tr>")
-					print("    <td>" + str(match[0]) + "</td>")
-					print("    <td>" + str(match[1]) + "</td>")
-					# rimuove la virgola e cambia sistema risultato da algoritmo (0,1) a 1, x, 2
-					print("    <td>" + str(2 - int(match[2])) + "</td>")
-					# rimuove le parentesi
-					print("    <td>" + str(match[3])[1:-1] + "</td>")
-					print("</tr>")
-				print("</table>")
+				stampaPartiteHtml(matches)
 
 			else:
 				matches = ' ' + str(matches)
@@ -515,8 +526,6 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 		else:
 			print('Manca il nome del torneo!')
 
-		# stampaFormattato(tornei[torneo_test])
-
 	elif(options[1] == '--testNew'):
 		## test
 		if(len(options) > 2):
@@ -533,28 +542,6 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
 
 		stampaFormattato(tornei[torneo_test])
-		# stampa su std output
-		# json.dump(tornei['pingpong'], sys.stdout)
-
-	elif(options[1] == '--impweb'):
-		## test
-		if(len(options) > 2):
-			torneo_test = options[2]
-		else:
-			torneo_test = 'ping'
-
-		# torneo = nuovoTorneo(torneo_test)
-		torneo = importaTorneo(torneo_test)
-
-		tornei = {torneo['NOME']: torneo}
-
-		# torneo = aggiungiGiocatore(tornei[torneo_test], 'Aacca')
-		# torneo = aggiungiGiocatore(tornei[torneo_test], 'michele')
-		aggiornaTorneo(tornei[torneo_test], 'michele', 'Aacca', 1)
-
-		stampaFormattato(tornei[torneo_test])
-		# stampa raw su std output
-		# json.dump(tornei[torneo_test], sys.stdout)
 
 	elif(options[1] == '-h' or options[1] == '--help'):
 		print(HELP)
