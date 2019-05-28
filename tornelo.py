@@ -405,7 +405,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 		else:
 			print('Manca il nome del torneo!')
 
-	elif(options[1] == '-AA'):
+	elif(options[1] == '--gen-index'):
 		torneo = { 'singolo' : importaTorneo('singolo'), 'doppio' : importaTorneo('doppio') }
 		costruisciIndexHtml(torneo)
 	
@@ -500,7 +500,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			else:
 				ranking_str = ' ' + str(ranking['stabili'])
 
-				if(instabili):
+				if(len(ranking['instabili'])):
 					ranking_str += '\n== Match < 6 ==\n ' + str(ranking['instabili'])
 
 				for char in caratteri_omessi:
