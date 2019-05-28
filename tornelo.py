@@ -351,20 +351,21 @@ def selectGiocatoriHmtl(giocatori):
 def costruisciIndexHtml(torneo):
 	# blocchi = ['<!--  #### RANKING_SINGOLO #### -->', '<!--  #### MATCH_SINGOLO #### -->', '<!--  #### RANKING_DOPPIO #### -->', '<!--  #### MATCH_DOPPIO #### -->']
 
-	# with open('_index.html', 'r') as index_template:
-	# 	for blocco in blocchi:
-	# 		print(blocco)
-
 	partiteSingolo = partiteHtml(torneo['singolo'])
 	rankingSingolo = rankingHtml(torneo['singolo'])
 	partiteDoppio = partiteHtml(torneo['doppio'])
 	rankingDoppio = rankingHtml(torneo['doppio'])
-	
-	index_template = open('index.html', 'w')
-	index_template.format(MATCH_SINGOLO=partiteSingolo, RANKING_SINGOLO=rankingSingolo, MATCH_DOPPIO=partiteDoppio, RANKING_DOPPIO=rankingDoppio)
+
+	index_template = open('_index.html', 'r')
 	new_index = open('index.html', 'w')
-	new_index.write(index_template)
+	
+
+	new_index_content = index_template.read().format(MATCH_SINGOLO=partiteSingolo, RANKING_SINGOLO=rankingSingolo, MATCH_DOPPIO=partiteDoppio, RANKING_DOPPIO=rankingDoppio)
+	new_index.write(new_index_content)
+
+	index_template.close()
 	new_index.close()
+	
 
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
