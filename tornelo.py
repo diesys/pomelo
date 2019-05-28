@@ -384,7 +384,8 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			print('Manca il nome del torneo!')
 
 	elif(options[1] == '-AA'):
-		costruisciIndexHtml(options[2])
+		torneo = { 'singolo' : importaTorneo('singolo'), 'doppio' : importaTorneo('doppio') }
+		costruisciIndexHtml(torneo)
 	
 	elif(options[1] == '-i' or options[1] == '--import'):
 		if(len(options) > 2):
