@@ -1,9 +1,6 @@
 
 //TODO: 
-    per i futuro aggiungere variabile url per il torneo e git sui json ad ogni submit di dati così da avere una timeline (commit con ora data e tipo di azione)
-
-//TODO: admin NON SERVE!
-    fare un div bootstrap che appare al click su modifica in alto e scompare, tanto submit.php ha passwd
-
+    per i futuro aggiungere variabile url per il torneo e 
+    
 //TODO:
-    fix stampa errore menu giocatori web e non web e da mettere le select nell'html (assicurarsi funzionino piu che altro)
+    git sui json ad ogni submit di dati così da avere una timeline (commit con ora data e tipo di azione)
