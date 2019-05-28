@@ -4,3 +4,6 @@
 
 //TODO: admin NON SERVE!
     fare un div bootstrap che appare al click su modifica in alto e scompare, tanto submit.php ha passwd
+
+//TODO:
+    fix stampa errore menu giocatori web e non web e da mettere le select nell'html (assicurarsi funzionino piu che altro)

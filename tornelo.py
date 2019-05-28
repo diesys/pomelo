@@ -22,7 +22,7 @@ def scriviTorneo(torneo, web=False):
 
 def importaTorneo(torneo, web=False):
 	# leggi da file
-	file_path = tornei_dir + '/' + torneo + '/' + torneo + '.json'
+	file_path = tornei_dir + '/' + str(torneo) + '/' + str(torneo) + '.json'
 	with open(file_path, 'r') as file_json:
 		dict_torneo = json.load(file_json)
 
@@ -223,7 +223,6 @@ def stampaFormattato(torneo, web=False):
 
 	print(torneo_formatted)
 
-
 def aggiornaRanking(torneo, web=False):
 	classifica = []
 
@@ -260,6 +259,28 @@ def rankingStabile(torneo):
 			ranking['instabili'].append(giocatore[0:3])
 	
 	return ranking
+
+def selectGiocatori(torneo):
+	# torneo = importaTorneo(torneo)
+	giocatori = []
+
+	for gid in torneo['GIOCATORI']:
+		giocatori.append(torneo['GIOCATORI'][gid]['NOME'])
+		# print(gid, giocatori)
+
+	giocatori.sort()
+
+	return giocatori
+
+
+def selectGiocatoriHtml(torneo):
+	select = ""
+
+	for giocatore in selectGiocatori(torneo):
+		select += "<option value='" + giocatore + "'>" + giocatore + "</option>\n"
+
+	return select
+
 
 def rankingHtml(torneo):
 	rankingTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>\n"
@@ -315,28 +336,24 @@ def partiteHtml(torneo):
 	return partiteTable
 	# print("</table>")
 
-def selectGiocatoriHmtl(giocatori):
-	select = ""
-	for giocatore in giocatori:
-		select += "<option value='" + giocatore + "'>" + giocatore + "</option>\n"
-	
-	return select
-
-
 def costruisciIndexHtml(torneo):
 	# blocchi = ['<!--  #### RANKING_SINGOLO #### -->', '<!--  #### MATCH_SINGOLO #### -->', '<!--  #### RANKING_DOPPIO #### -->', '<!--  #### MATCH_DOPPIO #### -->']
 
 	partiteSingolo = partiteHtml(torneo['singolo'])
 	rankingSingolo = rankingHtml(torneo['singolo'])
+	giocatoriSingolo = selectGiocatoriHtml(torneo['singolo'])
 	partiteDoppio = partiteHtml(torneo['doppio'])
 	rankingDoppio = rankingHtml(torneo['doppio'])
+	giocatoriDoppio = selectGiocatoriHtml(torneo['doppio'])
 
 	index_template = open('_index.html', 'r')
 	new_index = open('index.html', 'w')
 	
-
-	new_index_content = index_template.read().format(MATCH_SINGOLO=partiteSingolo, RANKING_SINGOLO=rankingSingolo, MATCH_DOPPIO=partiteDoppio, RANKING_DOPPIO=rankingDoppio)
-	new_index.write(new_index_content)
+	new_index_content = index_template.read().format(MATCH_SINGOLO=partiteSingolo, RANKING_SINGOLO=rankingSingolo, MATCH_DOPPIO=partiteDoppio, RANKING_DOPPIO=rankingDoppio, GIOCATORI_SINGOLO=giocatoriSingolo, GIOCATORI_DOPPIO=giocatoriDoppio)
+	
+	# T E S T
+	# new_index.write(new_index_content)
+	print(new_index_content)
 
 	index_template.close()
 	new_index.close()
@@ -505,23 +522,13 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	## lista dei giocatori
 	elif(options[1] == '-g' or options[1] == '--giocatori'):
 		if(len(options) > 2):
-			torneo = options[2]
-			# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			torneo = importaTorneo(torneo, web)
-
-			giocatori = []
-
-			for gid in torneo['GIOCATORI']:
-				# giocatori.append((torneo['GIOCATORI'][gid]['NOME'], torneo['GIOCATORI'][gid]['MATCH']))
-				giocatori.append(torneo['GIOCATORI'][gid]['NOME'])
-
-			giocatori.sort()
+			torneo = importaTorneo(options[2], web)
 
 			if any("--web" in o for o in options):
-				print(selectGiocatoriHmtl(giocatori))
+				print(selectGiocatoriHtml(torneo))
 
 			else:
-				giocatori = str(giocatori)
+				giocatori = str(selectGiocatori(torneo))
 				caratteri_omessi = "'[(])"
 				caratteri_sostituiti = ", "
 
