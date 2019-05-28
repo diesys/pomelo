@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 body { 
     font-family: 'RalewayRegular'; 
     font-weight: normal; 
@@ -49,10 +53,21 @@ body {
     overflow-x: hidden;
 }
 #qr {
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
     border: 8px solid #fff;
     box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
     border-radius: 12px;
+}
+
+#menu {
+    width: 100%;
+    position: fixed;
+    min-height: 20px;
+    margin-top: 56px;
+    padding: 50px 20px 5px 20px;
+    box-shadow: 0 -5px 30px -8px rgba(0, 0, 0, .4);
+    background: #fafafa;
+    z-index: 8;
 }
 
 .titleSection {
@@ -80,7 +95,7 @@ p.centered {
     height: 56px;
     z-index: 10;
     border-left: 1px solid rgba(0, 0, 0, .1);
-    padding: 10px 14px 10px 14px;
+    padding: 12px 14px 8px 14px;
     transition: all .3s;
     color: #999;
 }
@@ -101,7 +116,7 @@ p.centered {
     width: 34px;
 }
 .btn.bigFontButton ion-icon {
-    transform: translateY(2px);
+    /* transform: translateY(2px); */
 }
 .btn.bigFontButton > span {
     font-size: 40px;

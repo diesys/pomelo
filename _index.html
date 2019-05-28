@@ -13,7 +13,9 @@
 
     <!-- bootstrap -->
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
-    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+    <!-- <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
     
@@ -27,76 +29,79 @@
     <span id='titolo'>
         <h1 id='itolo'>PingPong '19</h1>
         <!-- <a href='admin.php' class='adminButton'> -->
-        <a href='#' class='adminButton'>
-            <ion-icon size='large' name='create'></ion-icon>
+        <!-- <a href='#' onclick="$('#menu').collapse('toggle')" class='adminButton'> -->
+        <a href='#' onclick="$('#menu').slideToggle()" class='adminButton'>
+            <ion-icon size='large' name='add'></ion-icon>
         </a>
     </span>
 
-    <div id="menu">
-        <form action="submit.php" method="post">
-            <input type="hidden" name="torneo" value="singolo">
-            <div class="input-group input-padding">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">singolo</span>
+    <center>
+        <div id="menu" class="hidden">
+            <form action="submit.php" method="post">
+                <input type="hidden" name="torneo" value="singolo">
+                <div class="input-group input-padding">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">singolo</span>
+                    </div>
+                    <select class="custom-select" name="giocatore1" required>
+                        <option value="" disabled selected>Giocatore 1</option>
+                        {GIOCATORI_SINGOLO}
+                        <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
+                    </select>
+                    
+                    <select class="custom-select" name="giocatore2" required>
+                        <option value="" disabled selected>Giocatore 2</option>
+                        {GIOCATORI_SINGOLO}
+                        <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
+                    </select>
+                    
+                    <select class="custom-select col-2" id="inputGroupSelect01" name="esitoS" required>
+                        <option disabled selected value="">esito</option>
+                        <option value="1">1</option>
+                        <option value="0">2</option>
+                    </select>
+                    
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                            <ion-icon size="large" name="ios-checkmark"></ion-icon>
+                        </button>
+                    </div>
                 </div>
-                <select class="custom-select" name="giocatore1" required>
-                    <option value="" disabled selected>Giocatore 1</option>
-                    {GIOCATORI_SINGOLO}
-                    <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
-                </select>
-                
-                <select class="custom-select" name="giocatore2" required>
-                    <option value="" disabled selected>Giocatore 2</option>
-                    {GIOCATORI_SINGOLO}
-                    <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
-                </select>
-        
-                <select class="custom-select col-2" id="inputGroupSelect01" name="esitoS" required>
-                    <option disabled selected value="">esito</option>
-                    <option value="1">1</option>
-                    <option value="0">2</option>
-                </select>
-        
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
-                        <ion-icon size="large" name="ios-add"></ion-icon>
-                    </button>
+            </form>
+            
+            <form action="submit.php" method="post">
+                <input type="hidden" name="torneo" value="doppio">
+                <div class="input-group input-padding">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">doppio</span>
+                    </div>
+                    <select class="custom-select" name="giocatore1" required>
+                        <option value="" disabled selected>Giocatore 1</option>
+                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
+                        {GIOCATORI_DOPPIO}
+                    </select>
+                    
+                    <select class="custom-select" name="giocatore2" required>
+                        <option value="" disabled selected>Giocatore 2</option>
+                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
+                        {GIOCATORI_DOPPIO}
+                    </select>
+                    
+                    <select class="custom-select col-2" id="inputGroupSelect02" name="esitoD" required>
+                        <option disabled selected value="">esito</option>
+                        <option value="1">1</option>
+                        <option value="0">2</option>
+                    </select>
+                    
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                            <ion-icon size="large" name="ios-checkmark"></ion-icon>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
-        
-        <form action="./admin.php" method="post">
-            <input type="hidden" name="torneo" value="doppio">
-            <div class="input-group input-padding">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">doppio</span>
-                </div>
-                <select class="custom-select" name="giocatore1" required>
-                    <option value="" disabled selected>Giocatore 1</option>
-                    <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
-                    {GIOCATORI_DOPPIO}
-                </select>
-                
-                <select class="custom-select" name="giocatore2" required>
-                    <option value="" disabled selected>Giocatore 2</option>
-                    <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
-                    {GIOCATORI_DOPPIO}
-                </select>
-        
-                <select class="custom-select col-2" id="inputGroupSelect02" name="esitoD" required>
-                    <option disabled selected value="">esito</option>
-                    <option value="1">1</option>
-                    <option value="0">2</option>
-                </select>
-        
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
-                        <ion-icon size="large" name="ios-add"></ion-icon>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    </center>
     
 
     <div id='content' class='container-fluid'>
