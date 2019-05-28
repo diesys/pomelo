@@ -245,6 +245,9 @@ def aggiornaRanking(torneo, web=False):
 
 	torneo['RANKING'] = classifica
 
+def rankingStabile(torneo):
+	
+
 def rankingHtml(torneo):
 	# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
 	rankingTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>\n"
@@ -290,7 +293,8 @@ def rankingHtml(torneo):
 
 		return rankingTable + rankingInstabiliTable
 
-def partiteHtml(partite):
+def partiteHtml(torneo):
+	partite = torneo['MATCHES']
 	partiteTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>\n"
 	# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>")
 	
