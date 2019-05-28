@@ -246,16 +246,33 @@ def aggiornaRanking(torneo, web=False):
 	torneo['RANKING'] = classifica
 
 def rankingStabile(torneo):
+	instabili = False
+	ranking = {'stabili': [], 'instabili': []}
+
+	if(torneo['NOME'] == 'singolo'):
+		ranking['n_min_partite'] = 16
+	else:
+		ranking['n_min_partite'] = 8
+
+	for giocatore in torneo['RANKING']:
+		if (giocatore[-1]):
+			ranking['stabili'].append(giocatore[0:3])
+		else:
+			ranking['instabili'].append(giocatore[0:3])
+			instabili = True
 	
+	return ranking
 
 def rankingHtml(torneo):
 	# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
 	rankingTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>\n"
 	
+	torneo_rank = rankingStabile(torneo)
+
 	# giocatori stabili
-	for giocatore in torneo['stabili']:
+	for giocatore in torneo_rank['stabili']:
 		# i evidenzia i primi 8 giocatori, selezionati per le eliminatorie
-		if(torneo['stabili'].index(giocatore) < numero_partite):
+		if(torneo_rank['stabili'].index(giocatore) < torneo_rank['n_min_partite']):
 			classColore = 'table-success'
 		else:
 			classColore = ''
@@ -271,12 +288,12 @@ def rankingHtml(torneo):
 		rankingTable += "</tr>\n"
 		# print("</tr>")
 
-	if(len(torneo['instabili'])):
+	if(len(torneo_rank['instabili'])):
 		# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>")
 		rankingInstabiliTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>\n"
 		
 		# giocatori instabili
-		for giocatore in torneo['instabili']:
+		for giocatore in torneo_rank['instabili']:
 			rankingInstabiliTable += "<tr>\n"
 			# print("<tr>")
 			rankingInstabiliTable += "    <td>" + str(giocatore[0]) + "</td>\n"
@@ -470,26 +487,14 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			torneo = options[2]
 			# True come parametro opzionale x funzionare coi permessi da shell e non da web
 			torneo = importaTorneo(torneo, web)
-			instabili = False
+			
+			ranking = rankingStabile(torneo)
 
 			caratteri_omessi = ",'[(]"
 			caratteri_sostituiti = ")"
 
-			if(torneo['NOME'] == 'singolo'):
-				numero_partite = 16
-			else:
-				numero_partite = 8
-
-			ranking = {'stabili': [], 'instabili': []}
-			for giocatore in torneo['RANKING']:
-				if (giocatore[-1]):
-					ranking['stabili'].append(giocatore[0:3])
-				else:
-					ranking['instabili'].append(giocatore[0:3])
-					instabili = True
-
 			if any("--web" in o for o in options):
-				print(rankingHtml(ranking))
+				print(rankingHtml(torneo))
 
 			else:
 				ranking_str = ' ' + str(ranking['stabili'])
