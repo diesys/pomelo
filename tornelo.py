@@ -352,8 +352,8 @@ def costruisciIndexHtml(torneo):
 	new_index_content = index_template.read().format(MATCH_SINGOLO=partiteSingolo, RANKING_SINGOLO=rankingSingolo, MATCH_DOPPIO=partiteDoppio, RANKING_DOPPIO=rankingDoppio, GIOCATORI_SINGOLO=giocatoriSingolo, GIOCATORI_DOPPIO=giocatoriDoppio)
 	
 	# T E S T
-	# new_index.write(new_index_content)
-	print(new_index_content)
+	# print(new_index_content)
+	new_index.write(new_index_content)
 
 	index_template.close()
 	new_index.close()
