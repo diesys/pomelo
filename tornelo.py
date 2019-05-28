@@ -264,7 +264,6 @@ def rankingStabile(torneo):
 	return ranking
 
 def rankingHtml(torneo):
-	# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>")
 	rankingTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatore</th><th scope='col'>Punti</th><th scope='col'>Match</th></tr></thead><tbody>\n"
 	
 	torneo_rank = rankingStabile(torneo)
@@ -278,15 +277,10 @@ def rankingHtml(torneo):
 			classColore = ''
 		
 		rankingTable += "<tr class='" + classColore + "'>\n"
-		# print("<tr class='" + classColore + "'>")
 		rankingTable += "    <td>" + str(giocatore[0]) + "</td>\n"
-		# print("    <td>" + str(giocatore[0]) + "</td>")
 		rankingTable += "    <td>" + str(giocatore[1]) + "</td>\n"
-		# print("    <td>" + str(giocatore[1]) + "</td>")
 		rankingTable += "    <td>" + str(giocatore[2]) + "</td>\n"
-		# print("    <td>" + str(giocatore[2]) + "</td>")
 		rankingTable += "</tr>\n"
-		# print("</tr>")
 
 	if(len(torneo_rank['instabili'])):
 		# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>")
@@ -295,25 +289,18 @@ def rankingHtml(torneo):
 		# giocatori instabili
 		for giocatore in torneo_rank['instabili']:
 			rankingInstabiliTable += "<tr>\n"
-			# print("<tr>")
 			rankingInstabiliTable += "    <td>" + str(giocatore[0]) + "</td>\n"
-			# print("    <td>" + str(giocatore[0]) + "</td>")
 			rankingInstabiliTable += "    <td>" + str(giocatore[1]) + "</td>\n"
-			# print("    <td>" + str(giocatore[1]) + "</td>")
 			rankingInstabiliTable += "    <td>" + str(giocatore[2]) + "</td>\n"
-			# print("    <td>" + str(giocatore[2]) + "</td>")
 			rankingInstabiliTable += "</tr>\n"
-			# print("</tr>")
 
 		rankingInstabiliTable += "</table>\n"
-		# print("</table>")
 
 		return rankingTable + rankingInstabiliTable
 
 def partiteHtml(torneo):
-	partite = torneo['MATCHES']
+	partite = torneo['MATCHES'][::-1]
 	partiteTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>\n"
-	# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>")
 	
 	for match in partite:
 		partiteTable += "<tr>\n"
@@ -325,15 +312,6 @@ def partiteHtml(torneo):
 		partiteTable += "    <td>" + str(match[3])[1:-1] + "</td>\n"
 		partiteTable += "</tr>\n"
 	
-		# print("<tr>")
-		# print("    <td>" + str(match[0]) + "</td>")
-		# print("    <td>" + str(match[1]) + "</td>")
-		# # rimuove la virgola e cambia sistema risultato da algoritmo (0,1) a 1, x, 2
-		# print("    <td>" + str(2 - int(match[2])) + "</td>")
-		# # rimuove le parentesi
-		# print("    <td>" + str(match[3])[1:-1] + "</td>")
-		# print("</tr>")
-	
 	partiteTable += "</table>"
 	
 	return partiteTable
@@ -342,7 +320,6 @@ def partiteHtml(torneo):
 def selectGiocatoriHmtl(giocatori):
 	select = ""
 	for giocatore in giocatori:
-		# print("<option value='" + giocatore + "'>" + giocatore + "</option>")
 		select += "<option value='" + giocatore + "'>" + giocatore + "</option>\n"
 	
 	return select
@@ -565,10 +542,12 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			# True come parametro opzionale x funzionare coi permessi da shell e non da web
 			torneo = importaTorneo(torneo, web)
 			# la lista invertita per visualizzare l'ultima in alto
-			matches = torneo['MATCHES'][::-1]
+			# matches = torneo['MATCHES'][::-1]
+			# la lista NON invertita per visualizzare l'ultima in basso da TERMINALE
+			matches = torneo['MATCHES']
 
 			if any("--web" in o for o in options):
-				print(partiteHtml(matches))
+				print(partiteHtml(torneo))
 
 			else:
 				matches = ' ' + str(matches)
