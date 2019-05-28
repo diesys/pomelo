@@ -246,7 +246,6 @@ def aggiornaRanking(torneo, web=False):
 	torneo['RANKING'] = classifica
 
 def rankingStabile(torneo):
-	instabili = False
 	ranking = {'stabili': [], 'instabili': []}
 
 	if(torneo['NOME'] == 'singolo'):
@@ -259,7 +258,6 @@ def rankingStabile(torneo):
 			ranking['stabili'].append(giocatore[0:3])
 		else:
 			ranking['instabili'].append(giocatore[0:3])
-			instabili = True
 	
 	return ranking
 
