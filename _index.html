@@ -37,25 +37,31 @@
 
     <center>
         <div id="menu" class="hidden">
+
+            <h4>Partite</h4><br>
+
+            <!-- aggiungi risultato doppio -->
             <form action="submit.php" method="post">
                 <input type="hidden" name="torneo" value="singolo">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">singolo</span>
+                        <span class="input-group-text torneo-icon">
+                            <ion-icon name="ios-contact" size="large"></ion-icon>
+                        </span>
                     </div>
                     <select class="custom-select" name="giocatore1" required>
-                        <option value="" disabled selected>Giocatore 1</option>
+                        <option value="" disabled selected>Giocat. 1</option>
                         {GIOCATORI_SINGOLO}
                         <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
                     </select>
                     
                     <select class="custom-select" name="giocatore2" required>
-                        <option value="" disabled selected>Giocatore 2</option>
+                        <option value="" disabled selected>Giocat. 2</option>
                         {GIOCATORI_SINGOLO}
                         <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
                     </select>
                     
-                    <select class="custom-select col-2" id="inputGroupSelect01" name="esito" required>
+                    <select class="custom-select col-xs-3 col-md-2" id="inputGroupSelect01" name="esito" required>
                         <option disabled selected value="">esito</option>
                         <option value="1">1</option>
                         <option value="0">2</option>
@@ -63,31 +69,34 @@
                     
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
-                            <ion-icon size="large" name="ios-checkmark"></ion-icon>
+                            <ion-icon size="large" name="md-checkmark"></ion-icon>
                         </button>
                     </div>
                 </div>
             </form>
             
+            <!-- aggiungi risultato doppio -->
             <form action="submit.php" method="post">
                 <input type="hidden" name="torneo" value="doppio">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">doppio</span>
+                        <span class="input-group-text torneo-icon">
+                            <ion-icon name="ios-contacts" size="large" role="img"></ion-icon>
+                        </span>
                     </div>
                     <select class="custom-select" name="giocatore1" required>
-                        <option value="" disabled selected>Giocatore 1</option>
+                        <option value="" disabled selected>Squad. 1</option>
                         <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
                         {GIOCATORI_DOPPIO}
                     </select>
                     
                     <select class="custom-select" name="giocatore2" required>
-                        <option value="" disabled selected>Giocatore 2</option>
+                        <option value="" disabled selected>Squad. 2</option>
                         <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
                         {GIOCATORI_DOPPIO}
                     </select>
                     
-                    <select class="custom-select col-2" id="inputGroupSelect02" name="esito" required>
+                    <select class="custom-select col-xs-3 col-md-2" id="inputGroupSelect02" name="esito" required>
                         <option disabled selected value="">esito</option>
                         <option value="1">1</option>
                         <option value="0">2</option>
@@ -95,7 +104,66 @@
                     
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
-                            <ion-icon size="large" name="ios-checkmark"></ion-icon>
+                            <ion-icon size="large" name="md-checkmark"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <br /><h4>Giocatori e squadre</h4><br>
+            
+            <!-- elimina giocatore -->
+            <form action="submit.php" method="post">
+                <!-- <input type="hidden" name="torneo" value="eliminaGiocatore"> -->
+                <div class="input-group input-padding">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">elimina</span>
+                    </div>
+                    <select class="custom-select" name="giocatoreS" required>
+                        <option value="" disabled selected>Giocatore</option>
+                        {GIOCATORI_SINGOLO}
+                    </select>
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="border-left: none;">o</span>
+                    </div>
+
+                    <select class="custom-select" name="giocatoreD" required>
+                        <option value="" disabled selected>Squadra</option>
+                        {GIOCATORI_DOPPIO}
+                    </select>
+
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                            <ion-icon size="large" name="md-trash"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
+           
+            <!-- aggiungi giocatore -->
+            <form action="submit.php" method="post">
+                <!-- <input type="hidden" name="torneo" value="eliminaGiocatore"> -->
+                <div class="input-group input-padding">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">aggiungi</span>
+                    </div>
+
+                    <input class="form-control" name="nuovoGiocatore" placeholder="Nome">
+                    
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="border-left: none;">in</span>
+                    </div>
+
+                    <select class="custom-select" name="torneo" required>
+                        <option disabled selected value="">torneo</option>
+                        <option value="singolo">singolo</option>
+                        <option value="doppio">doppio</option>
+                    </select>
+                                    
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
+                            <ion-icon size="large" name="md-person-add"></ion-icon>
                         </button>
                     </div>
                 </div>
@@ -104,10 +172,11 @@
     </center>
     
 
-    <div id='content' class='container-fluid'>
+    <div id='content' onclick="$('#menu').slideUp()" class='container-fluid'>
 
         <center>
-            <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' />
+            <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' /><br>
+            <caption><small>Usa il codice QR per condividere la pagina!</small></caption><br>
 
             <br>
             <div class='btn-group mr-2' role='group' aria-label='First group'>
