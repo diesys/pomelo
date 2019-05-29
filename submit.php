@@ -1,4 +1,4 @@
-<?php //header("Location: ."); ?>
+<?php header("Location: ."); ?>
 
 <?php
     function alert($msg) {
@@ -19,23 +19,63 @@
         die ("Not authorized");
     }
 
-    if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_POST["torneo"]) and isset($_POST["esito"])) {
-        $torneo = $_POST["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"];
-    
-        if (!($g1==$g2 and $g1!="")) {
-            if ($torneo and $g1 and $g2 and $esito> -1) {
-                // echo "<strong>".$g1."</strong>  vs  <strong>".$g2."</strong> (".$esito.")<br/><ion-icon name='md-checkmark-circle-outline'></ion-icon> inserito nel torneo ".$torneo."!";
-                    echo shell_exec("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito  2>&1"); 
-                    echo shell_exec("./tornelo.py --gen-index 2>&1"); 
-                    alert("Partita aggiunta al $torneo: \"$g1\" vs \"$g2\" ($esito)");
-                    echo "</div>";
+    if(isset($_POST['action'])) {
+        $action = $_POST['action'];
+
+        if($action == 'update') {
+            if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_POST["torneo"]) and isset($_POST["esito"])) {
+                $torneo = $_POST["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"];
+
+                if (!($g1==$g2 and $g1!="")) {
+                    if ($torneo and $g1 and $g2 and $esito> -1) {
+                        $command = "./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito  2>&1";
+                        $alert_msg = "Partita aggiunta al $torneo: \"$g1\" vs \"$g2\" ($esito)";
+                    }
                 }
             }
-            echo("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"); 
-            shell_exec('whoami');
-            print(shell_exec('whoami'));
+        } 
 
+        elseif($action == 'delete') {
+            if(isset($_POST["giocatoreS"])){
+                $torneo = 'singolo'; $giocatore = $_POST["giocatoreS"];
+            }
+            elseif(isset($_POST["giocatoreD"])) {
+                $torneo = 'doppio'; $giocatore = $_POST["giocatoreD"];
+            }
+            else {
+                $command = '';
+                $alert_msg = 'Qualche errore rimuovendo il giocatore!';
+            }
+            $command = "./tornelo.py -d $torneo \"$giocatore\" 2>&1";
+            $alert_msg = "$giocatore. rimosso dal torneo \"$torneo\"";
+        } 
+        
+        elseif($action == 'add') {
+            if(isset($_POST["nuovoGiocatore"]) and isset($_POST["torneo"])) {
+                $torneo = $_POST["torneo"]; $giocatore = $_POST["nuovoGiocatore"];
+                $command = "./tornelo.py -a $torneo \"$giocatore\" 2>&1";
+                $alert_msg = "$giocatore. ora fa parte del torneo \"$torneo\"";
+            }
+            else {
+                $command = '';
+                $alert_msg = 'Qualche errore aggiungendo il giocatore!';
+            }
+        }
+
+        else {
+            $command = '';
+            $alert_msg = 'Nessuna azione selezionata!';
+        }
+        
+        
+        print(shell_exec('whoami'));
+        echo ($command.'\n\n'.$alert_msg);
+        echo shell_exec($command);
+        // costruisce il nuovo index
+        echo shell_exec("./tornelo.py --gen-index 2>&1"); 
+        alert($alert_msg);
     }
+
 
     foreach ($_POST as $key => $value) {
         echo '<p>'.$key.": ".$value.'</p>';

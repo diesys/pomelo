@@ -44,6 +44,7 @@
 
             <!-- aggiungi risultato doppio -->
             <form action="submit.php" method="post">
+                <input type="hidden" name="action" value="update">
                 <input type="hidden" name="torneo" value="singolo">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
@@ -79,6 +80,7 @@
             
             <!-- aggiungi risultato doppio -->
             <form action="submit.php" method="post">
+                <input type="hidden" name="action" value="update">
                 <input type="hidden" name="torneo" value="doppio">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
@@ -88,14 +90,14 @@
                     </div>
                     <select class="custom-select" name="giocatore1" required>
                         <option value="" disabled selected>Squad. 1</option>
-                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
                         {GIOCATORI_DOPPIO}
+                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
                     </select>
                     
                     <select class="custom-select" name="giocatore2" required>
                         <option value="" disabled selected>Squad. 2</option>
-                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
                         {GIOCATORI_DOPPIO}
+                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
                     </select>
                     
                     <select class="custom-select col-xs-3 col-md-2" id="inputGroupSelect02" name="esito" required>
@@ -116,12 +118,12 @@
             
             <!-- elimina giocatore -->
             <form action="submit.php" method="post">
-                <!-- <input type="hidden" name="torneo" value="eliminaGiocatore"> -->
+                <input type="hidden" name="action" value="delete">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
                         <span class="input-group-text">elimina</span>
                     </div>
-                    <select class="custom-select" name="giocatoreS" required>
+                    <select class="custom-select" name="giocatoreS">
                         <option value="" disabled selected>Giocatore</option>
                         {GIOCATORI_SINGOLO}
                     </select>
@@ -130,7 +132,7 @@
                         <span class="input-group-text" style="border-left: none;">o</span>
                     </div>
 
-                    <select class="custom-select" name="giocatoreD" required>
+                    <select class="custom-select" name="giocatoreD">
                         <option value="" disabled selected>Squadra</option>
                         {GIOCATORI_DOPPIO}
                     </select>
@@ -145,7 +147,7 @@
            
             <!-- aggiungi giocatore -->
             <form action="submit.php" method="post">
-                <!-- <input type="hidden" name="torneo" value="eliminaGiocatore"> -->
+                <input type="hidden" name="action" value="add">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">aggiungi</span>
