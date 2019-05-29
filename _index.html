@@ -26,13 +26,13 @@
 
 <body>
     
-    <img id='logo' onclick="toggleTheme()" src='img/antipong_idle2.gif' height='90px' width='90px' alt='Smash the ball, smash fascism!' />
+    <img id='logo' src='img/antipong_idle2.gif' height='90px' width='90px' alt='Smash the ball, smash fascism!' />
     
     <span id='titolo'>
         <h1 id='itolo'>PingPong '19</h1>
         <!-- <a href='admin.php' class='adminButton'> -->
         <!-- <a href='#' onclick="$('#menu').collapse('toggle')" class='adminButton'> -->
-        <a href='#' onclick="$('#menu').slideToggle();$('#admin_icon').toggleClass('active')" class='adminButton'>
+        <a href='#' id="admin_button" class='adminButton'>
             <ion-icon id="admin_icon" size='large' name='add'></ion-icon>
         </a>
     </span>
@@ -174,7 +174,7 @@
     </center>
     
 
-    <div id='content' onclick="$('#menu').slideUp(); $('#admin_icon').toggleClass('active')" class='container-fluid'>
+    <div id='content' class='container-fluid'>
 
         <center>
             <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' /><br>

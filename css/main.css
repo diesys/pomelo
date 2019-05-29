@@ -87,7 +87,7 @@ body.dark > #titolo {
     transition: background .3s;
 }
 body.dark #menu {
-    background: hsl(180, 11%, 5%);
+    background: hsl(180, 10%, 7.5%);
 }
 #menu span.torneo-icon {
     padding: 2px 5px;
@@ -220,11 +220,11 @@ body.dark .form-control,
 body.dark .custom-select {
     border: none;
     color: #dedede;
-    background-color: hsla(180, 12%, 2%, 1);
+    background-color: hsla(180, 12%, 3.4%, 1);
 }
 body.dark .input-group-append > span,
 body.dark .input-group-prepend > span {
-    background-color: hsla(180, 12%, 8%, 1);
+    background-color: hsla(180, 12%, 12%, 1);
 }
 
 
