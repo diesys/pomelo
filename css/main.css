@@ -99,6 +99,15 @@ p.centered {
     transition: all .3s;
     color: #999;
 }
+#admin_icon {
+    transform: none;
+    transition: all .3s .1s;
+    transform-origin: 50% 50%;
+}
+#admin_icon.active {
+    transition: all .3s;
+    transform: rotate(45deg);
+}
 .adminButton:hover, .adminButton:active {
     color: #777;
     background: #ebebeb;
