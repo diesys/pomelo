@@ -16,8 +16,8 @@ def scriviTorneo(torneo, web=False):
 		json.dump(torneo, file_json)
 
 		# permission bad fix
-		if(not web):
-			os.chmod(torneo['FILE'], 0o666)
+		# if(not web):
+			# os.chmod(torneo['FILE'], 0o666)
 
 
 def importaTorneo(torneo, web=False):
@@ -26,8 +26,8 @@ def importaTorneo(torneo, web=False):
 	with open(file_path, 'r') as file_json:
 		dict_torneo = json.load(file_json)
 
-		if(not web):
-			os.chmod(file_path, 0o666)
+		# if(not web):
+			# os.chmod(file_path, 0o666)
 
 	aggiornaRanking(dict_torneo)
 
@@ -398,7 +398,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			print('Manca il nome del torneo!')
 
 	elif(options[1] == '--gen-index'):
-		torneo = { 'singolo' : importaTorneo('singolo'), 'doppio' : importaTorneo('doppio') }
+		torneo = { 'singolo' : importaTorneo('singolo', web), 'doppio' : importaTorneo('doppio', web) }
 		costruisciIndexHtml(torneo)
 	
 	elif(options[1] == '-i' or options[1] == '--import'):
@@ -486,7 +486,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			caratteri_omessi = ",'[(]"
 			caratteri_sostituiti = ")"
 
-			if any("--web" in o for o in options):
+			if any("--html" in o for o in options):
 				print(rankingHtml(torneo))
 
 			else:
@@ -524,7 +524,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 		if(len(options) > 2):
 			torneo = importaTorneo(options[2], web)
 
-			if any("--web" in o for o in options):
+			if any("--html" in o for o in options):
 				print(selectGiocatoriHtml(torneo))
 
 			else:
@@ -551,7 +551,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			# la lista NON invertita per visualizzare l'ultima in basso da TERMINALE
 			matches = torneo['MATCHES']
 
-			if any("--web" in o for o in options):
+			if any("--html" in o for o in options):
 				print(partiteHtml(torneo))
 
 			else:

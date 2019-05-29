@@ -1,4 +1,10 @@
+<?php //header("Location: ."); ?>
+
 <?php
+    function alert($msg) {
+        echo "<script type='text/javascript'>alert('$msg');</script>";
+    }
+
     $valid_passwords = array ("uova" => "frittata");
     $valid_users = array_keys($valid_passwords);
 
@@ -19,8 +25,20 @@
         if (!($g1==$g2 and $g1!="")) {
             if ($torneo and $g1 and $g2 and $esito> -1) {
                 // echo "<strong>".$g1."</strong>  vs  <strong>".$g2."</strong> (".$esito.")<br/><ion-icon name='md-checkmark-circle-outline'></ion-icon> inserito nel torneo ".$torneo."!";
-                echo shell_exec("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"); echo "</div>";
+                    echo shell_exec("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito  2>&1"); 
+                    echo shell_exec("./tornelo.py --gen-index 2>&1"); 
+                    alert("Partita aggiunta al $torneo: \"$g1\" vs \"$g2\" ($esito)");
+                    echo "</div>";
+                }
             }
-        }
+            echo("./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito --web 2>&1"); 
+            shell_exec('whoami');
+            print(shell_exec('whoami'));
+
     }
+
+    foreach ($_POST as $key => $value) {
+        echo '<p>'.$key.": ".$value.'</p>';
+    } 
+
 ?>
