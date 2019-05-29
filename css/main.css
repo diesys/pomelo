@@ -14,6 +14,11 @@ body {
     position: absolute;
     width: 100%;
     min-height: 100%;
+    transition: background .3s;
+}
+body.dark {
+    background: hsl(210, 10%, 20%);
+    color: #eee;
 }
 
 #logo {
@@ -25,9 +30,13 @@ body {
     border: 10px solid #fff;
     box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
 }
+body.dark > #logo {
+    border: 10px solid hsla(210, 10%, 10%, 90%);
+    box-shadow: 0 10px 25px -10px rgba(0,0,0,.8);
+}
 
 #titolo {
-    box-shadow: 0 -5px 30px -8px rgba(0,0,0,.4);
+    box-shadow: 0 -5px 30px 2px rgba(0,0,0,.4);
     position: fixed;
     width: 100%;
     top: 0;
@@ -37,6 +46,11 @@ body {
     padding: 0;
     height: 56px;
     z-index: 10;
+    transition: background .3s;
+}
+body.dark > #titolo {
+    box-shadow: 0 -5px 30px 1px rgba(0, 0, 0, 0.45);
+    background: hsl(210, 10%, 10%);
 }
 #titolo > h1 {
     position: absolute;
@@ -70,6 +84,10 @@ body {
     box-shadow: 0 -5px 30px -8px rgba(0, 0, 0, .4);
     background: #fafafa;
     z-index: 8;
+    transition: background .3s;
+}
+body.dark #menu {
+    background: hsl(180, 11%, 5%);
 }
 #menu span.torneo-icon {
     padding: 2px 5px;
@@ -120,9 +138,34 @@ p.centered {
     color: #777;
     background: #ebebeb;
 }
-
+body.dark .adminButton:hover,
+body.dark .adminButton:active {
+    color: #aaa;
+    background: rgba(0, 0, 0, .3);
+}
 
 /* BOOTSTRAP */
+.table-dark td, .table-dark th, .table-dark thead th {
+    border-color: rgba(0,0,0,.1);
+}
+
+body.dark .btn-outline-primary,
+body.dark .btn-outline-danger {
+    border-color: hsla(210, 11%, 10%, 1);
+}
+.btn-outline-danger:not(:disabled):not(.disabled).active,
+.btn-outline-danger:not(:disabled):not(.disabled):active,
+.show>.btn-outline-danger.dropdown-toggle,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show>.btn-outline-primary.dropdown-toggle {
+    color: hsla(210, 10%, 10%, 1)
+}
+
+.btn {
+    transition: all .3s;
+}
+
 .btn > ion-icon {
     vertical-align: middle;
 }
@@ -171,7 +214,18 @@ p.centered {
     color: #007bff;
 }
 
-
+body.dark .btn.bigFontButton,
+body.dark .input-group-text,
+body.dark .form-control,
+body.dark .custom-select {
+    border: none;
+    color: #dedede;
+    background-color: hsla(180, 12%, 2%, 1);
+}
+body.dark .input-group-append > span,
+body.dark .input-group-prepend > span {
+    background-color: hsla(180, 12%, 8%, 1);
+}
 
 
 /* RESPONSIVE ########################## */

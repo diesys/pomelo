@@ -291,7 +291,7 @@ def rankingHtml(torneo):
 	for giocatore in torneo_rank['stabili']:
 		# i evidenzia i primi 8 giocatori, selezionati per le eliminatorie
 		if(torneo_rank['stabili'].index(giocatore) < torneo_rank['n_min_partite']):
-			classColore = 'table-success'
+			classColore = 'table-success success'
 		else:
 			classColore = ''
 		
