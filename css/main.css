@@ -153,13 +153,22 @@ body.dark .btn-outline-primary,
 body.dark .btn-outline-danger {
     border-color: hsla(210, 11%, 10%, 1);
 }
+body.dark .btn-outline-danger:not(:disabled):not(.disabled).active,
+body.dark .btn-outline-danger:not(:disabled):not(.disabled):active,
+body.dark .show>.btn-outline-danger.dropdown-toggle,
+body.dark .btn-outline-primary:not(:disabled):not(.disabled).active,
+body.dark .btn-outline-primary:not(:disabled):not(.disabled):active,
+body.dark .show>.btn-outline-primary.dropdown-toggle {
+    color: hsl(210, 10%, 10%)
+}
+
 .btn-outline-danger:not(:disabled):not(.disabled).active,
 .btn-outline-danger:not(:disabled):not(.disabled):active,
 .show>.btn-outline-danger.dropdown-toggle,
 .btn-outline-primary:not(:disabled):not(.disabled).active,
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .show>.btn-outline-primary.dropdown-toggle {
-    color: hsla(210, 10%, 10%, 1)
+    color: #fff;
 }
 
 .btn {
