@@ -194,19 +194,43 @@
             <caption><small>Usa il codice QR per condividere la pagina!</small></caption><br>
 
             <br>
-            <div class='btn-group mr-2' role='group' aria-label='First group'>
-                <button class='btn btn-outline-primary' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                    data-target='.collapse-singolo' type='button' aria-expanded='true'>
-                    <ion-icon name='ios-contact' size='large'></ion-icon>
-                    <ion-icon name='md-swap'></ion-icon>
-                    <ion-icon name='ios-contact' size='large'></ion-icon>
-                </button>
-                <button class='btn btn-outline-danger' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                    data-target='.collapse-doppio' type='button' aria-expanded='false'>
-                    <ion-icon name='ios-contacts' size='large'></ion-icon>
-                    <ion-icon name='md-swap'></ion-icon>
-                    <ion-icon name='ios-contacts' size='large'></ion-icon>
-                </button>
+            <div class='mr-2' role='group' aria-label='First group'>
+                <div class="btn-group-vertical">                
+                    <button id="buttonSingolo" class='btn btn-outline-primary' onclick="$(this).toggleClass('active')" data-toggle='collapse'
+                        data-target='.collapse-singolo' type='button' aria-expanded='true'>
+                        <ion-icon name='ios-contact' size='large'></ion-icon>
+                        <ion-icon name='md-swap'></ion-icon>
+                        <ion-icon name='ios-contact' size='large'></ion-icon>
+                    </button>
+                    <div class='btn-group mr-2' role='group' aria-label='2g'>
+                        <button id="buttonRankSingolo" class='btn btn-outline-primary' onclick="$(this).toggleClass('active')" data-toggle='collapse'
+                            data-target='#singoloRanking' type='button' aria-expanded='true'>
+                            <ion-icon name='ios-trending-up' size='large'></ion-icon>
+                        </button>
+                        <button id="buttonPartSingolo" class='btn btn-outline-primary' onclick="$(this).toggleClass('active')" data-toggle='collapse'
+                            data-target='#singoloPartite' type='button' aria-expanded='true'>
+                            <ion-icon name='ios-list' size='large'></ion-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="btn-group-vertical">
+                    <button id="buttonDoppio" class='btn btn-outline-danger' onclick="$(this).toggleClass('active')" data-toggle='collapse'
+                        data-target='.collapse-doppio' type='button' aria-expanded='false'>
+                        <ion-icon name='ios-contacts' size='large'></ion-icon>
+                        <ion-icon name='md-swap'></ion-icon>
+                        <ion-icon name='ios-contacts' size='large'></ion-icon>
+                    </button>
+                    <div class='btn-group mr-2' role='group' aria-label='3g'>
+                        <button id="buttonRankDoppio" class='btn btn-outline-danger' onclick="$(this).toggleClass('active')" data-toggle='collapse'
+                            data-target='#doppioRanking' type='button' aria-expanded='true'>
+                            <ion-icon name='ios-trending-up' size='large'></ion-icon>
+                        </button>
+                        <button id="buttonPartDoppio" class='btn btn-outline-danger' onclick="$(this).toggleClass('active')" data-toggle='collapse'
+                            data-target='#doppioPartite' type='button' aria-expanded='true'>
+                            <ion-icon name='ios-list' size='large'></ion-icon>
+                        </button>
+                    </div>
+                </div>
             </div>
         </center> 
         
