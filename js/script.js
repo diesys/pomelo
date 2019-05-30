@@ -35,19 +35,14 @@ window.onload = function () {
     var d = new Date();
     var hour = d.getHours();
 
-    if (urlVars["night"]) {
-        if (urlVars["night"] == "true") {
-            nightMode();
-        } else if (urlVars["night"] == "false") {
-            dayMode();
-        }
-
-    } else {
-        if (hour < 7 | hour > 18) {
+    if (hour < 7 | hour > 18) {
+        toggleTheme();
+        console.log('auto-enabling dark mode...')
+    } else 
+        if (urlVars["night"]) {
             toggleTheme();
-            console.log('auto-enabling dark mode...')
-        }
-    }
+            console.log('URL var detected: enabling dark mode...')
+        } 
     
     /////////// BINDING ///////////////////////////
     // theme / logo
