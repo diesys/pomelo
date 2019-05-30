@@ -29,6 +29,25 @@ function getUrlVars() {
 }
 
 window.onload = function () {
+
+    /////////// Auto NIGHT MODE ///////////////////
+    var urlVars = getUrlVars();
+    var d = new Date();
+    var hour = d.getHours();
+
+    if (urlVars["night"]) {
+        if (urlVars["night"] == "true") {
+            nightMode();
+        } else if (urlVars["night"] == "false") {
+            dayMode();
+        }
+
+    } else {
+        if (hour < 7 | hour > 18) {
+            toggleTheme();
+            console.log('auto-enabling dark mode...')
+        }
+    }
     
     /////////// BINDING ///////////////////////////
     // theme / logo
@@ -165,23 +184,4 @@ window.onload = function () {
             $('#buttonDoppio').addClass('active');
         }
     });
-    
-    /////////// Auto NIGHT MODE ///////////////////
-    var urlVars = getUrlVars();
-    var d = new Date();
-    var hour = d.getHours();
-
-    if (urlVars["night"]) {
-        if (urlVars["night"] == "true") {
-            nightMode();
-        } else if (urlVars["night"] == "false") {
-            dayMode();
-        }
-        
-    } else {
-        if ((hour > 0 || hour < 7) && (hour > 0 || hour < 7)) {
-            toggleTheme();
-            console.log('auto-enabling dark mode...')
-        } 
-    }
 }
