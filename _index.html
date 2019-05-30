@@ -194,39 +194,33 @@
             <caption><small>Usa il codice QR per condividere la pagina!</small></caption><br>
 
             <br>
-            <div class='mr-2' role='group' aria-label='First group'>
+            <div class='mr-2' role='group' aria-label='1g'>
                 <div class="btn-group-vertical">                
-                    <button id="buttonSingolo" class='btn btn-outline-primary' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                        data-target='.collapse-singolo' type='button' aria-expanded='true'>
+                    <button id="buttonSingolo" class='btn btn-outline-primary'>
                         <ion-icon name='ios-contact' size='large'></ion-icon>
                         <ion-icon name='md-swap'></ion-icon>
                         <ion-icon name='ios-contact' size='large'></ion-icon>
                     </button>
                     <div class='btn-group mr-2' role='group' aria-label='2g'>
-                        <button id="buttonRankSingolo" class='btn btn-outline-primary' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                            data-target='#singoloRanking' type='button' aria-expanded='true'>
+                        <button id="buttonRankSingolo" class='buttonSingolo btn btn-outline-primary'>
                             <ion-icon name='ios-trending-up' size='large'></ion-icon>
                         </button>
-                        <button id="buttonPartSingolo" class='btn btn-outline-primary' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                            data-target='#singoloPartite' type='button' aria-expanded='true'>
+                        <button id="buttonPartSingolo" class='buttonSingolo btn btn-outline-primary'>
                             <ion-icon name='ios-list' size='large'></ion-icon>
                         </button>
                     </div>
                 </div>
                 <div class="btn-group-vertical">
-                    <button id="buttonDoppio" class='btn btn-outline-danger' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                        data-target='.collapse-doppio' type='button' aria-expanded='false'>
+                    <button id="buttonDoppio" class='btn btn-outline-danger'>
                         <ion-icon name='ios-contacts' size='large'></ion-icon>
                         <ion-icon name='md-swap'></ion-icon>
                         <ion-icon name='ios-contacts' size='large'></ion-icon>
                     </button>
                     <div class='btn-group mr-2' role='group' aria-label='3g'>
-                        <button id="buttonRankDoppio" class='btn btn-outline-danger' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                            data-target='#doppioRanking' type='button' aria-expanded='true'>
+                        <button id="buttonRankDoppio" class='buttonDoppio btn btn-outline-danger'>
                             <ion-icon name='ios-trending-up' size='large'></ion-icon>
                         </button>
-                        <button id="buttonPartDoppio" class='btn btn-outline-danger' onclick="$(this).toggleClass('active')" data-toggle='collapse'
-                            data-target='#doppioPartite' type='button' aria-expanded='true'>
+                        <button id="buttonPartDoppio" class='buttonDoppio btn btn-outline-danger'>
                             <ion-icon name='ios-list' size='large'></ion-icon>
                         </button>
                     </div>
@@ -235,7 +229,7 @@
         </center> 
         
         <div class='row'>
-            <div class='col collapse collapse-ranking collapse-singolo' id='singoloRanking'>        
+            <div class='col fade-table hidden collapse-ranking collapse-singolo' id='singoloRanking'>        
                 <h4 class='titleSection'>Ranking (singolo)</h4>
                 <p class='centered'>
                     <!-- #### RANKING_SINGOLO #### -->
@@ -249,7 +243,7 @@
                 </p>
             </div>
             
-            <div class='col collapse collapse-partite collapse-singolo' id='singoloPartite'>
+            <div class='col fade-table hidden collapse-partite collapse-singolo' id='singoloPartite'>
                 <h4 class='titleSection''>Partite (singolo)</h4>
                 <p class='centered'>
                     <!-- #### MATCH_SINGOLO #### -->
@@ -263,7 +257,7 @@
                 </p>
             </div>
             
-            <div class='col collapse collapse-ranking collapse-doppio' id='doppioRanking'>
+            <div class='col fade-table hidden collapse-ranking collapse-doppio' id='doppioRanking'>
                 <h4 class='titleSection'>Ranking (doppio)</h4>
                 <p class='centered'>
                     <!-- #### RANKING_DOPPIO #### -->
@@ -277,7 +271,7 @@
                 </p>
             </div>
             
-            <div class='col collapse collapse-partite collapse-doppio' id='doppioPartite'>
+            <div class='col fade-table hidden collapse-partite collapse-doppio' id='doppioPartite'>
                 <h4 class='titleSection'>Partite (doppio)</h4>
                 <p class='centered'>
                     <!-- #### MATCH_DOPPIO #### -->

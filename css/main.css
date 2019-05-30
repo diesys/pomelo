@@ -237,6 +237,12 @@ body.dark .input-group-prepend > span {
 }
 
 
+/* ANIMATIONS ########################## */
+.collapse.show {
+    transition: all 1s;
+}
+
+
 /* RESPONSIVE ########################## */
 
 @media only screen and (max-width: 670px) {
