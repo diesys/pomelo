@@ -6,6 +6,16 @@ function toggleTheme() {
     $('table').toggleClass('table-dark');
     $('tr.success').toggleClass('bg-success');
     $('tr.success').toggleClass('table-success');
+    
+    // browser color
+    if($('body').hasClass('dark'))
+        color = '#17191c';
+    else
+        color = '#ffffff';
+    
+    $('#browserColor').attr('content', color);
+    $('#browserColorwp').attr('content', color);
+    $('#browserColorap').attr('content', color);
 
     console.log('changing theme...');
 }
@@ -17,8 +27,6 @@ function getUrlVars() {
     });
     return vars;
 }
-
-
 
 window.onload = function () {
     
