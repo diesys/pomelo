@@ -7,3 +7,6 @@
 
 //TODO:
     ampliare ad ogni tipo di torneo (anche punteggi)
+
+## TODO
+    nel GET url usare per mostrare rank se agg/elim giocatre, partite se agg partita e messaggio alert

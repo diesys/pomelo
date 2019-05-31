@@ -1,4 +1,5 @@
-<?php header("Location: ."); ?>
+<?php header("Location: .?acon=".$_POST['action']."&torneo=".$_POST["torneo"]."&g1=".$_POST["giocatore1"]."&g2=".$_POST["giocatore2"]."&gS=".$_POST["giocatoreS"]."&gD=".$_POST["giocatoreD"]."&nG=".$_POST["nuovoGiocatore"]."&r=".$_POST["esito"]);  ?>
+<!-- <?php header("Location: .?action=".$_POST['action']); ?> -->
 
 <?php
     function alert($msg) {
