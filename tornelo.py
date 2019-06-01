@@ -10,24 +10,17 @@ import time
 tornei_dir = os.path.dirname('data/')
 
 
-def scriviTorneo(torneo, web=False):
+def scriviTorneo(torneo):
 	# scrivi su file
 	with open(torneo['FILE'], 'w') as file_json:
 		json.dump(torneo, file_json)
 
-		# permission bad fix
-		# if(not web):
-			# os.chmod(torneo['FILE'], 0o666)
 
-
-def importaTorneo(torneo, web=False):
+def importaTorneo(torneo):
 	# leggi da file
 	file_path = tornei_dir + '/' + str(torneo) + '/' + str(torneo) + '.json'
 	with open(file_path, 'r') as file_json:
 		dict_torneo = json.load(file_json)
-
-		# if(not web):
-			# os.chmod(file_path, 0o666)
 
 	aggiornaRanking(dict_torneo)
 
@@ -36,7 +29,7 @@ def importaTorneo(torneo, web=False):
 # crea un nuovo torneo con 'torneo' come nome di default
 
 
-def nuovoTorneo(nome="torneo", web=False):
+def nuovoTorneo(nome="torneo"):
 
 	# percorso del file e cartella che conterra' il dizionario
 	file_path = tornei_dir + '/' + nome + '/' + nome + '.json'
@@ -63,7 +56,7 @@ def nuovoTorneo(nome="torneo", web=False):
 	return torneo
 
 
-def aggiungiGiocatore(torneo, nome, web=False):
+def aggiungiGiocatore(torneo, nome):
     # Aggiunge al torneo un nuovo Giocatore 'nome'. Controlla per prima cosa che
     # non esiste un altro giocatore con lo stesso nome. In caso positivo viene
     # aggiunto il Giocatore. Gli viene assegnato un punteggio iniziale di 1440 e
@@ -83,12 +76,12 @@ def aggiungiGiocatore(torneo, nome, web=False):
 	torneo['GIOCATORI'][str(len(torneo['GIOCATORI']))] = nuovoGiocatore
 
 	# scrivi su file
-	scriviTorneo(torneo, web)
+	scriviTorneo(torneo)
 
 	return torneo
 
 
-def eliminaGiocatore(torneo, nome, web=False):
+def eliminaGiocatore(torneo, nome):
     # Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del
     # torneo al posto dei dati di tale giocatore sara' presente una riga del tipo
     # ['ND',...]
@@ -101,7 +94,7 @@ def eliminaGiocatore(torneo, nome, web=False):
 			torneo['GIOCATORI'][str(id)]['MATCH'] = -1
 
 	# scrivi su file
-	scriviTorneo(torneo, web)
+	scriviTorneo(torneo)
 
 
 def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
@@ -150,7 +143,7 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	return [punteggioX, punteggioY]
 
 
-def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX, web=False):
+def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
     # Calcola i punti ottenuti dopo che il giocatoreX ha sfidato il giocatoreY,
     # ottenendo un risultatoX = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1
     # (vittoria). (giocatoreX e giocatoreY sono i numeri d' iscrizione dei
@@ -209,12 +202,12 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX, web=False):
 	torneo['MATCHES'].append(
 		(giocatoreX, giocatoreY, risultatoX, '(' + dataora + ')'))
 
-	return scriviTorneo(torneo, web)
+	return scriviTorneo(torneo)
 
 
 ####### sezione di output
 
-def stampaFormattato(torneo, web=False):
+def stampaFormattato(torneo):
 	caratteri_omessi = '"{}'
 	torneo_formatted = json.dumps(torneo, indent=3, separators=('', ':\t'))
 
@@ -223,7 +216,7 @@ def stampaFormattato(torneo, web=False):
 
 	print(torneo_formatted)
 
-def aggiornaRanking(torneo, web=False):
+def aggiornaRanking(torneo):
 	classifica = []
 
 	for i in torneo['GIOCATORI']:
@@ -375,18 +368,12 @@ def costruisciIndexHtml(torneo):
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
-HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -l \t\t\t\t(--list) mostra la lista dei tornei in \'data/\'\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -d TORNEO GIOCATORE\t\t(--delete) cancella (azzera i valori di) GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  -m TORNEO\t\t\t(--match) mostra la lista dei match di TORNEO\n  -g TORNEO\t\t\t(--giocatori) mostra la lista dei giocatori in TORNEO\n  -p TORNEO\t\t\t(--print) mostra tutto il contenuto di TORNEO\n  -r TORNEO\t\t\t(--ranking) mostra la classifica di TORNEO\n\n  --web\t\t\t\tda aggiungere come ULTIMO parametro, serve a non causare problemi di permessi di scrittura (USARE SOLO IN PHP!)\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
+HELP = 'Benvenuto in torneo-web (interfaccia CLI), le opzioni sono le seguenti:\n\n  -l \t\t\t\t(--list) mostra la lista dei tornei in \'data/\'\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -d TORNEO GIOCATORE\t\t(--delete) cancella (azzera i valori di) GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  -m TORNEO\t\t\t(--match) mostra la lista dei match di TORNEO\n  -g TORNEO\t\t\t(--giocatori) mostra la lista dei giocatori in TORNEO\n  -p TORNEO\t\t\t(--print) mostra tutto il contenuto di TORNEO\n  -r TORNEO\t\t\t(--ranking) mostra la classifica di TORNEO\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
 
 
 ## sezione opzioni script
 if(len(sys.argv) > 1):  # getting parameters if exist
 	options = sys.argv
-
-	## check if there is '--web' option (workaround for php permissions)
-	if any("--web" in o for o in options):
-		web = True
-	else:
-		web = False
 
 	if(options[1] == '-n' or options[1] == '--new'):
 		if(len(options) > 2):
@@ -398,14 +385,13 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			print('Manca il nome del torneo!')
 
 	elif(options[1] == '--gen-index'):
-		torneo = { 'singolo' : importaTorneo('singolo', web), 'doppio' : importaTorneo('doppio', web) }
+		torneo = { 'singolo' : importaTorneo('singolo'), 'doppio' : importaTorneo('doppio') }
 		costruisciIndexHtml(torneo)
 	
 	elif(options[1] == '-i' or options[1] == '--import'):
 		if(len(options) > 2):
 			torneo_test = options[2]
-			# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			torneo = importaTorneo(torneo_test, web)
+			torneo = importaTorneo(torneo_test)
 			tornei = {torneo['NOME']: torneo}
 
 		else:
@@ -414,7 +400,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	elif(options[1] == '-p' or options[1] == '--print'):
 		if(len(options) > 2):
 			torneo = options[2]
-			torneo = importaTorneo(torneo, web)
+			torneo = importaTorneo(torneo)
 			stampaFormattato(torneo)
 
 		else:
@@ -423,13 +409,12 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	elif(options[1] == '-a' or options[1] == '--add'):
 		if(len(options) > 2):
 			torneo = options[2]
-			# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			torneo = importaTorneo(torneo, web)
+			torneo = importaTorneo(torneo)
 
 			if(len(options) > 3):
 				giocatore = options[3]
 
-				aggiungiGiocatore(torneo, giocatore, web)
+				aggiungiGiocatore(torneo, giocatore)
 
 			else:
 				print('Manca il nome del giocatore!')
@@ -440,13 +425,12 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	elif(options[1] == '-d' or options[1] == '--delete'):
 		if(len(options) > 2):
 			torneo = options[2]
-			# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			torneo = importaTorneo(torneo, web)
+			torneo = importaTorneo(torneo)
 
 			if(len(options) > 3):
 				giocatore = options[3]
 
-				eliminaGiocatore(torneo, giocatore, web)
+				eliminaGiocatore(torneo, giocatore)
 
 			else:
 				print('Manca il nome del giocatore!')
@@ -457,15 +441,14 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	elif(options[1] == '-u' or options[1] == '--update'):
 		if(len(options) > 2):
 			torneo = options[2]
-			# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			torneo = importaTorneo(torneo, web)
+			torneo = importaTorneo(torneo)
 
 			if(len(options) > 5):
 				giocatore1 = options[3]
 				giocatore2 = options[4]
 				esito_match = float(options[5])			# [0, 0.5, 1]
 
-				aggiornaTorneo(torneo, giocatore1, giocatore2, esito_match, web)
+				aggiornaTorneo(torneo, giocatore1, giocatore2, esito_match)
 
 			else:
 				print('Manca qualcosa! Inserisci Giocatore1 Giocatore2 Risultato')
@@ -478,8 +461,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	elif(options[1] == '-r' or options[1] == '--ranking'):
 		if(len(options) > 2):
 			torneo = options[2]
-			# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			torneo = importaTorneo(torneo, web)
+			torneo = importaTorneo(torneo)
 			
 			ranking = rankingStabile(torneo)
 
@@ -522,7 +504,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	## lista dei giocatori
 	elif(options[1] == '-g' or options[1] == '--giocatori'):
 		if(len(options) > 2):
-			torneo = importaTorneo(options[2], web)
+			torneo = importaTorneo(options[2])
 
 			if any("--html" in o for o in options):
 				print(selectGiocatoriHtml(torneo))
@@ -544,8 +526,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	elif(options[1] == '-m' or options[1] == '--match'):
 		if(len(options) > 2):
 			torneo = options[2]
-			# True come parametro opzionale x funzionare coi permessi da shell e non da web
-			torneo = importaTorneo(torneo, web)
+			torneo = importaTorneo(torneo)
 			# la lista invertita per visualizzare l'ultima in alto
 			# matches = torneo['MATCHES'][::-1]
 			# la lista NON invertita per visualizzare l'ultima in basso da TERMINALE

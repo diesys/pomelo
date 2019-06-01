@@ -1,24 +1,26 @@
-<?php header("Location: .?acon=".$_POST['action']."&torneo=".$_POST["torneo"]."&g1=".$_POST["giocatore1"]."&g2=".$_POST["giocatore2"]."&gS=".$_POST["giocatoreS"]."&gD=".$_POST["giocatoreD"]."&nG=".$_POST["nuovoGiocatore"]."&r=".$_POST["esito"]);  ?>
-<!-- <?php header("Location: .?action=".$_POST['action']); ?> -->
+<?php header("Location: .?action=".$_POST['action']."&torneo=".$_POST["torneo"]); ?>
+<?php //header("Location: .?acon=".$_POST['action']."&torneo=".$_POST["torneo"]."&g1=".$_POST["giocatore1"]."&g2=".$_POST["giocatore2"]."&gS=".$_POST["giocatoreS"]."&gD=".$_POST["giocatoreD"]."&nG=".$_POST["nuovoGiocatore"]."&r=".$_POST["esito"]);  ?>
 
 <?php
-    function alert($msg) {
-        echo "<script type='text/javascript'>alert('$msg');</script>";
-    }
 
-    $valid_passwords = array ("uova" => "frittata");
-    $valid_users = array_keys($valid_passwords);
+    // function alert($msg) {
+    //     echo "<script type='text/javascript'>alert('$msg');</script>";
+    // }
 
-    $user = $_SERVER['PHP_AUTH_USER'];
-    $pass = $_SERVER['PHP_AUTH_PW'];
+    // $valid_passwords = array ("uova" => "frittata");
+    // $valid_users = array_keys($valid_passwords);
 
-    $validated = (in_array($user, $valid_users)) && ($pass == $valid_passwords[$user]);
+    // $user = $_SERVER['PHP_AUTH_USER'];
+    // $pass = $_SERVER['PHP_AUTH_PW'];
 
-    if (!$validated) {
-        header('WWW-Authenticate: Basic realm="My Realm"');
-        header('HTTP/1.0 401 Unauthorized');
-        die ("Not authorized");
-    }
+    // $validated = (in_array($user, $valid_users)) && ($pass == $valid_passwords[$user]);
+
+    // if (!$validated) {
+    //     header('WWW-Authenticate: Basic realm="My Realm"');
+    //     header('HTTP/1.0 401 Unauthorized');
+    //     die ("Not authorized");
+    // }
+
 
     if(isset($_POST['action'])) {
         $action = $_POST['action'];
@@ -67,14 +69,16 @@
             $command = '';
             $alert_msg = 'Nessuna azione selezionata!';
         }
+
         
-        
-        print(shell_exec('whoami'));
+        // print(shell_exec('whoami'));
         echo ($command.'\n\n'.$alert_msg);
         echo shell_exec($command);
+        
         // costruisce il nuovo index
-        echo shell_exec("./tornelo.py --gen-index 2>&1"); 
-        alert($alert_msg);
+        echo shell_exec("./tornelo.py --gen-index 2>&1");
+        
+        // alert($alert_msg);
     }
 
 
