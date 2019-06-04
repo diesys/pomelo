@@ -94,35 +94,35 @@ def eliminaGiocatore(torneo, nome):
 	scriviTorneo(torneo)
 
 
-def nuoviPunteggiXY(torneo, giocatore1, giocatore2, risultatoX):
+def nuoviPunteggiXY(torneo, giocatore1, giocatore2, risultato1):
     # Calcola i nuovi di due giocatori dopo una partita. Il risultato
     # è 1 se vince il primo giocatore, 0 se perde e 0.5 se pareggiano.
 
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore1:
-			punteggioX = int(torneo['GIOCATORI'][str(id)]['RANK'])
+			punteggio1 = int(torneo['GIOCATORI'][str(id)]['RANK'])
 			matchX = int(torneo['GIOCATORI'][str(id)]['MATCH'])
 
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore2:
-			punteggioY = int(torneo['GIOCATORI'][str(id)]['RANK'])
+			punteggio2 = int(torneo['GIOCATORI'][str(id)]['RANK'])
 			matchY = int(torneo['GIOCATORI'][str(id)]['MATCH'])
 
 	#calcola risultato per il giocatore2
-	risultatoY = 1 - risultatoX
+	risultato2 = 1 - risultato1
 
 	#calcola risultato atteso per il giocatore1 e il giocatore2
-	attesoX = 1/2 + (math.atan((punteggioX - punteggioY)/200)) / math.pi
-	attesoY = 1 - attesoX
+	atteso1 = 1/2 + (math.atan((punteggio1 - punteggio2)/200)) / math.pi
+	atteso2 = 1 - atteso1
 
 	#calcolo coefficienti moltiplicativi per il giocatore1 e il giocatore2
-	if (matchX > 9 and punteggioX > 1569):
+	if (matchX > 9 and punteggio1 > 1569):
 		coefficienteX = 10
 	elif (matchX < 6):
 		coefficienteX = 40
 	else:
 		coefficienteX = 20
-	if (matchY > 9 and punteggioY > 1569):
+	if (matchY > 9 and punteggio2 > 1569):
 		coefficienteY = 10
 	elif (matchY < 6):
 		coefficienteY = 40
@@ -130,24 +130,24 @@ def nuoviPunteggiXY(torneo, giocatore1, giocatore2, risultatoX):
 		coefficienteY = 20
 
 	#calcolo punteggi parziali del giocatore1 e giocatore2
-	parzialeX = round((risultatoX - attesoX) * coefficienteX)
-	parzialeY = round((risultatoY - attesoY) * coefficienteY)
+	parzialeX = round((risultato1 - atteso1) * coefficienteX)
+	parzialeY = round((risultato2 - atteso2) * coefficienteY)
 
 	#calcolo punteggi totali del giocatore1 e giocatore2
-	punteggioX = punteggioX + parzialeX
-	punteggioY = punteggioY + parzialeY
+	punteggio1 = punteggio1 + parzialeX
+	punteggio2 = punteggio2 + parzialeY
 
-	return [punteggioX, punteggioY]
+	return [punteggio1, punteggio2]
 
 
-def aggiornaTorneo(torneo, giocatore1, giocatore2, risultatoX):
+def aggiornaTorneo(torneo, giocatore1, giocatore2, risultato1):
     # Calcola i punti ottenuti dopo che il giocatore1 ha sfidato il giocatore2,
-    # ottenendo un risultatoX = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1
+    # ottenendo un risultato1 = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1
     # (vittoria). (giocatore1 e giocatore2 sono i numeri d' iscrizione dei
     # due giocatori che partecipano al torneo). Aggiorna quindi la torneo con i
     # nuovi punteggi dei giocatori giocatore1 e giocatore2.
 
-	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
+	if (risultato1 != 1 and risultato1 != 0.5 and risultato1 != 0):
 		print('Risultato della partita errato')
 		return
 
@@ -155,38 +155,38 @@ def aggiornaTorneo(torneo, giocatore1, giocatore2, risultatoX):
 		print('Un giocatore non puo giocare contro se stesso')
 		return
 
-	trovatoX = False
+	trovato1 = False
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore1:
-			trovatoX = True
-	if not trovatoX:
+			trovato1 = True
+	if not trovato1:
 		print('GiocatoreX non presente al torneo')
 		return
 
-	trovatoY = False
+	trovato2 = False
 	for id in range(len(torneo['GIOCATORI'])):
 		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore2:
-			trovatoY = True
-	if not trovatoY:
+			trovato2 = True
+	if not trovato2:
 		print('GiocatoreY non presente al torneo')
 		return
 
 	else:
 		#calcola nuovi punteggi del giocatore1 e giocatore2
-		[nuovoPunteggioX, nuovoPunteggioY] = nuoviPunteggiXY(
-			torneo, giocatore1, giocatore2, risultatoX)
+		[nuovoPunteggio1, nuovoPunteggio2] = nuoviPunteggiXY(
+			torneo, giocatore1, giocatore2, risultato1)
 
 		#aggiornamento dati giocatore1 nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
 			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore1:
-				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggioX
+				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggio1
 				torneo['GIOCATORI'][str(
 					id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
 		#aggiornamento dati giocatore2 nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
 			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore2:
-				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggioY
+				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggio2
 				torneo['GIOCATORI'][str(
 					id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
@@ -197,7 +197,7 @@ def aggiornaTorneo(torneo, giocatore1, giocatore2, risultatoX):
 	# aggiorna classifica
 	aggiornaRanking(torneo)
 	torneo['MATCHES'].append(
-		(giocatore1, giocatore2, risultatoX, '(' + dataora + ')'))
+		(giocatore1, giocatore2, risultato1, '(' + dataora + ')'))
 
 	return scriviTorneo(torneo)
 
@@ -363,7 +363,7 @@ def listTornei():
 #                                              Stampa, quindi, la classifica aggiornata.
 ######################################################################################################################################################
 
-HELP = 'Benvenuto in pomelo (interfaccia CLI), le opzioni sono le seguenti:\n\n  -l \t\t\t\t(--list) mostra la lista dei tornei in \'r/\'\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -d TORNEO GIOCATORE\t\t(--delete) cancella (azzera i valori di) GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  -m TORNEO\t\t\t(--match) mostra la lista dei match di TORNEO\n  -g TORNEO\t\t\t(--giocatori) mostra la lista dei giocatori in TORNEO\n  -p TORNEO\t\t\t(--print) mostra tutto il contenuto di TORNEO\n  -r TORNEO\t\t\t(--ranking) mostra la classifica di TORNEO\n  --help\t\t\tmostra questo messaggio\n  --test\t\t\tusa dei tornei di test\n'
+HELP = 'Benvenuto in pomelo (interfaccia CLI), le opzioni sono le seguenti:\n\n  -l \t\t\t\t(--list) mostra la lista dei tornei in \'r/\'\n\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  -i TORNEO\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  -a TORNEO GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  -d TORNEO GIOCATORE\t\t(--delete) cancella (azzera i valori di) GIOCATORE in TORNEO\n  -u TORNEO G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  -m TORNEO\t\t\t(--match) mostra la lista dei match di TORNEO\n  -g TORNEO\t\t\t(--giocatori) mostra la lista dei giocatori in TORNEO\n  -p TORNEO\t\t\t(--print) mostra tutto il contenuto di TORNEO\n  -r TORNEO\t\t\t(--ranking) mostra la classifica di TORNEO\n\n  --help\t\t\tmostra questo messaggio\n'
 
 
 ## sezione opzioni script
