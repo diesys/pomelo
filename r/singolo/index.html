@@ -58,11 +58,6 @@
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="torneo" value="singolo">
                 <div class="input-group input-padding">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text torneo-icon">
-                            <ion-icon name="ios-contact" size="large"></ion-icon>
-                        </span>
-                    </div>
                     <select class="custom-select" name="giocatore1" required>
                         <option value="" disabled selected>Giocat. 1</option>
                         <option value='1'>1</option>
@@ -116,6 +111,13 @@
                         <!-- <?php  echo shell_exec('./pomelo.py -g singolo --web 2>&1'); ?> -->
                     </select>
                     
+                    <div class="input-group-append">
+                        <span class="input-group-text torneo-icon">
+                            vs
+                            <!-- <ion-icon name="md-swap" size="large"></ion-icon> -->
+                        </span>
+                    </div>
+
                     <select class="custom-select" name="giocatore2" required>
                         <option value="" disabled selected>Giocat. 2</option>
                         <option value='1'>1</option>
@@ -262,17 +264,7 @@
                     </div>
 
                     <input class="form-control" name="nuovoGiocatore" placeholder="Nome">
-                    
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="border-left: none;">in</span>
-                    </div>
-
-                    <select class="custom-select" name="torneo" required>
-                        <option disabled selected value="">torneo</option>
-                        <!-- <option value="singolo">singolo</option>
-                        <option value="doppio">doppio</option> -->
-                    </select>
-                                    
+                                                       
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
                             <ion-icon size="large" name="md-person-add"></ion-icon>

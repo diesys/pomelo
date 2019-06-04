@@ -28,15 +28,12 @@ def importaTorneo(torneo):
 
 # crea un nuovo torneo
 def nuovoTorneo(nome):
-
 	# percorso del file e cartella che conterra' il dizionario
 	dir_path = tornei_dir + '/' + nome
 	file_path = dir_path + '/' + nome + '.json'
-	# dir_path = os.path.dirname(file_path)
-	# dir_path = os.path.dirname(tornei_dir + '/' + nome + '/' + file_name)
 
 	# dizionario torneo base vuoto
-	# torneo = {'NOME': nome, 'FILE': file_path,
+	# vecchio: torneo = {'NOME': nome, 'FILE': file_path,
 	torneo = {'NOME': nome, 'FOLDER': dir_path, 'JSON_DATA': 'file_path',
            'GIOCATORI': {}, 'MATCHES': [], 'RANKING': []}
 
@@ -82,7 +79,7 @@ def aggiungiGiocatore(torneo, nome):
 
 
 def eliminaGiocatore(torneo, nome):
-    # Elimina dal torneo il Giocatore 'NOMEX'. Nella torneo e nella classifica del
+    # Elimina dal torneo il Giocatore 'NOME'. Nella torneo e nella classifica del
     # torneo al posto dei dati di tale giocatore sara' presente una riga del tipo
     # ['ND',...]
 
@@ -97,28 +94,28 @@ def eliminaGiocatore(torneo, nome):
 	scriviTorneo(torneo)
 
 
-def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
+def nuoviPunteggiXY(torneo, giocatore1, giocatore2, risultatoX):
     # Calcola i nuovi di due giocatori dopo una partita. Il risultato
     # è 1 se vince il primo giocatore, 0 se perde e 0.5 se pareggiano.
 
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore1:
 			punteggioX = int(torneo['GIOCATORI'][str(id)]['RANK'])
 			matchX = int(torneo['GIOCATORI'][str(id)]['MATCH'])
 
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore2:
 			punteggioY = int(torneo['GIOCATORI'][str(id)]['RANK'])
 			matchY = int(torneo['GIOCATORI'][str(id)]['MATCH'])
 
-	#calcola risultato per il giocatoreY
+	#calcola risultato per il giocatore2
 	risultatoY = 1 - risultatoX
 
-	#calcola risultato atteso per il giocatoreX e il giocatoreY
+	#calcola risultato atteso per il giocatore1 e il giocatore2
 	attesoX = 1/2 + (math.atan((punteggioX - punteggioY)/200)) / math.pi
 	attesoY = 1 - attesoX
 
-	#calcolo coefficienti moltiplicativi per il giocatoreX e il giocatoreY
+	#calcolo coefficienti moltiplicativi per il giocatore1 e il giocatore2
 	if (matchX > 9 and punteggioX > 1569):
 		coefficienteX = 10
 	elif (matchX < 6):
@@ -132,35 +129,35 @@ def nuoviPunteggiXY(torneo, giocatoreX, giocatoreY, risultatoX):
 	else:
 		coefficienteY = 20
 
-	#calcolo punteggi parziali del giocatoreX e giocatoreY
+	#calcolo punteggi parziali del giocatore1 e giocatore2
 	parzialeX = round((risultatoX - attesoX) * coefficienteX)
 	parzialeY = round((risultatoY - attesoY) * coefficienteY)
 
-	#calcolo punteggi totali del giocatoreX e giocatoreY
+	#calcolo punteggi totali del giocatore1 e giocatore2
 	punteggioX = punteggioX + parzialeX
 	punteggioY = punteggioY + parzialeY
 
 	return [punteggioX, punteggioY]
 
 
-def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
-    # Calcola i punti ottenuti dopo che il giocatoreX ha sfidato il giocatoreY,
+def aggiornaTorneo(torneo, giocatore1, giocatore2, risultatoX):
+    # Calcola i punti ottenuti dopo che il giocatore1 ha sfidato il giocatore2,
     # ottenendo un risultatoX = 0 (sconfitta) oppure 0.5 (pareggio) oppure 1
-    # (vittoria). (giocatoreX e giocatoreY sono i numeri d' iscrizione dei
+    # (vittoria). (giocatore1 e giocatore2 sono i numeri d' iscrizione dei
     # due giocatori che partecipano al torneo). Aggiorna quindi la torneo con i
-    # nuovi punteggi dei giocatori giocatoreX e giocatoreY.
+    # nuovi punteggi dei giocatori giocatore1 e giocatore2.
 
 	if (risultatoX != 1 and risultatoX != 0.5 and risultatoX != 0):
 		print('Risultato della partita errato')
 		return
 
-	if (giocatoreX == giocatoreY):
+	if (giocatore1 == giocatore2):
 		print('Un giocatore non puo giocare contro se stesso')
 		return
 
 	trovatoX = False
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore1:
 			trovatoX = True
 	if not trovatoX:
 		print('GiocatoreX non presente al torneo')
@@ -168,27 +165,27 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 
 	trovatoY = False
 	for id in range(len(torneo['GIOCATORI'])):
-		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
+		if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore2:
 			trovatoY = True
 	if not trovatoY:
 		print('GiocatoreY non presente al torneo')
 		return
 
 	else:
-		#calcola nuovi punteggi del giocatoreX e giocatoreY
+		#calcola nuovi punteggi del giocatore1 e giocatore2
 		[nuovoPunteggioX, nuovoPunteggioY] = nuoviPunteggiXY(
-			torneo, giocatoreX, giocatoreY, risultatoX)
+			torneo, giocatore1, giocatore2, risultatoX)
 
-		#aggiornamento dati giocatoreX nel torneo
+		#aggiornamento dati giocatore1 nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
-			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreX:
+			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore1:
 				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggioX
 				torneo['GIOCATORI'][str(
 					id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
 
-		#aggiornamento dati giocatoreY nel torneo
+		#aggiornamento dati giocatore2 nel torneo
 		for id in range(len(torneo['GIOCATORI'])):
-			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatoreY:
+			if torneo['GIOCATORI'][str(id)]['NOME'] == giocatore2:
 				torneo['GIOCATORI'][str(id)]['RANK'] = nuovoPunteggioY
 				torneo['GIOCATORI'][str(
 					id)]['MATCH'] = torneo['GIOCATORI'][str(id)]['MATCH'] + 1
@@ -200,7 +197,7 @@ def aggiornaTorneo(torneo, giocatoreX, giocatoreY, risultatoX):
 	# aggiorna classifica
 	aggiornaRanking(torneo)
 	torneo['MATCHES'].append(
-		(giocatoreX, giocatoreY, risultatoX, '(' + dataora + ')'))
+		(giocatore1, giocatore2, risultatoX, '(' + dataora + ')'))
 
 	return scriviTorneo(torneo)
 
