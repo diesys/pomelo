@@ -292,27 +292,20 @@
 
             <br>
             <div class='mr-2' role='group' aria-label='1g'>
-                <div class="btn-group-vertical">                
-                    <button id="buttonSingolo" class='btn btn-outline-primary'>
-                        <ion-icon name='ios-contact' size='large'></ion-icon>
-                        <ion-icon name='md-swap'></ion-icon>
-                        <ion-icon name='ios-contact' size='large'></ion-icon>
+                <div class='btn-group mr-2' role='group' aria-label='2g'>
+                    <button id="buttonRanking" class='btn btn-outline-primary active'>
+                        <ion-icon name='ios-trending-up' size='large'></ion-icon>
                     </button>
-                    <div class='btn-group mr-2' role='group' aria-label='2g'>
-                        <button id="buttonRankSingolo" class='buttonSingolo btn btn-outline-primary'>
-                            <ion-icon name='ios-trending-up' size='large'></ion-icon>
-                        </button>
-                        <button id="buttonPartSingolo" class='buttonSingolo btn btn-outline-primary'>
-                            <ion-icon name='ios-list' size='large'></ion-icon>
-                        </button>
-                    </div>
+                    <button id="buttonMatches" class='btn btn-outline-danger active'>
+                        <ion-icon name='ios-list' size='large'></ion-icon>
+                    </button>
                 </div>
             </div>
         </center> 
         
         <div class='row'>
-            <div class='col fade-table hidden collapse-ranking collapse-singolo' id='singoloRanking'>        
-                <h4 class='titleSection'>Ranking (singolo)</h4>
+            <div class='col fade-table collapse-ranking' id='ranking'>        
+                <h4 class='titleSection'>Ranking</h4>
                 <p class='centered'>
                     <!-- #### RANKING #### -->
                     
@@ -559,8 +552,8 @@
                 </p>
             </div>
             
-            <div class='col fade-table hidden collapse-partite collapse-singolo' id='singoloPartite'>
-                <h4 class='titleSection''>Partite (singolo)</h4>
+            <div class='col fade-table collapse-partite' id='partite'>
+                <h4 class='titleSection''>Partite</h4>
                 <p class='centered'>
                     <!-- #### MATCH #### -->
                     

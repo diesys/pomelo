@@ -390,7 +390,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 				print("Torneo creato, segui l'help per popolarlo")
 
 		elif(options[1] == '--gen-index'):
-			torneo = options[2]
+			torneo = importaTorneo(options[2])
 			costruisciIndexHtml(torneo)
 		
 		elif(options[1] == '-i' or options[1] == '--import'):
