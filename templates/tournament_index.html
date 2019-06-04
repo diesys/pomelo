@@ -2,12 +2,12 @@
 <html lang='it'>
   <head>
     <!-- Required meta tags -->
-    <title>TornELO</title>
+    <title>Pomelo</title>
     <meta charset='utf-8'>
-	<meta name='description' content='TornELO is a self-hosted opensource tournament server and script' />
+	<meta name='description' content='Pomelo is a self-hosted opensource tournament web-server and local script' />
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <link rel='stylesheet' media='screen' href='https://fontlibrary.org/face/raleway' type='text/css'/>
-    <link rel='icon' href='img/antipong_favicon.png'>
+    <link rel='icon' href='/pomelo/img/favicon.png'>
 
     <!-- Colors and bars -->
     <!-- Chrome, Firefox OS and Opera -->
@@ -30,17 +30,17 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
     
-    <script src='js/script.js'></script>
+    <script src='/pomelo/js/script.js'></script>
     
-    <link rel='stylesheet' href='css/main.css' />
+    <link rel='stylesheet' href='/pomelo/css/main.css' />
   </head>
 
 <body>
     
-    <img id='logo' src='img/antipong_idle2.gif' height='90px' width='90px' alt='Smash the ball, smash fascism!' />
+    <img id='logo' src='img/logo.gif' height='90px' width='90px' alt='Logo description' />
     
     <span id='titolo'>
-        <h1 id='itolo'>PingPong '19</h1>
+        <h1 id='itolo'>Torneo #2</h1>
         <!-- <a href='admin.php' class='adminButton'> -->
         <!-- <a href='#' onclick="$('#menu').collapse('toggle')" class='adminButton'> -->
         <a href='#' id="admin_button" class='adminButton'>
@@ -54,7 +54,7 @@
             <h4>Partite</h4><br>
 
             <!-- aggiungi risultato doppio -->
-            <form action="submit.php" method="post">
+            <form action="/pomelo/submit.php" method="post">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="torneo" value="singolo">
                 <div class="input-group input-padding">
@@ -65,14 +65,14 @@
                     </div>
                     <select class="custom-select" name="giocatore1" required>
                         <option value="" disabled selected>Giocat. 1</option>
-                        {GIOCATORI_SINGOLO}
-                        <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
+                        {GIOCATORI}
+                        <!-- <?php  echo shell_exec('./pomelo.py -g singolo --web 2>&1'); ?> -->
                     </select>
                     
                     <select class="custom-select" name="giocatore2" required>
                         <option value="" disabled selected>Giocat. 2</option>
-                        {GIOCATORI_SINGOLO}
-                        <!-- <?php  echo shell_exec('./tornelo.py -g singolo --web 2>&1'); ?> -->
+                        {GIOCATORI}
+                        <!-- <?php  echo shell_exec('./pomelo.py -g singolo --web 2>&1'); ?> -->
                     </select>
                     
                     <select class="custom-select col-xs-3 col-md-2" id="inputGroupSelect01" name="esito" required>
@@ -89,46 +89,11 @@
                 </div>
             </form>
             
-            <!-- aggiungi risultato doppio -->
-            <form action="submit.php" method="post">
-                <input type="hidden" name="action" value="update">
-                <input type="hidden" name="torneo" value="doppio">
-                <div class="input-group input-padding">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text torneo-icon">
-                            <ion-icon name="ios-contacts" size="large" role="img"></ion-icon>
-                        </span>
-                    </div>
-                    <select class="custom-select" name="giocatore1" required>
-                        <option value="" disabled selected>Squad. 1</option>
-                        {GIOCATORI_DOPPIO}
-                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
-                    </select>
-                    
-                    <select class="custom-select" name="giocatore2" required>
-                        <option value="" disabled selected>Squad. 2</option>
-                        {GIOCATORI_DOPPIO}
-                        <!-- <?php  echo shell_exec('./tornelo.py -g doppio --web 2>&1'); ?> -->
-                    </select>
-                    
-                    <select class="custom-select col-xs-3 col-md-2" id="inputGroupSelect02" name="esito" required>
-                        <option disabled selected value="">esito</option>
-                        <option value="1">1</option>
-                        <option value="0">2</option>
-                    </select>
-                    
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary bg-danger text-white bigFontButton" type="submit">
-                            <ion-icon size="large" name="md-checkmark"></ion-icon>
-                        </button>
-                    </div>
-                </div>
-            </form>
 
             <br /><h4>Giocatori e squadre</h4><br>
             
             <!-- elimina giocatore -->
-            <form action="submit.php" method="post">
+            <form action="/pomelo/submit.php" method="post">
                 <input type="hidden" name="action" value="delete">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
@@ -136,16 +101,7 @@
                     </div>
                     <select class="custom-select" name="giocatoreS">
                         <option value="" disabled selected>Giocatore</option>
-                        {GIOCATORI_SINGOLO}
-                    </select>
-
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="border-left: none;">o</span>
-                    </div>
-
-                    <select class="custom-select" name="giocatoreD">
-                        <option value="" disabled selected>Squadra</option>
-                        {GIOCATORI_DOPPIO}
+                        {GIOCATORI}
                     </select>
 
                     <div class="input-group-append">
@@ -157,7 +113,7 @@
             </form>
            
             <!-- aggiungi giocatore -->
-            <form action="submit.php" method="post">
+            <form action="/pomelo/submit.php" method="post">
                 <input type="hidden" name="action" value="add">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
@@ -172,8 +128,8 @@
 
                     <select class="custom-select" name="torneo" required>
                         <option disabled selected value="">torneo</option>
-                        <option value="singolo">singolo</option>
-                        <option value="doppio">doppio</option>
+                        <!-- <option value="singolo">singolo</option>
+                        <option value="doppio">doppio</option> -->
                     </select>
                                     
                     <div class="input-group-append">
@@ -190,7 +146,7 @@
     <div id='content' class='container-fluid'>
 
         <center>
-            <img id='qr' src='img/torneloQR.gif' height='140px' width='140px' alt='http://flowin.space/tornelo/' /><br>
+            <img id='qr' src='img/QR.gif' height='140px' width='140px' alt='qr url' /><br>
             <caption><small>Usa il codice QR per condividere la pagina!</small></caption><br>
 
             <br>
@@ -210,21 +166,6 @@
                         </button>
                     </div>
                 </div>
-                <div class="btn-group-vertical">
-                    <button id="buttonDoppio" class='btn btn-outline-danger'>
-                        <ion-icon name='ios-contacts' size='large'></ion-icon>
-                        <ion-icon name='md-swap'></ion-icon>
-                        <ion-icon name='ios-contacts' size='large'></ion-icon>
-                    </button>
-                    <div class='btn-group mr-2' role='group' aria-label='3g'>
-                        <button id="buttonRankDoppio" class='buttonDoppio btn btn-outline-danger'>
-                            <ion-icon name='ios-trending-up' size='large'></ion-icon>
-                        </button>
-                        <button id="buttonPartDoppio" class='buttonDoppio btn btn-outline-danger'>
-                            <ion-icon name='ios-list' size='large'></ion-icon>
-                        </button>
-                    </div>
-                </div>
             </div>
         </center> 
         
@@ -232,58 +173,24 @@
             <div class='col fade-table hidden collapse-ranking collapse-singolo' id='singoloRanking'>        
                 <h4 class='titleSection'>Ranking (singolo)</h4>
                 <p class='centered'>
-                    <!-- #### RANKING_SINGOLO #### -->
+                    <!-- #### RANKING #### -->
                     
-                    {RANKING_SINGOLO}
-                    
-                    <!-- <?php 
-                        $output1 = shell_exec('./tornelo.py --ranking singolo --web 2>&1');
-                        echo $output1;
-                    ?> -->
+                    {RANKING}
+
                 </p>
             </div>
             
             <div class='col fade-table hidden collapse-partite collapse-singolo' id='singoloPartite'>
                 <h4 class='titleSection''>Partite (singolo)</h4>
                 <p class='centered'>
-                    <!-- #### MATCH_SINGOLO #### -->
+                    <!-- #### MATCH #### -->
                     
-                    {MATCH_SINGOLO}
+                    {MATCH}
 
-                    <!-- <?php 
-                        $output2 = shell_exec('./tornelo.py --match singolo --web 2>&1');
-                        echo $output2;
-                    ?> -->
                 </p>
             </div>
             
-            <div class='col fade-table hidden collapse-ranking collapse-doppio' id='doppioRanking'>
-                <h4 class='titleSection'>Ranking (doppio)</h4>
-                <p class='centered'>
-                    <!-- #### RANKING_DOPPIO #### -->
-                    
-                    {RANKING_DOPPIO}
-
-                    <!-- <?php 
-                        $output1 = shell_exec('./tornelo.py --ranking doppio --web 2>&1');
-                        echo $output1;
-                    ?> -->
-                </p>
-            </div>
             
-            <div class='col fade-table hidden collapse-partite collapse-doppio' id='doppioPartite'>
-                <h4 class='titleSection'>Partite (doppio)</h4>
-                <p class='centered'>
-                    <!-- #### MATCH_DOPPIO #### -->
-                    
-                    {MATCH_DOPPIO}
-
-                    <!-- <?php 
-                        $output2 = shell_exec('./tornelo.py --match doppio --web 2>&1');
-                        echo $output2;
-                    ?> -->
-                </p>
-            </div>
         </div>
 
     </div>

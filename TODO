@@ -10,3 +10,6 @@
 
 ## TODO
     nel GET url usare per mostrare rank se agg/elim giocatre, partite se agg partita e messaggio alert
+
+//TODO: 
+    POMELO, alla creazione di un torneo forzare la creazione di una password, poi viene salvata in un auth.php? (pure questa con accesso) e importata da submit.php. o cattiva idea?
