@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 body { 
     font-family: 'RalewayRegular'; 
     font-weight: normal; 
@@ -7,6 +11,14 @@ body {
     padding: 0;
     left: 0;
     top: 0;
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    transition: background .3s;
+}
+body.dark {
+    background: hsl(210, 10%, 20%);
+    color: #eee;
 }
 
 #logo {
@@ -18,9 +30,13 @@ body {
     border: 10px solid #fff;
     box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
 }
+body.dark > #logo {
+    border: 10px solid hsla(210, 10%, 10%, 90%);
+    box-shadow: 0 10px 25px -10px rgba(0,0,0,.8);
+}
 
 #titolo {
-    box-shadow: 0 -5px 30px -8px rgba(0,0,0,.4);
+    box-shadow: 0 -5px 30px -10px rgba(0,0,0,.4);
     position: fixed;
     width: 100%;
     top: 0;
@@ -30,6 +46,11 @@ body {
     padding: 0;
     height: 56px;
     z-index: 10;
+    transition: background .3s;
+}
+body.dark > #titolo {
+    box-shadow: 0 -5px 30px 1px rgba(0, 0, 0, 0.45);
+    background: hsl(210, 10%, 10%);
 }
 #titolo > h1 {
     position: absolute;
@@ -41,12 +62,38 @@ body {
 }
 #content {
     margin-top: 80px;
+    /* margin: 0; */
+    width: 100%;
+    overflow-x: hidden;
+    min-height: 100%;
+    position: absolute;
 }
 #qr {
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
     border: 8px solid #fff;
     box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
     border-radius: 12px;
+}
+
+#menu {
+    width: 100%;
+    position: fixed;
+    min-height: 20px;
+    margin-top: 30px;
+    padding: 50px 20px 5px 20px;
+    box-shadow: 0 -5px 30px -8px rgba(0, 0, 0, .4);
+    background: #fafafa;
+    z-index: 8;
+    transition: background .3s;
+}
+body.dark #menu {
+    background: hsl(180, 10%, 7.5%);
+}
+#menu span.torneo-icon {
+    padding: 2px 5px;
+}
+#menu span.torneo-icon > ion-icon {
+    font-size: 24px;
 }
 
 .titleSection {
@@ -67,13 +114,78 @@ p.centered {
     text-align: center;
 }
 
+.adminButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 56px;
+    z-index: 10;
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    padding: 12px 14px 8px 14px;
+    transition: all .3s;
+    color: #999;
+}
+#admin_icon {
+    transform: none;
+    transition: all .3s .1s;
+    transform-origin: 50% 50%;
+}
+#admin_icon.active {
+    transition: all .3s;
+    transform: rotate(45deg);
+}
+.adminButton:hover, .adminButton:active {
+    color: #777;
+    background: #ebebeb;
+}
+body.dark .adminButton:hover,
+body.dark .adminButton:active {
+    color: #aaa;
+    background: rgba(0, 0, 0, .3);
+}
 
 /* BOOTSTRAP */
+.table-dark td, .table-dark th, .table-dark thead th {
+    border-color: rgba(0,0,0,.1);
+}
+
+body.dark .btn-outline-primary,
+body.dark .btn-outline-danger {
+    border-color: hsla(210, 11%, 10%, 1);
+}
+body.dark .btn-outline-danger:not(:disabled):not(.disabled).active,
+body.dark .btn-outline-danger:not(:disabled):not(.disabled):active,
+body.dark .show>.btn-outline-danger.dropdown-toggle,
+body.dark .btn-outline-primary:not(:disabled):not(.disabled).active,
+body.dark .btn-outline-primary:not(:disabled):not(.disabled):active,
+body.dark .show>.btn-outline-primary.dropdown-toggle {
+    color: hsl(210, 10%, 10%)
+}
+
+.btn-outline-danger:not(:disabled):not(.disabled).active,
+.btn-outline-danger:not(:disabled):not(.disabled):active,
+.show>.btn-outline-danger.dropdown-toggle,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show>.btn-outline-primary.dropdown-toggle {
+    color: #fff;
+}
+
+.btn {
+    transition: all .3s;
+}
+
+.btn > ion-icon {
+    vertical-align: middle;
+}
 
 .btn.bigFontButton {
     height: 38px;
-    padding: 0 0px;
-    width: 34px;
+    padding: 0;
+    width: 40px;
+}
+.btn.bigFontButton ion-icon {
+    width: 24px;
 }
 .btn.bigFontButton > span {
     font-size: 40px;
@@ -84,6 +196,76 @@ p.centered {
 }
 
 .input-padding {
-    margin-bottom: 40px;
-    max-width: 800px;
+    margin-bottom: 25px;
+    max-width: 650px;
+}
+
+.alert {
+    max-width: 400px;
+    border-radius: 25px;
+    box-shadow: 0 2px 15px -10px rgba(0, 0, 0, .3);
+    border-color: rgba(0, 0, 0, .1);
+}
+.alert.alert-success {
+    background: #8ae09f;
+    color: #13421e;
+}
+
+/* fix button touch active */
+.btn-outline-danger.collapsed,
+.btn-outline-primary.collapsed {
+    background: none;
+}
+.btn-outline-danger.collapsed > ion-icon {
+    color: #dc3545;
+}
+.btn-outline-primary.collapsed > ion-icon {
+    color: #007bff;
+}
+
+body.dark .btn.bigFontButton,
+body.dark .input-group-text,
+body.dark .form-control,
+body.dark .custom-select {
+    border: none;
+    color: #dedede;
+    background-color: hsla(180, 12%, 3.4%, 1);
+}
+body.dark .input-group-append > span,
+body.dark .input-group-prepend > span {
+    background-color: hsla(180, 12%, 12%, 1);
+}
+
+
+/* ANIMATIONS ########################## */
+.collapse.show {
+    transition: all 1s;
+}
+
+
+/* RESPONSIVE ########################## */
+
+@media only screen and (max-width: 670px) {
+    .input-padding {
+       width: 100%;
+    }
+    #menu {
+        margin: 45px 0;
+        padding: 50px 0px 5px 0px;
+    }
+    /* fix input a tutto schermo */
+    .input-group>.input-group-append>.btn,
+    .input-group>.input-group-append>.input-group-text,
+    .input-group>.input-group-append:not(:last-child)>.btn,
+    .input-group>.input-group-append:not(:last-child)>.input-group-text,
+    .input-group>.input-group-append:last-child>.input-group-text:not(:last-child),
+    .input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle),
+    .input-group>.input-group-prepend>.input-group-text,
+    .input-group>.input-group-prepend:first-child>.btn:not(:first-child),
+    .input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child),
+    .input-group>.input-group-prepend:not(:first-child)>.btn,
+    .input-group>.input-group-prepend:not(:first-child)>.input-group-text {
+        border-radius: 0;
+        margin: inherit -1px
+    }
 }
