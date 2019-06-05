@@ -326,26 +326,57 @@ def partiteHtml(torneo):
 	return partiteTable
 	# print("</table>")
 
-def costruisciIndexHtml(torneo):
-	partite = partiteHtml(torneo)
-	ranking = rankingHtml(torneo)
-	giocatori = selectGiocatoriHtml(torneo)
+def costruisciIndexHtml(torneo_in):
+	# is going to build the main index
+	if(torneo_in == '_ALL_'):
+		costruisciIndexHtml('index')
+		for torneo_nome in listTornei():
+			# torneo = importaTorneo(torneo_nome)
+			# print(torneo)
+			costruisciIndexHtml(torneo_nome)
 
-	index_template = open('templates/tournament_index.html', 'r')
-	new_index = open(torneo['FOLDER'] + '/' + 'index.html', 'w')
+	elif(torneo_in == 'index'):
+		index_template = open('templates/index.html', 'r')
+		new_index = open('index.html', 'w')
+		tornei = listTornei('html')
 	
-	new_index_content = index_template.read().format(MATCH=partite, RANKING=ranking, GIOCATORI=giocatori)
+		new_index_content = index_template.read().format(TORNEI=tornei)
+		new_index.write(new_index_content)
+		index_template.close()
+		new_index.close()
+	else:
+		torneo = importaTorneo(torneo_in)
+		partite = partiteHtml(torneo)
+		ranking = rankingHtml(torneo)
+		giocatori = selectGiocatoriHtml(torneo)
+
+		index_template = open('templates/tournament_index.html', 'r')
+		new_index = open(torneo['FOLDER'] + '/' + 'index.html', 'w')
+	
+		new_index_content = index_template.read().format(TORNEO=torneo['NOME'], MATCH=partite, RANKING=ranking, GIOCATORI=giocatori)
+		new_index.write(new_index_content)
+		index_template.close()
+		new_index.close()
 	
 	# T E S T
 	# print(new_index_content)
-	new_index.write(new_index_content)
 
-	index_template.close()
-	new_index.close()
 
-def listTornei():
-	for torneo in os.listdir(tornei_dir):
-		print(torneo)
+def listTornei(out='none'):
+	dirs = os.listdir(tornei_dir)
+
+	if(out == 'stout'):
+		for torneo in dirs:
+			print(torneo)
+		return
+	
+	elif(out == 'html'):
+		select = ''
+		for torneo in dirs:
+			select += "<option value='" + torneo + "'>" + torneo + "</option>\n"
+		return select
+	else:
+		return os.listdir(tornei_dir)
 
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
@@ -372,7 +403,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 
 	## lista dei tornei
 	if(options[1] == '-l' or options[1] == '--list'):
-		listTornei()
+		listTornei('print')
 	
 	## HELP
 	elif(options[1] == '-h' or options[1] == '--help'):
@@ -391,8 +422,9 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 					print("Torneo creato, segui l'help per popolarlo")
 
 			elif(option_arg == '--gen-index'):
-				torneo = importaTorneo(torneo_arg)
-				costruisciIndexHtml(torneo)
+				# if (torneo_arg != 'index' and torneo_arg != '_ALL_'):
+					# torneo = importaTorneo(torneo_arg)
+				costruisciIndexHtml(torneo_arg)
 			
 			elif(option_arg == '-i' or option_arg == '--import'):
 					torneo = importaTorneo(torneo_arg)
