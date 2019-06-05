@@ -1,4 +1,4 @@
-<?php header("Location: .?action=".$_POST['action']."&torneo=".$_POST["torneo"]); ?>
+<?php //header("Location: .?action=".$_POST['action']."&torneo=".$_POST["torneo"]); ?>
 <?php //header("Location: .?acon=".$_POST['action']."&torneo=".$_POST["torneo"]."&g1=".$_POST["giocatore1"]."&g2=".$_POST["giocatore2"]."&gS=".$_POST["giocatoreS"]."&gD=".$_POST["giocatoreD"]."&nG=".$_POST["nuovoGiocatore"]."&r=".$_POST["esito"]);  ?>
 
 <?php
@@ -31,33 +31,55 @@
 
                 if (!($g1==$g2 and $g1!="")) {
                     if ($torneo and $g1 and $g2 and $esito> -1) {
-                        $command = "./tornelo.py -u $torneo \"$g1\" \"$g2\" $esito  2>&1";
+                        $command = "./pomelo.py $torneo -u \"$g1\" \"$g2\" $esito  2>&1";
                         $alert_msg = "Partita aggiunta al $torneo: \"$g1\" vs \"$g2\" ($esito)";
                     }
                 }
             }
         } 
 
-        elseif($action == 'delete') {
-            if(isset($_POST["giocatoreS"])){
-                $torneo = 'singolo'; $giocatore = $_POST["giocatoreS"];
+        elseif($action == 'goto') {
+            if(isset($_POST["torneo"])) {
+                $torneo = $_POST["torneo"];
+                header('Location: ./r/'.$_POST["torneo"]);
             }
-            elseif(isset($_POST["giocatoreD"])) {
-                $torneo = 'doppio'; $giocatore = $_POST["giocatoreD"];
+        }
+
+        elseif($action == 'create') {
+            if(isset($_POST["torneo"])) {
+                $torneo = $_POST["torneo"];
+                
+                // check ALPHANUMERIC
+                // if (ctype_alnum($torneo) and $torneo != "") {
+                    $command = "./pomelo.py -n \"".$_POST["torneo"]."\" 2>&1";
+                    $alert_msg = "Creato un nuovo torneo: ".$_POST["torneo"];
+                    // }
+                }
+            }
+            
+        elseif($action == 'delete') {
+            if(isset($_POST["giocatore"])) {
+                $torneo = $_GET["torneo"]; // passed from the py tournament template
+                $giocatore = $_POST["giocatore"];
             }
             else {
                 $command = '';
                 $alert_msg = 'Qualche errore rimuovendo il giocatore!';
             }
-            $command = "./tornelo.py -d $torneo \"$giocatore\" 2>&1";
+            $command = "./pomelo.py $torneo -d \"$giocatore\" 2>&1";
             $alert_msg = "$giocatore. rimosso dal torneo \"$torneo\"";
+            echo $command;
         } 
         
         elseif($action == 'add') {
             if(isset($_POST["nuovoGiocatore"]) and isset($_POST["torneo"])) {
                 $torneo = $_POST["torneo"]; $giocatore = $_POST["nuovoGiocatore"];
-                $command = "./tornelo.py -a $torneo \"$giocatore\" 2>&1";
-                $alert_msg = "$giocatore. ora fa parte del torneo \"$torneo\"";
+                
+                // check ALPHANUMERIC
+                // if (ctype_alnum($giocatore) and $giocatore != "") {
+                    $command = "./pomelo.py $torneo -a \"$giocatore\" 2>&1";
+                    $alert_msg = "$giocatore. ora fa parte del torneo \"$torneo\"";
+                // }
             }
             else {
                 $command = '';
@@ -72,11 +94,11 @@
 
         
         // print(shell_exec('whoami'));
-        echo ($command.'\n\n'.$alert_msg);
+        // echo ($command."\n".$alert_msg);
         echo shell_exec($command);
         
         // costruisce il nuovo index
-        echo shell_exec("./tornelo.py --gen-index 2>&1");
+        echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
         
         // alert($alert_msg);
     }

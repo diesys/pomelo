@@ -41,8 +41,6 @@
     
     <span id='titolo'>
         <h1 id='itolo'>{TORNEO}</h1>
-        <!-- <a href='admin.php' class='adminButton'> -->
-        <!-- <a href='#' onclick="$('#menu').collapse('toggle')" class='adminButton'> -->
         <a href='#' id="admin_button" class='adminButton'>
             <ion-icon id="admin_icon" size='large' name='add'></ion-icon>
         </a>
@@ -53,20 +51,18 @@
 
             <h4>Partite</h4><br>
 
-            <!-- aggiungi risultato doppio -->
-            <form action="/pomelo/submit.php" method="post">
+            <!-- aggiungi risultato -->
+            <form action="/pomelo/submit.php?torneo={TORNEO}" method="post">
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name="torneo" value="singolo">
                 <div class="input-group input-padding">
                     <select class="custom-select" name="giocatore1" required>
                         <option value="" disabled selected>Giocat. 1</option>
                         {GIOCATORI}
-                        <!-- <?php  echo shell_exec('./pomelo.py -g singolo --web 2>&1'); ?> -->
                     </select>
                     
                     <div class="input-group-append">
                         <span class="input-group-text torneo-icon">
-                            vs
+                             vs 
                             <!-- <ion-icon name="md-swap" size="large"></ion-icon> -->
                         </span>
                     </div>
@@ -74,7 +70,6 @@
                     <select class="custom-select" name="giocatore2" required>
                         <option value="" disabled selected>Giocat. 2</option>
                         {GIOCATORI}
-                        <!-- <?php  echo shell_exec('./pomelo.py -g singolo --web 2>&1'); ?> -->
                     </select>
                     
                     <select class="custom-select col-xs-3 col-md-2" id="inputGroupSelect01" name="esito" required>
@@ -95,13 +90,13 @@
             <br /><h4>Giocatori e squadre</h4><br>
             
             <!-- elimina giocatore -->
-            <form action="/pomelo/submit.php" method="post">
+            <form action="/pomelo/submit.php?torneo={TORNEO}" method="post">
                 <input type="hidden" name="action" value="delete">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
                         <span class="input-group-text">elimina</span>
                     </div>
-                    <select class="custom-select" name="giocatoreS">
+                    <select class="custom-select" name="giocatore">
                         <option value="" disabled selected>Giocatore</option>
                         {GIOCATORI}
                     </select>
@@ -115,7 +110,7 @@
             </form>
            
             <!-- aggiungi giocatore -->
-            <form action="/pomelo/submit.php" method="post">
+            <form action="/pomelo/submit.php?torneo={TORNEO}" method="post">
                 <input type="hidden" name="action" value="add">
                 <div class="input-group input-padding">
                     <div class="input-group-prepend">
