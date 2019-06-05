@@ -41,6 +41,7 @@
         elseif($action == 'goto') {
             if(isset($_POST["torneo"])) {
                 $torneo = $_POST["torneo"];
+                $command = '';
                 header('Location: ./r/'.$_POST["torneo"]);
             }
         }
@@ -51,7 +52,11 @@
                 
                 // check ALPHANUMERIC
                 // if (ctype_alnum($torneo) and $torneo != "") {
-                    $command = "./pomelo.py -n \"".$_POST["torneo"]."\" 2>&1";
+                    $command = "./pomelo.py \"".$_POST["torneo"]."\" -n 2>&1";
+                    // updates the main index
+                    // echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
+                    // updates the tournament index
+                    // echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
                     $alert_msg = "Creato un nuovo torneo: ".$_POST["torneo"];
                     // }
                 }
@@ -72,12 +77,13 @@
         } 
         
         elseif($action == 'add') {
-            if(isset($_POST["nuovoGiocatore"]) and isset($_POST["torneo"])) {
-                $torneo = $_POST["torneo"]; $giocatore = $_POST["nuovoGiocatore"];
+            if(isset($_POST["nuovoGiocatore"]) and isset($_GET["torneo"])) {
+                $torneo = $_GET["torneo"]; // passed from the py tournament template
+                $giocatore = $_POST["nuovoGiocatore"];
                 
                 // check ALPHANUMERIC
                 // if (ctype_alnum($giocatore) and $giocatore != "") {
-                    $command = "./pomelo.py $torneo -a \"$giocatore\" 2>&1";
+                    $command = "./pomelo.py \"$torneo\" -a \"$giocatore\" 2>&1";
                     $alert_msg = "$giocatore. ora fa parte del torneo \"$torneo\"";
                 // }
             }
@@ -94,7 +100,7 @@
 
         
         // print(shell_exec('whoami'));
-        // echo ($command."\n".$alert_msg);
+        echo ($command."\n".$alert_msg);
         echo shell_exec($command);
         
         // costruisce il nuovo index
@@ -103,8 +109,13 @@
         // alert($alert_msg);
     }
 
-
+    echo 'POST <br/>';
+    
     foreach ($_POST as $key => $value) {
+        echo '<p>'.$key.": ".$value.'</p>';
+    } 
+    echo 'GET <br/>';
+    foreach ($_GET as $key => $value) {
         echo '<p>'.$key.": ".$value.'</p>';
     } 
 

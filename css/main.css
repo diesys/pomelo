@@ -74,6 +74,9 @@ body.dark > #titolo {
     box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
     border-radius: 12px;
 }
+#logo_pomelo {
+    border-radius: 100px;
+}
 
 #menu {
     width: 100%;
