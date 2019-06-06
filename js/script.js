@@ -71,13 +71,16 @@ window.onload = function () {
     
     $('#buttonRanking').bind('click', function() {
         $(this).toggleClass('active');
-        $('#ranking').fadeToggle();
+        $('#ranking').slideToggle();
+        // $('#ranking').fadeToggle();
+        // $('#ranking').toggleClass('');
         console.log('Toggle ranking table...');
     });
     
     $('#buttonMatches').bind('click', function() {
         $(this).toggleClass('active');
-        $('#partite').fadeToggle();
+        $('#partite').slideToggle();
+        // $('#partite').fadeToggle();
         console.log('Toggle matches table...');
     });
 }

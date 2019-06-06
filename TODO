@@ -2,11 +2,11 @@
     rivedere funzione crea torneo che faccia tutto nella cartella, e che il dizionario abbia tutti i campi
     i file tipo logo e qr devono stare nel json mi sa cosi da evitare problemi con i formati tipo gif/png
 
+//TODO:
+    supporto spazi input form
+
 //TODO: 
     variabili _GET per alert sull'azione o errore del submit
-
-//TODO:
-    ranking/match toolbar in basso su mobile, normale su desktop
 
 //TODO:
     tabelle "section" con max-width (cosi non sono full screen) e cambio classe (se possibile usando quelle di bootst) animazione rimpicciolimento con quelle accanto

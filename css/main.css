@@ -61,8 +61,7 @@ body.dark > #titolo {
     text-shadow: 1px 2px 4px rgba(0,0,0,.1);
 }
 #content {
-    margin-top: 80px;
-    /* margin: 0; */
+    margin: 80px 0;
     width: 100%;
     overflow-x: hidden;
     min-height: 100%;
@@ -249,6 +248,11 @@ body.dark .input-group-prepend > span {
 /* RESPONSIVE ########################## */
 
 @media only screen and (max-width: 670px) {
+    #content {
+        margin: 80px 0;
+        padding: 40px 0;
+        transition: all .5s;
+    }
     .input-padding {
        width: 100%;
     }
@@ -271,4 +275,22 @@ body.dark .input-group-prepend > span {
         border-radius: 0;
         margin: inherit -1px
     }
+
+    #button-select {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        z-index: 10;
+        box-shadow: 0 6px 20px 1px rgba(0, 0, 0, 0.45);
+        background: rgba(20, 20, 30, 0.7);
+        transition: all .5s;
+    }
+    #button-select > button.btn {
+        border-radius: 0;
+        border: none;
+        /* outline: none; */
+    }
+
 }
