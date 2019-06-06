@@ -40,18 +40,13 @@
             if(isset($_POST["torneo"])) {
                 $torneo = $_POST["torneo"];
                 
-                // check ALPHANUMERIC
-                if (ctype_alnum($torneo) and $torneo != "") {
+                // check ALPHANUMERIC (with space)
+                // if (ctype_alnum($torneo) and $torneo != "") {
+                if (preg_match("/[^0-9a-zA-Z]/", $torneo) and $torneo != "") {
                     $command = "./pomelo.py \"".$_POST["torneo"]."\" -n 2>&1";
                     
                     // creates and downloads the qr-code from ext api
                     $apiQR = 'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=';
-                    // $url'http://flowin.space/pomelo/r/prova' 
-                    // echo shell_exec("wget -O img/QR.gif ".$apiQR.$url." 2>&1");
-                    // updates the main index
-                    // echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
-                    // updates the tournament index
-                    // echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
                     $alert_msg = "Creato un nuovo torneo: ".$_POST["torneo"];
                     }
                 }
@@ -76,8 +71,8 @@
                 $torneo = $_GET["torneo"]; // passed from the py tournament template
                 $giocatore = $_POST["nuovoGiocatore"];
                 
-                // check ALPHANUMERIC
-                if (ctype_alnum($giocatore) and $giocatore != "") {
+                // check ALPHANUMERIC (with space)
+                if (preg_match("/[^0-9a-zA-Z]/", $giocatore) and $giocatore != "") {
                     $command = "./pomelo.py \"$torneo\" -a \"$giocatore\" 2>&1";
                     $alert_msg = "$giocatore. ora fa parte del torneo \"$torneo\"";
                 }
@@ -93,13 +88,13 @@
             $alert_msg = 'Nessuna azione selezionata!';
         }
 
-        
-        // print(shell_exec('whoami'));
-        echo ($command."\n".$alert_msg);
-        echo shell_exec($command);
+        $command_escaped = escapeshellarg($command);
+        echo ($command_escaped."\n".$alert_msg);
+        echo shell_exec($command_escaped);
         
         // costruisce il nuovo index
-        echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
+        $gen_index_escaped = escapeshellarg("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
+        echo shell_exec($gen_index_escaped);
         
         // alert($alert_msg);
     }
