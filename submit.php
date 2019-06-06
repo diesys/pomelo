@@ -22,11 +22,11 @@
         
 
         if($action == 'update') {
-            if(isset($_POST["giocatore1"]) and isset($_POST["giocatoubmit.phpre2"]) and isset($_POST["esito"])) {
-                $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"];
+            if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_POST["esito"])) {
+                $g1 = escapeshellarg($_POST["giocatore1"]); $g2 = escapeshellarg($_POST["giocatore2"]); escapeshellarg($esito = $_POST["esito"]);
 
                 if (!($g1==$g2 and $g1!="")) {
-                    if ($torneo and $g1 and $g2 and $esito> -1) {
+                    if ($torneo and $g1 and $g2 and $esito > -1) {
                         $command = "./pomelo.py $torneo -u $g1 $g2 $esito  2>&1";
                         $alert_msg = "Partita aggiunta al $torneo: \"$g1\" vs \"$g2\" ($esito)";
                     }
