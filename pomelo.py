@@ -53,9 +53,9 @@ def nuovoTorneo(nome):
 			
 			# qr
 			with open(qr_path, 'w') as fp:
-				command = "wget -O r/" + nome + "/img/qr.png https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + "http://flowin.space/pomelo/r/" + nome
-				print("\n\nCOMMAND\n", command, '\n\n')
-				# os.system(command)
+				command = "wget -O r/" + nome + "/img/qr.png 'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + "http://flowin.space/pomelo/r/'" + nome
+				# print("\n\nCOMMAND\n", command, '\n\n')
+				os.system(command)
 			
 			# logo
 			# with open(file_path, 'w') as fp:
