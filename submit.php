@@ -1,33 +1,23 @@
-<?php //header("Location: .?action=".$_POST['action']."&torneo=".$_POST["torneo"]); ?>
-<?php //header("Location: .?acon=".$_POST['action']."&torneo=".$_POST["torneo"]."&g1=".$_POST["giocatore1"]."&g2=".$_POST["giocatore2"]."&gS=".$_POST["giocatoreS"]."&gD=".$_POST["giocatoreD"]."&nG=".$_POST["nuovoGiocatore"]."&r=".$_POST["esito"]);  ?>
+<?php 
+    $host = gethostname(); 
+    $domain = explode("/", $host)[1];
+    if(isset($_GET['torneo'])){
+        $url = $domain."/pomelo"."/r/".$_GET["torneo"]; 
+    } else { // index
+        $url = $domain."/pomelo"; 
+    }
+    $vars = "?action=".$_POST['action'];
+    
+    header("Location: ".$url.$vars);
 
-<?php
-
-    // function alert($msg) {
-    //     echo "<script type='text/javascript'>alert('$msg');</script>";
-    // }
-
-    // $valid_passwords = array ("uova" => "frittata");
-    // $valid_users = array_keys($valid_passwords);
-
-    // $user = $_SERVER['PHP_AUTH_USER'];
-    // $pass = $_SERVER['PHP_AUTH_PW'];
-
-    // $validated = (in_array($user, $valid_users)) && ($pass == $valid_passwords[$user]);
-
-    // if (!$validated) {
-    //     header('WWW-Authenticate: Basic realm="My Realm"');
-    //     header('HTTP/1.0 401 Unauthorized');
-    //     die ("Not authorized");
-    // }
 
 
     if(isset($_POST['action'])) {
         $action = $_POST['action'];
 
         if($action == 'update') {
-            if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_POST["torneo"]) and isset($_POST["esito"])) {
-                $torneo = $_POST["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"];
+            if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_GET["torneo"]) and isset($_POST["esito"])) {
+                $torneo = $_GET["torneo"]; $g1 = $_POST["giocatore1"]; $g2 = $_POST["giocatore2"]; $esito = $_POST["esito"];
 
                 if (!($g1==$g2 and $g1!="")) {
                     if ($torneo and $g1 and $g2 and $esito> -1) {
@@ -51,14 +41,19 @@
                 $torneo = $_POST["torneo"];
                 
                 // check ALPHANUMERIC
-                // if (ctype_alnum($torneo) and $torneo != "") {
+                if (ctype_alnum($torneo) and $torneo != "") {
                     $command = "./pomelo.py \"".$_POST["torneo"]."\" -n 2>&1";
+                    
+                    // creates and downloads the qr-code from ext api
+                    $apiQR = 'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=';
+                    // $url'http://flowin.space/pomelo/r/prova' 
+                    // echo shell_exec("wget -O img/QR.gif ".$apiQR.$url." 2>&1");
                     // updates the main index
                     // echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
                     // updates the tournament index
                     // echo shell_exec("./pomelo.py \"".$torneo."\" --gen-index 2>&1");
                     $alert_msg = "Creato un nuovo torneo: ".$_POST["torneo"];
-                    // }
+                    }
                 }
             }
             
@@ -82,10 +77,10 @@
                 $giocatore = $_POST["nuovoGiocatore"];
                 
                 // check ALPHANUMERIC
-                // if (ctype_alnum($giocatore) and $giocatore != "") {
+                if (ctype_alnum($giocatore) and $giocatore != "") {
                     $command = "./pomelo.py \"$torneo\" -a \"$giocatore\" 2>&1";
                     $alert_msg = "$giocatore. ora fa parte del torneo \"$torneo\"";
-                // }
+                }
             }
             else {
                 $command = '';
@@ -109,12 +104,13 @@
         // alert($alert_msg);
     }
 
-    echo 'POST <br/>';
     
+    // debug
+    echo '<br/>POST<br/>';
     foreach ($_POST as $key => $value) {
         echo '<p>'.$key.": ".$value.'</p>';
     } 
-    echo 'GET <br/>';
+    echo '<br/>GET<br/>';
     foreach ($_GET as $key => $value) {
         echo '<p>'.$key.": ".$value.'</p>';
     } 

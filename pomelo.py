@@ -3,7 +3,7 @@
 import math
 import sys
 import json
-import os.path
+import os
 import time
 
 # cartella dei tornei
@@ -31,21 +31,36 @@ def nuovoTorneo(nome):
 	# percorso del file e cartella che conterra' il dizionario
 	dir_path = tornei_dir + '/' + nome
 	file_path = dir_path + '/' + nome + '.json'
+	imgs_path = dir_path + '/img'
+	qr_path = imgs_path + '/qr.png'
+	logo_path = imgs_path + '/logo.png'
 
 	# dizionario torneo base vuoto
 	# vecchio: torneo = {'NOME': nome, 'FILE': file_path,
-	torneo = {'NOME': nome, 'FOLDER': dir_path, 'JSON_DATA': 'file_path',
+	torneo = {'NOME': nome, 'FOLDER': dir_path, 'JSON_DATA': file_path,
            'GIOCATORI': {}, 'MATCHES': [], 'RANKING': []}
 
 	# controlla se esiste la cartella col nome del torneo
 	if not os.path.exists(dir_path):
 		os.makedirs(dir_path)
+		os.makedirs(imgs_path)
 
 		# controlla se esiste il file json del torneo se no lo crea e ci mette il contenuto dell'attuale dizionario
 		if not os.path.exists(file_path):
+			# data
 			with open(file_path, 'w') as fp:
 				json.dump(torneo, fp)
 			
+			# qr
+			with open(qr_path, 'w') as fp:
+				command = "wget -O r/" + nome + "/img/qr.png https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + "http://flowin.space/pomelo/r/" + nome
+				print("\n\nCOMMAND\n", command, '\n\n')
+				# os.system(command)
+			
+			# logo
+			# with open(file_path, 'w') as fp:
+			# 	json.dump(torneo, fp)
+
 			costruisciIndexHtml(nome)
 			costruisciIndexHtml('index')
 
@@ -379,11 +394,11 @@ def listTornei(out='none'):
 	
 	elif(out == 'html'):
 		select = ''
-		for torneo in dirs:
+		for torneo in sorted(dirs):
 			select += "<option value='" + torneo + "'>" + torneo + "</option>\n"
 		return select
 	else:
-		return os.listdir(tornei_dir)
+		return dirs
 
 ######################################################################################################################################################
 #COMANDO:                                      A COSA SERVE:
