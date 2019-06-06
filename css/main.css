@@ -257,9 +257,9 @@ body.dark .input-group-prepend > span {
         margin: 45px 0;
         padding: 50px 0px 5px 0px;
     }
-    .collapse-ranking, .collapse-partite {
+    /* .collapse-ranking, .collapse-partite {
         padding: 0 5px;
-    }
+    } */
     .input-padding {
        width: 100%;
     }
