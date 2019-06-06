@@ -3,6 +3,9 @@
     i file tipo logo e qr devono stare nel json mi sa cosi da evitare problemi con i formati tipo gif/png
 
 //TODO:
+    vedere meglio l'output debug di php, qualcosa non torna, da errori ma fa le cose...
+
+//TODO:
     supporto spazi input form
 
 //TODO: 

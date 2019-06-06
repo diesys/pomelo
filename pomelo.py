@@ -28,6 +28,9 @@ def importaTorneo(torneo):
 
 # crea un nuovo torneo
 def nuovoTorneo(nome):
+	if(nome[0] == "'" and nome[-1] == "'"): # escaping di php
+		nome = nome[1:-1]
+
 	# percorso del file e cartella che conterra' il dizionario
 	dir_path = tornei_dir + '/' + nome
 	file_path = dir_path + '/' + nome + '.json'
@@ -38,7 +41,7 @@ def nuovoTorneo(nome):
 	# dizionario torneo base vuoto
 	# vecchio: torneo = {'NOME': nome, 'FILE': file_path,
 	torneo = {'NOME': nome, 'FOLDER': dir_path, 'JSON_DATA': file_path,
-           'GIOCATORI': {}, 'MATCHES': [], 'RANKING': []}
+           'GIOCATORI': {}, 'MATCHES': [], 'RANKING': [], 'LOGO': ''}
 
 	# controlla se esiste la cartella col nome del torneo
 	if not os.path.exists(dir_path):
@@ -374,8 +377,13 @@ def costruisciIndexHtml(torneo_in):
 
 		index_template = open('templates/tournament_index.html', 'r')
 		new_index = open(torneo['FOLDER'] + '/' + 'index.html', 'w')
+
+		if(torneo['LOGO'] != ''):
+			logo_url = torneo['LOGO']
+		else:
+			logo_url = '/pomelo/img/pomelo.png'
 	
-		new_index_content = index_template.read().format(TORNEO=torneo['NOME'], MATCH=partite, RANKING=ranking, GIOCATORI=giocatori)
+		new_index_content = index_template.read().format(TORNEO=torneo['NOME'], MATCH=partite, RANKING=ranking, GIOCATORI=giocatori, LOGO=logo_url)
 		new_index.write(new_index_content)
 		index_template.close()
 		new_index.close()

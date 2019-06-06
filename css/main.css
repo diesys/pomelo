@@ -29,9 +29,11 @@ body.dark {
     border-radius: 100px;
     border: 10px solid #fff;
     box-shadow: 0 9px 30px -21px rgba(0,0,0,.7);
+    background: #fff;
 }
 body.dark > #logo {
     border: 10px solid hsla(210, 10%, 10%, 90%);
+    background: hsla(210, 10%, 10%, 90%);
     box-shadow: 0 10px 25px -10px rgba(0,0,0,.8);
 }
 
