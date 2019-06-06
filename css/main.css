@@ -299,9 +299,12 @@ body.dark .input-group-prepend > span {
         width: 100%;
         z-index: 10;
         box-shadow: 0 6px 20px 1px rgba(0, 0, 0, 0.45);
-        background: rgba(20, 20, 30, 0.7);
+        background: rgba(250, 250, 250, 0.6);
         transition: all .5s;
         height: 52px;
+    }
+    body.dark #button-select {
+        background: rgba(20, 20, 30, 0.7);
     }
     #button-select > button.btn {
         border-radius: 0;
