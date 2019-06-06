@@ -1,5 +1,6 @@
 //TODO: 
     rivedere funzione crea torneo che faccia tutto nella cartella, e che il dizionario abbia tutti i campi
+    i file tipo logo e qr devono stare nel json mi sa cosi da evitare problemi con i formati tipo gif/png
 
 //TODO: 
     variabili _GET per alert sull'azione o errore del submit
