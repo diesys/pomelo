@@ -9,6 +9,9 @@
     variabili _GET per alert sull'azione o errore del submit
 
 //TODO:
+    select e toolbar piu' alta nei mobile
+
+//TODO:
     tabelle "section" con max-width (cosi non sono full screen) e cambio classe (se possibile usando quelle di bootst) animazione rimpicciolimento con quelle accanto
 
 //TODO:

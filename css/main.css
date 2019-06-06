@@ -253,13 +253,28 @@ body.dark .input-group-prepend > span {
         padding: 40px 0;
         transition: all .5s;
     }
-    .input-padding {
-       width: 100%;
-    }
     #menu {
         margin: 45px 0;
         padding: 50px 0px 5px 0px;
     }
+    .collapse-ranking, .collapse-partite {
+        padding: 0 5px;
+    }
+    .input-padding {
+       width: 100%;
+    }
+    .input-group.input-padding > * > * {
+        padding: 0 10px;
+    }
+    .input-group.input-padding > *,
+    .input-group.input-padding > * > * {
+        height: 50px;
+    }
+    .btn.bigFontButton {
+        width: auto !important;
+        min-width: 50px !important;
+    }
+   
     /* fix input a tutto schermo */
     .input-group>.input-group-append>.btn,
     .input-group>.input-group-append>.input-group-text,
@@ -286,6 +301,7 @@ body.dark .input-group-prepend > span {
         box-shadow: 0 6px 20px 1px rgba(0, 0, 0, 0.45);
         background: rgba(20, 20, 30, 0.7);
         transition: all .5s;
+        height: 52px;
     }
     #button-select > button.btn {
         border-radius: 0;
