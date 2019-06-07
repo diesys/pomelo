@@ -37,15 +37,15 @@
 
 <body>
     
-    <img id='logo' src='img/logo.gif' height='90px' width='90px' alt='Logo description' />
+    <img id='logo' src='img/pomelo.png' height='90px' width='90px' alt='Logo description' />
     
     <span id='titolo'>
         <h1 id='itolo'></h1>
         <!-- <a href='admin.php' class='adminButton'> -->
         <!-- <a href='#' onclick="$('#menu').collapse('toggle')" class='adminButton'> -->
-        <a href='#' id="admin_button" class='adminButton'>
+        <!-- <a href='#' id="admin_button" class='adminButton'>
             <ion-icon id="admin_icon" size='large' name='add'></ion-icon>
-        </a>
+        </a> -->
     </span>
 
     <center>
@@ -61,13 +61,13 @@
 
         <center>
             <h3>Benvenuto su Pomelo!</h3><br>
-            <img id='logo_pomelo' src='img/logo.gif' height='140px' width='140px' alt='logo' /><br>
+            <img id='logo_pomelo' src='img/pomelo.png' height='140px' width='140px' alt='logo' /><br>
 
             <br>
             <br>
             
-            <div class='mr-2' role='group' aria-label='1g'>
-                <div class='btn-group mr-2' role='group' aria-label='2g'>
+            <div class='' role='group' aria-label='1g'>
+                <div class='input-padding' role='group' aria-label='2g'>
                     
                     <form action="/pomelo/submit.php" method="post">
                         <input type="hidden" name="action" value="create">
@@ -88,7 +88,7 @@
                     </form>
                 </div>
                 
-                <div class='btn-group mr-2' role='group' aria-label='2g'>
+                <div class='input-padding' role='group' aria-label='2g'>
                     <form action="/pomelo/submit.php" method="post">
                         <input type="hidden" name="action" value="goto">
                         <div class="input-group input-padding">
@@ -97,10 +97,9 @@
                             </div>
                             <select class="custom-select" name="torneo">
                                 <option value="" disabled selected>Torneo</option>
-                                <option value='doppio'>doppio</option>
-<option value='doppio19'>doppio19</option>
-<option value='singolo'>singolo</option>
+                                <option value='doppio19'>doppio19</option>
 <option value='singolo19'>singolo19</option>
+<option value='test'>test</option>
 
                             </select>
                             

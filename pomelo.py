@@ -4,6 +4,7 @@ import math
 import sys
 import json
 import os
+import re
 import time
 
 # cartella dei tornei
@@ -28,9 +29,6 @@ def importaTorneo(torneo):
 
 # crea un nuovo torneo
 def nuovoTorneo(nome):
-	if(nome[0] == "'" and nome[-1] == "'"): # escaping di php
-		nome = nome[1:-1]
-
 	# percorso del file e cartella che conterra' il dizionario
 	dir_path = tornei_dir + '/' + nome
 	file_path = dir_path + '/' + nome + '.json'
@@ -41,7 +39,7 @@ def nuovoTorneo(nome):
 	# dizionario torneo base vuoto
 	# vecchio: torneo = {'NOME': nome, 'FILE': file_path,
 	torneo = {'NOME': nome, 'FOLDER': dir_path, 'JSON_DATA': file_path,
-           'GIOCATORI': {}, 'MATCHES': [], 'RANKING': [], 'LOGO': ''}
+		'GIOCATORI': {}, 'MATCHES': [], 'RANKING': [], 'LOGO': ''}
 
 	# controlla se esiste la cartella col nome del torneo
 	if not os.path.exists(dir_path):
@@ -72,7 +70,6 @@ def nuovoTorneo(nome):
 		return
 
 	return torneo
-
 
 def aggiungiGiocatore(torneo, nome):
     # Aggiunge al torneo un nuovo Giocatore 'nome'. Controlla per prima cosa che
@@ -408,42 +405,56 @@ def listTornei(out='none'):
 	else:
 		return dirs
 
-######################################################################################################################################################
-#COMANDO:                                      A COSA SERVE:
 
-# il dizionario TORNEI contiene tutti i tornei (dizionari a loro volta) con il nome come chiave del torneo, all'int
+# parses php input and removes any single bracket
+def parse(input):
+	if(re.search("^[']{0,1}[A-z0-9 ]*[']{0,1}$", input)):
+		return (input.replace("'", ""), 'argument')
+	elif(re.search("^'{0,1}-{1,2}[A-z]*-{0,1}[A-z]*'{0,1}$", input)):
+		return (input.replace("'", ""), 'option')
+	else:
+		print('INPUT ERRATO! Inserisci solo caratteri alfanumerici e spazi')
+		return 
 
-#
-#                                              progressivo che lo rappresenta. Il Giocatore appena iscritto avra' fatto 0 MATCH.
-#
-#
-#
-#aggiornaRanking(torneo)                           Ordina i giocatori nella torneo in ordine decrescente dei loro punteggi.
-#                                              A parita' di punteggio il giocatore con piu' MATCH sara' ad una posizione piu' alta
-#                                              di MATCH disputate.
-#                                              Stampa, quindi, la classifica aggiornata.
+
+
 ######################################################################################################################################################
 
 HELP = 'Benvenuto in pomelo (interfaccia CLI), le opzioni sono le seguenti:\n\n  -l \t\t\t\t(--list) mostra la lista dei tornei in \'r/\'\n\n  -n TORNEO\t\t\t(--new) per creare un torneo con il nome indicato\n  TORNEO -i\t\t\t(--import) per caricare il file json del torneo con il nome indicato (data/NOMETORNEO/NOMETORNEO.json)\n  TORNEO -a GIOCATORE \t\t(--add) aggiunge GIOCATORE a TORNEO\n  TORNEO -d GIOCATORE\t\t(--delete) cancella (azzera i valori di) GIOCATORE in TORNEO\n  TORNEO -u G1 G2 RIS\t\t(--update) aggiorna TORNEO con il RIS (risultato) (0, 0.5, 1) del match tra G1 e G2\n  TORNEO -m\t\t\t(--match) mostra la lista dei match di TORNEO\n  TORNEO -g\t\t\t(--giocatori) mostra la lista dei giocatori in TORNEO\n  TORNEO -p\t\t\t(--print) mostra tutto il contenuto di TORNEO\n  TORNEO -r\t\t\t(--ranking) mostra la classifica di TORNEO\n\n  --help\t\t\tmostra questo messaggio\n'
+ERR_INPUT = 'INPUT ERRATO! Inserisci solo caratteri alfanumerici e spazi\n'
+
+######################################################################################################################################################
+
 
 
 ## sezione opzioni script
 if(len(sys.argv) > 1):  # getting parameters if exist
-	options = sys.argv
+	# divides input in option and arguments while safe parsing them
+	args = {'option': [], 'arguments': []}
+	for arg in sys.argv[1:]:
+		parsed = parse(arg)
+		
+		if(parsed[1] == 'argument'):
+			args['arguments'].append(parsed[0])
+		elif(parsed[1] == 'option'):
+			args['option'].append(parsed[0])
+
 
 	## lista dei tornei
-	if(options[1] == '-l' or options[1] == '--list'):
-		listTornei('print')
+	if(args['option'] == '-l' or args['option'] == '--list'):
+		listTornei('stout')
 	
 	## HELP
-	elif(options[1] == '-h' or options[1] == '--help'):
+	elif(args['option'] == '-h' or args['option'] == '--help'):
 		print(HELP)
 
 	## piu di un argomento
 	else:
-		if(len(options)>2):
-			torneo_arg = options[1]
-			option_arg = options[2]
+		if(len(args['arguments'])):
+			# first argument
+			torneo_arg = args['arguments'][0]
+			# first option
+			option_arg = args['option'][0]
 
 			if(option_arg == '-n' or option_arg == '--new'):
 					nuovoTorneo = nuovoTorneo(torneo_arg)
@@ -467,8 +478,8 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			elif(option_arg == '-a' or option_arg == '--add'):
 					torneo = importaTorneo(torneo_arg)
 
-					if(len(options) > 3):
-						giocatore = options[3]
+					if(len(args['arguments']) > 1):
+						giocatore = args['arguments'][1]
 						aggiungiGiocatore(torneo, giocatore)
 					else:
 						print('Manca il nome del giocatore!')
@@ -476,8 +487,8 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			elif(option_arg == '-d' or option_arg == '--delete'):
 					torneo = importaTorneo(torneo_arg)
 
-					if(len(options) > 3):
-						giocatore = options[3]
+					if(len(args['arguments']) > 1):
+						giocatore = args['arguments'][1]
 
 						eliminaGiocatore(torneo, giocatore)
 
@@ -488,10 +499,10 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			elif(option_arg == '-u' or option_arg == '--update'):
 					torneo = importaTorneo(torneo_arg)
 
-					if(len(options) > 5):
-						giocatore1 = options[3]
-						giocatore2 = options[4]
-						esito_match = float(options[5])			# [0, 0.5, 1]
+					if(len(args['arguments']) > 3):
+						giocatore1 = args['arguments'][1]
+						giocatore2 = args['arguments'][2]
+						esito_match = float(args['arguments'][3])			# [0, 0.5, 1]
 
 						aggiornaTorneo(torneo, giocatore1, giocatore2, esito_match)
 
@@ -506,7 +517,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 					caratteri_omessi = ",'[(]"
 					caratteri_sostituiti = ")"
 
-					if any("--html" in o for o in options):
+					if any("--html" in o for o in args['option']):
 						print(rankingHtml(torneo))
 
 					else:
@@ -527,7 +538,7 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			elif(option_arg == '-g' or option_arg == '--giocatori'):
 					torneo = importaTorneo(torneo_arg)
 
-					if any("--html" in o for o in options):
+					if any("--html" in o for o in args['option']):
 						print(selectGiocatoriHtml(torneo))
 
 					else:
@@ -543,37 +554,36 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 
 
 			elif(option_arg == '-m' or option_arg == '--match'):
-					torneo = options[2]
-					torneo = importaTorneo(torneo_arg)
-					# la lista invertita per visualizzare l'ultima in alto
-					# matches = torneo['MATCHES'][::-1]
-					# la lista NON invertita per visualizzare l'ultima in basso da TERMINALE
-					matches = torneo['MATCHES']
+				# torneo = torneo_arg
+				torneo = importaTorneo(torneo_arg)
+				# la lista invertita per visualizzare l'ultima in alto
+				# matches = torneo['MATCHES'][::-1]
+				# la lista NON invertita per visualizzare l'ultima in basso da TERMINALE
+				matches = torneo['MATCHES']
 
-					if any("--html" in o for o in options):
-						print(partiteHtml(torneo))
+				if any("--html" in o for o in args['option']):
+					print(partiteHtml(torneo))
 
-					else:
-						matches = ' ' + str(matches)
+				else:
+					matches = ' ' + str(matches)
 
-						matches = matches.replace('[', '')
-						matches = matches.replace('],', '\n')
-						matches = matches.replace(', 0.0', ': 2')
-						matches = matches.replace(', 0.5', ': X')
-						matches = matches.replace(', 1.0', ': 1')
-						matches = matches.replace('1,', '1')
-						matches = matches.replace('X,', 'X')
-						matches = matches.replace('2,', '2')
-						matches = matches.replace(', ', ' - ')
-						# matches = matches.replace('- (', ' ')
+					matches = matches.replace('[', '')
+					matches = matches.replace('],', '\n')
+					matches = matches.replace(', 0.0', ': 2')
+					matches = matches.replace(', 0.5', ': X')
+					matches = matches.replace(', 1.0', ': 1')
+					matches = matches.replace('1,', '1')
+					matches = matches.replace('X,', 'X')
+					matches = matches.replace('2,', '2')
+					matches = matches.replace(', ', ' - ')
+					# matches = matches.replace('- (', ' ')
 
-						caratteri_omessi = "[]',"
-						for char in caratteri_omessi:
-							matches = matches.replace(char, '')
+					caratteri_omessi = "[]',"
+					for char in caratteri_omessi:
+						matches = matches.replace(char, '')
 
-						print(matches)
+					print(matches)
 
-					torneo_test = options[2]
 			else:
 				print(HELP)
 		else:
