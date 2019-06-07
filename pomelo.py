@@ -434,11 +434,11 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 	for arg in sys.argv[1:]:
 		parsed = parse(arg)
 		
+		# get them string values 
 		if(parsed[1] == 'argument'):
 			args['arguments'].append(parsed[0])
 		elif(parsed[1] == 'option'):
 			args['option'].append(parsed[0])
-
 
 	## lista dei tornei
 	if(args['option'] == '-l' or args['option'] == '--list'):
@@ -457,9 +457,10 @@ if(len(sys.argv) > 1):  # getting parameters if exist
 			option_arg = args['option'][0]
 
 			if(option_arg == '-n' or option_arg == '--new'):
-					nuovoTorneo = nuovoTorneo(torneo_arg)
-					tornei = {torneo_arg: nuovoTorneo}
-
+				nuovoTorneo = nuovoTorneo(torneo_arg)
+				tornei = {torneo_arg: nuovoTorneo}
+				
+				if(nuovoTorneo):
 					print("Torneo creato, segui l'help per popolarlo")
 
 			elif(option_arg == '--gen-index'):

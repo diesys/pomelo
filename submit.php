@@ -8,8 +8,10 @@
     }
     $vars = "?action=".$_POST['action'];
     
-    // header("Location: ".$url.$vars);
+    header("Location: ".$url.$vars);
 
+    
+    $safeParse = "/[^0-9a-zA-Z ]/";
 
     if(isset($_POST['action'])) {
         // $action = escapeshellarg($_POST['action']);
@@ -40,17 +42,11 @@
         }
 
         elseif($action == 'create') {
-        // if(isset($_POST["torneo"])) {
-            // $torneo = $_POST["torneo"];
-            
             // check ALPHANUMERIC (with space)
-            if (ctype_alnum($torneo) and $torneo != "") {
-            // if (preg_match("/[^0-9a-zA-Z] /", $torneo) and $torneo != "") {
+            // if (ctype_alnum($torneo) and $torneo != "") {
+            if (preg_match($safeParse, $torneo) and $torneo != "") {
                 $command = "./pomelo.py $torneo -n 2>&1";
                 $alert_msg = "Creato un nuovo torneo: $torneo";
-                
-                // creates and downloads the qr-code from ext api
-                // $apiQR = 'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=';
             } else {
                 $command = '';
                 $alert_msg = "Errore creando il nuovo torneo $torneo";
@@ -77,8 +73,8 @@
                 $giocatore = escapeshellarg($_POST["nuovoGiocatore"]);
                 
                 // check ALPHANUMERIC (with space)
-                if (ctype_alnum($giocatore) and $giocatore != "") {
-                // if (preg_match("/[^0-9a-zA-Z] /", $giocatore) and $giocatore != "") {
+                // if (ctype_alnum($giocatore) and $giocatore != "") {
+                if (preg_match($safeParse, $giocatore) and $giocatore != "") {
                     $command = "./pomelo.py $torneo -a $giocatore 2>&1";
                     $alert_msg = "$giocatore. ora fa parte del torneo \"$torneo\"";
                 }
