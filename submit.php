@@ -11,16 +11,22 @@
     header("Location: ".$url.$vars);
 
     
-    $safeParse = "/[^0-9a-zA-Z ]/";
+    $safeParse = "/[0-9a-zA-Z ]/";
 
-    if(isset($_POST['action'])) {
+    if(isset($_POST['action']) and preg_match("/^[a-z]/", $_POST['action'])) {
+    // if(isset($_POST['action'])) {
         // $action = escapeshellarg($_POST['action']);
         $action = $_POST['action'];
         
+        // torneo gets parsed inside options, torneo as escaped var, _input as raw input (only using in url)
         if(isset($_GET['torneo']))
-            $torneo = escapeshellarg($_GET["torneo"]);
-        if(isset($_POST['torneo']))
-            $torneo = escapeshellarg($_POST["torneo"]);
+            $torneo_input = $_GET['torneo'];
+        elseif(isset($_POST['torneo']))
+            $torneo_input = $_POST['torneo'];
+        else
+            $torneo_input = FALSE;
+        if($torneo_input)
+            $torneo = escapeshellarg($torneo_input);
         
 
         if($action == 'update') {
@@ -38,15 +44,19 @@
 
         elseif($action == 'goto') {
             $command = '';
-            header('Location: ./r/'.$_POST["torneo"]);
+            // echo preg_match_all($safeParse, $torneo);                
+            if(preg_match($safeParse, $torneo)) {
+                header('Location: ./r/'.$torneo_input);
+            }
         }
-
+        
         elseif($action == 'create') {
             // check ALPHANUMERIC (with space)
             // if (ctype_alnum($torneo) and $torneo != "") {
             if (preg_match($safeParse, $torneo) and $torneo != "") {
                 $command = "./pomelo.py $torneo -n 2>&1";
                 $alert_msg = "Creato un nuovo torneo: $torneo";
+                // header('Location: ./r/'.$torneo_input);
             } else {
                 $command = '';
                 $alert_msg = "Errore creando il nuovo torneo $torneo";

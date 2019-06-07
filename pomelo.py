@@ -6,6 +6,7 @@ import json
 import os
 import re
 import time
+from shlex import quote
 
 # cartella dei tornei
 tornei_dir = os.path.dirname('r/')
@@ -30,11 +31,13 @@ def importaTorneo(torneo):
 # crea un nuovo torneo
 def nuovoTorneo(nome):
 	# percorso del file e cartella che conterra' il dizionario
+	# nome = nome.replace(" ", "\ ")
 	dir_path = tornei_dir + '/' + nome
+	# print(dir_path)
 	file_path = dir_path + '/' + nome + '.json'
 	imgs_path = dir_path + '/img'
 	qr_path = imgs_path + '/qr.png'
-	logo_path = imgs_path + '/logo.png'
+	# logo_path = imgs_path + '/logo.png'
 
 	# dizionario torneo base vuoto
 	# vecchio: torneo = {'NOME': nome, 'FILE': file_path,
@@ -64,7 +67,8 @@ def nuovoTorneo(nome):
 
 			costruisciIndexHtml(nome)
 			costruisciIndexHtml('index')
-
+			
+			return
 	else:
 		print('Nome presente, cambiare nome per favore.\n')
 		return
