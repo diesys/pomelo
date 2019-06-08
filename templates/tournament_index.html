@@ -139,23 +139,32 @@
             </button>
             <div id="shareMenu" class="submenu hidden">
                 
+                <div id="qr">
+                    <img id='qr_img' src='img/qr.png' class="clipb" height='90px' width='90px' alt='qr url' data-clipboard-text="{URL}"/><br>
+                </div>
+    
                 <span>
                     <!-- Trigger clipboard -->              
-                    <button class="btn" data-clipboard-text="/{URL}">
-                        <!-- Copia  -->
+                    <button class="btn btn-outline-primary" data-clipboard-text="/{URL}">
+                        Copia link
                         <ion-icon size="" name="md-clipboard"></ion-icon>
                     </button>
                     
-                    <a href="img/qr.png" download>
-                        <button class="btn">
-                            <!-- Scarica QR  -->
+                    <a href="index.html" download>
+                        <button class="btn btn-outline-primary">
+                            Scarica pagina 
                             <ion-icon size="" name="md-download"></ion-icon>
                         </button>
                     </a>
+<!--                     
+                    <a href="img/qr.png" download>
+                        <button class="btn">
+                            Scarica QR 
+                            <ion-icon size="" name="md-download"></ion-icon>
+                        </button>
+                    </a> -->
+                    
                 </span>
-                <div>
-                    <img id='qr' src='img/qr.png' class="clipb" height='90px' width='90px' alt='qr url' data-clipboard-text="{URL}"/><br>
-                </div>
             
             </div>
         </div> <!-- fine menu -->
