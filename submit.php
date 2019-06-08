@@ -20,8 +20,9 @@
         $action = $_POST['action'];
         
         // torneo gets parsed inside options, torneo as escaped var, _input as raw input (only using in url)
-        if(isset($_GET['torneo']))
+        if(isset($_GET['torneo'])) {
             $torneo_input = $_GET['torneo'];
+        }
         elseif(isset($_POST['torneo']))
             $torneo_input = $_POST['torneo'];
         else
@@ -66,6 +67,8 @@
             } else {
                 $command = '';
                 $alert_msg = "Errore creando il nuovo torneo $torneo";
+                // $errcode = "123";
+                // header("Loation: .&err=".$errcode);
             }
         }
             
