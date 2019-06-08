@@ -45,10 +45,32 @@ window.onload = function () {
         } 
     
     /////////// BINDING ///////////////////////////
-    // theme / logo
-    $('#logo').bind('click', function(){
-        toggleTheme();
-        console.log('Logo clicked, changing theme...')
+
+    // easteregg theme #code from: https://stackoverflow.com/a/7845282
+    var DELAY = 400,
+        clicks = 0,
+        timer = null;
+
+    $(function () {
+        $("#logo").bind("click", function (e) {
+                clicks++; //count clicks
+
+                if (clicks === 1) {
+                    timer = setTimeout(function () {
+                        console.log('Logo clicked, going home...')
+                        window.location.replace('/pomelo');
+                        clicks = 0; //after action performed, reset counter
+                    }, DELAY);
+                } else {
+                    clearTimeout(timer); //prevent single-click action
+                    toggleTheme();
+                    console.log('Logo dbl-clicked, changing theme...')
+                    clicks = 0; //after action performed, reset counter
+                }
+            })
+            .bind("dblclick", function (e) {
+                e.preventDefault(); //cancel system double-click event
+            });
     });
     
     // open menu

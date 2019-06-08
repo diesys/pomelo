@@ -57,6 +57,8 @@
         }
         
         elseif($action == 'create') {
+            header("Location: http://www.yoursite.com/new_page.php?gameid=$gmid");
+
             // check ALPHANUMERIC (with space)
             // if (ctype_alnum($torneo) and $torneo != "") {
             if (preg_match($safeParse, $torneo) and $torneo != "") {
@@ -67,8 +69,6 @@
             } else {
                 $command = '';
                 $alert_msg = "Errore creando il nuovo torneo $torneo";
-                // $errcode = "123";
-                // header("Loation: .&err=".$errcode);
             }
         }
             
