@@ -42,7 +42,7 @@
         <div id="bgDec2"></div>
     </div>
      -->
-    <img id='logo' src='{LOGO}' height='90px' width='90px' alt='Logo description' />
+    <!-- <img id='logo' src='{LOGO}' height='90px' width='90px' alt='Logo description' /> -->
     
     <img id='logo' src='/pomelo/img/pomelo.png' height='90px' width='90px' alt='Pomelo' />
     
@@ -139,23 +139,23 @@
             </button>
             <div id="shareMenu" class="submenu hidden">
                 
-                <div id="qr">
-                    <img id='qr_img' src='img/qr.png' class="clipb" height='90px' width='90px' alt='qr url' data-clipboard-text="{URL}"/><br>
-                </div>
+                <!-- <div id="qr"> -->
+                    <img id='qr' src='img/qr.png' class="clipb" height='90px' width='90px' alt='qr url' data-clipboard-text="{URL}"/>
+                <!-- </div> -->
     
-                <span>
+                <span class='btn-group-vertical'>
                     <!-- Trigger clipboard -->              
                     <button class="btn btn-outline-primary" data-clipboard-text="/{URL}">
                         Copia link
                         <ion-icon size="" name="md-clipboard"></ion-icon>
                     </button>
                     
-                    <a href="index.html" download>
-                        <button class="btn btn-outline-primary">
+                    <!-- <button class="btn btn-outline-primary"> -->
+                        <a href="index.html" class="btn btn-outline-primary" download>
                             Scarica pagina 
                             <ion-icon size="" name="md-download"></ion-icon>
-                        </button>
-                    </a>
+                        </a>
+                    <!-- </button> -->
 <!--                     
                     <a href="img/qr.png" download>
                         <button class="btn">
@@ -178,8 +178,8 @@
             <br>
 
             <br>
-            <div class='mr-2' role='group' aria-label='1g'>
-                <div class='btn-group mr-2' id="button-select" role='group' aria-label='2g'>
+            <div class='' role='group' aria-label='1g'>
+                <div class='btn-group' id="button-select" role='group' aria-label='2g'>
                     <button id="buttonRanking" class='btn btn-outline-primary active'>
                         <ion-icon name='ios-trending-up' size='large'></ion-icon>
                     </button>
