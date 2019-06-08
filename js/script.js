@@ -1,3 +1,10 @@
+// function CopyToClipboard() { // www.aspforums.net%2fThreads%2f517506%2fCopy-browser-url-to-clipboard-on-button-click-using-JavaScript-and-jQuery%2f
+//     var text = document.createElement("textarea");
+//     text.innerHTML = window.location.href;
+//     Copied = text.createTextRange();
+//     Copied.execCommand("Copy");
+// }
+
 function toggleTheme() {
     // UI
     $('body').toggleClass('dark');
@@ -29,6 +36,8 @@ function getUrlVars() {
 }
 
 window.onload = function () {
+    // clipboard.js
+    new ClipboardJS('.btn');
 
     /////////// Auto NIGHT MODE ///////////////////
     var urlVars = getUrlVars();
@@ -87,6 +96,11 @@ window.onload = function () {
             $('#admin_icon').toggleClass('active');
         }
     });
+ 
+    // click on qr copy on clipboard
+    $('#qr').bind('click', function() {
+        CopyToClipboard();
+    });
 
 
     // select torneo
@@ -105,4 +119,9 @@ window.onload = function () {
         // $('#partite').fadeToggle();
         console.log('Toggle matches table...');
     });
+    
+    $('#buttonShare').bind('click', function() {
+        $('#shareMenu').slideToggle()
+    });
+
 }

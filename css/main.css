@@ -69,11 +69,18 @@ body.dark > #titolo {
     min-height: 100%;
     position: absolute;
 }
-#qr {
+#logo_main {
     margin: 10px 0 20px 0;
     border: 8px solid #fff;
     box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
     border-radius: 12px;
+    background: #fff;
+    transition: all .3s;
+}
+body.dark #logo_main {
+    border-color: hsl(210, 10%, 10%);
+    background: hsl(210, 10%, 10%);
+    box-shadow: 0 2px 10px -3px rgba(0,0,0,.7);
 }
 #logo_pomelo {
     border-radius: 100px;
@@ -81,7 +88,7 @@ body.dark > #titolo {
 
 #menu {
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
     min-height: 20px;
     margin-top: 30px;
     padding: 50px 20px 5px 20px;
@@ -99,6 +106,14 @@ body.dark #menu {
 #menu span.torneo-icon > ion-icon {
     font-size: 24px;
 }
+
+#menu .menuButton {
+    margin: 18px;
+}
+#menu .submenu {
+    margin: 10px;
+}
+
 
 .titleSection {
     font-size: 22px;
@@ -172,6 +187,7 @@ body.dark .adminButton:active {
     transform: translate(20px, 20px) !important;
     background: red;
 }
+
 
 /* BOOTSTRAP */
 .table-dark td, .table-dark th, .table-dark thead th {
@@ -290,7 +306,7 @@ body.dark .input-group-prepend > span {
 @media only screen and (max-width: 670px) {
     #content {
         margin: 80px 0;
-        padding: 40px 0;
+        padding: 0;
         transition: all .5s;
     }
     /* .col.fade-table {
