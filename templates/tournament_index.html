@@ -30,6 +30,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
     
+    <script src='/pomelo/js/clipboard.min.js'></script>
     <script src='/pomelo/js/script.js'></script>
     
     <link rel='stylesheet' href='/pomelo/css/main.css' />
@@ -37,7 +38,7 @@
 
 <body>
     
-    <img id='logo' src='{LOGO}' height='90px' width='90px' alt='Logo description' />
+    <img id='logo' src='/pomelo/img/pomelo.png' height='90px' width='90px' alt='Pomelo' />
     
     <span id='titolo'>
         <h1 id='itolo'>{TORNEO}</h1>
@@ -127,15 +128,39 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </center>
+            <button id="buttonShare" class='btn btn-primary menuButton'>
+                Condividi <ion-icon name='ios-share-alt' size='lare'></ion-icon>
+            </button>
+            <div id="shareMenu" class="submenu hidden">
+                
+                <span>
+                    <!-- Trigger clipboard -->              
+                    <button class="btn" data-clipboard-text="/{URL}">
+                        <!-- Copia  -->
+                        <ion-icon size="" name="md-clipboard"></ion-icon>
+                    </button>
+                    
+                    <a href="img/qr.png" download>
+                        <button class="btn">
+                            <!-- Scarica QR  -->
+                            <ion-icon size="" name="md-download"></ion-icon>
+                        </button>
+                    </a>
+                </span>
+                <div>
+                    <img id='qr' src='img/qr.png' class="clipb" height='90px' width='90px' alt='qr url' data-clipboard-text="{URL}"/><br>
+                </div>
+            
+            </div>
+        </div> <!-- fine menu -->
+    </center> 
     
 
     <div id='content' class='container-fluid'>
 
         <center>
-            <img id='qr' src='img/qr.png' height='140px' width='140px' alt='qr url' /><br>
-            <caption><small>Usa il codice QR per condividere la pagina!</small></caption><br>
+            <img id='logo_main' src='{LOGO}' height='140px' width='140px' alt='qr url' /><br>
+            <br>
 
             <br>
             <div class='mr-2' role='group' aria-label='1g'>

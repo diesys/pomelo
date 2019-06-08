@@ -389,7 +389,7 @@ def costruisciIndexHtml(torneo_in):
 		else:
 			logo_url = '/pomelo/img/pomelo.png'
 	
-		new_index_content = index_template.read().format(TORNEO=torneo['NOME'], MATCH=partite, RANKING=ranking, GIOCATORI=giocatori, LOGO=logo_url)
+		new_index_content = index_template.read().format(TORNEO=torneo['NOME'], MATCH=partite, RANKING=ranking, GIOCATORI=giocatori, LOGO=logo_url, URL=torneo['FOLDER'])
 		new_index.write(new_index_content)
 		index_template.close()
 		new_index.close()
