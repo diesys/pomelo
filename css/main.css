@@ -200,6 +200,12 @@ table.table-striped {
 .table-striped thead {
     background-color: rgba(250, 250, 250, 0.85);
 }
+
+/* fix su tabella di giocatori fuori classifica (no bordo) */
+table#rankingInstabili > thead > tr.bg-danger > th {
+    border: none;
+}
+
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(240, 240, 240, 0.75);
 }

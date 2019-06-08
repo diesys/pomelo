@@ -319,7 +319,7 @@ def rankingHtml(torneo):
 
 	if(len(torneo_rank['instabili'])):
 		# print("<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>")
-		rankingInstabiliTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>\n"
+		rankingInstabiliTable = "<table id='rankingInstabili' class = 'table table-sm text-center table-bordered table-striped' ><thead><tr class='bg-danger text-white'></><th scope='row'>Giocatori fuori classifica</th><th></th><th></th></tr></thead><tbody>\n"
 		
 		# giocatori instabili
 		for giocatore in torneo_rank['instabili']:
@@ -335,7 +335,7 @@ def rankingHtml(torneo):
 
 def partiteHtml(torneo):
 	partite = torneo['MATCHES'][::-1]
-	partiteTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col'>Giocatori<th scope='col'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>\n"
+	partiteTable = "<table class = 'table table-sm text-center table-bordered table-striped' ><thead class=''><tr><th scope='col' style='border-right:none;'>   Giocatori<th scope='col' style='border-left:none;'></th><th scope='col'>Esito</th><th scope='col'>Data</th></tr></thead><tbody>\n"
 	
 	for match in partite:
 		partiteTable += "<tr>\n"
