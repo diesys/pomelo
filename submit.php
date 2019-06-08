@@ -2,7 +2,8 @@
     $host = gethostname(); 
     $domain = explode("/", $host)[1];
     if(isset($_GET['torneo'])){
-        $url = $domain."/pomelo"."/r/".$_GET["torneo"]; 
+        $torneo_dir = str_replace(' ', '_', $_GET['torneo']);
+        $url = $domain."/pomelo"."/r/".$torneo_dir; 
     } else { // index
         $url = $domain."/pomelo"; 
     }
@@ -25,9 +26,13 @@
             $torneo_input = $_POST['torneo'];
         else
             $torneo_input = FALSE;
-        if($torneo_input)
+        // if($torneo_input )
+        if(preg_match("/[^0-9a-zA-Z_ ]/", "", $torneo_input))
             $torneo = escapeshellarg($torneo_input);
-        
+        else {
+            // $torneo = 'ERROR, invalid name';
+            $_GET['torneo'] = "ERROR";
+        }
 
         if($action == 'update') {
             if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_POST["esito"])) {
@@ -56,7 +61,8 @@
             if (preg_match($safeParse, $torneo) and $torneo != "") {
                 $command = "./pomelo.py $torneo -n 2>&1";
                 $alert_msg = "Creato un nuovo torneo: $torneo";
-                // header('Location: ./r/'.$torneo_input);
+                $torneo_dir = str_replace(' ', '_', $torneo_input);
+                header('Location: ./r/'.$torneo_dir);
             } else {
                 $command = '';
                 $alert_msg = "Errore creando il nuovo torneo $torneo";
