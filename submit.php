@@ -27,12 +27,12 @@
         else
             $torneo_input = FALSE;
         // if($torneo_input )
-        if(preg_match("/[^0-9a-zA-Z_ ]/", "", $torneo_input))
+        // if(preg_match("/[^0-9a-zA-Z ]/", $torneo_input))
             $torneo = escapeshellarg($torneo_input);
-        else {
+        // else {
             // $torneo = 'ERROR, invalid name';
-            $_GET['torneo'] = "ERROR";
-        }
+            // $_GET['torneo'] = "ERROR";
+        // }
 
         if($action == 'update') {
             if(isset($_POST["giocatore1"]) and isset($_POST["giocatore2"]) and isset($_POST["esito"])) {
