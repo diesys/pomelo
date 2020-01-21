@@ -27,6 +27,9 @@
     git sui json ad ogni submit di dati così da avere una timeline (commit con ora data e tipo di azione)
 
 //TODO:
+    fase eliminatoria rappresentazione http://www.aropupu.fi/bracket/, viene non incluso il menu aggiungi giocatore, solo aggiungi partite che ha le select aggiornate bene di volta in volta, aggiorna partite e select giocatori deve controllare se si e' in eliminatoria o no (fare variabile in json)
+
+//TODO:
     ampliare ad ogni tipo di torneo (anche punteggi)
 
 //TODO: 
