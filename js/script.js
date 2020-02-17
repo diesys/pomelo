@@ -35,6 +35,27 @@ function getUrlVars() {
     return vars;
 }
 
+// function enableOpts(opt) {
+
+// }
+
+// function rmSoloMatch(sel_index_value) {
+//     const sel2 = $('#selGioc2')[0].options;
+//     // $('#selGioc2')[0].options = $('#selG ioc1')[0].options
+//     console.log($('#selGioc2')[0].lenght, sel_index_value)
+
+//     for (i = 1; i < sel2.lenght; i++) {
+//         // sel2.options.item(i).disabled = true;
+//     //     // console.log(sel2.options[i])
+//         console.log(i);
+//     }
+//     // console.log("Enabling all options...", i)
+
+//     // sel2.options[sel_index_value].disabled = true
+//     // $('#selGioc2')[0].options[sel_index_value].disabled = !$('#selGioc2')[0].options[sel_index_value].disabled
+//     // console.log("Removing selected player from the other list...")
+// }
+
 window.onload = function () {
     // clipboard.js
     new ClipboardJS('.btn');

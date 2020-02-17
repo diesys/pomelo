@@ -62,7 +62,7 @@
                 <input type="hidden" name="torneo" value="{TORNEO}">
                 <input type="hidden" name="action" value="update">
                 <div class="input-group input-padding">
-                    <select class="custom-select" name="giocatore1" required>
+                    <select onChange="rmSoloMatch(this.selectedIndex)" id="selGioc1" class="custom-select" name="giocatore1" required>
                         <option value="" disabled selected>Giocat. 1</option>
                         {GIOCATORI}
                     </select>
@@ -74,7 +74,7 @@
                         </span>
                     </div>
 
-                    <select class="custom-select" name="giocatore2" required>
+                    <select id="selGioc2" class="custom-select" name="giocatore2" required>
                         <option value="" disabled selected>Giocat. 2</option>
                         {GIOCATORI}
                     </select>
