@@ -200,6 +200,7 @@ body.dark .adminButton:active {
 
 /* CUSTOM ICONS */
 .icon::before {
+/* div#ranking tr.table-success:nth-child(1)::before { */
     content: '';
     height: 20px;
     width: 20px;
@@ -218,6 +219,36 @@ body.dark .adminButton:active {
 .icon.result::before {background: url('result.png');}
 .icon.date::before {background: url('date.png');}
 
+/* ranking medals */
+/* div#ranking > table.table > tbody > tr:nth-child(1) > td::before { */
+/* div#ranking tr.table-success:nth-child(1)::before { */
+div#ranking tr.table-success:nth-child(1) {
+    background: url('pomelo_icon.png');
+    background-color: rgb(255, 196, 0);
+    /* float: left;
+    display: inline; */
+}
+.table-success:nth-child(1) td,
+.bg-success:nth-child(1) td {
+    background: url('pomelo_icon.png') no-repeat;
+    background-size: contain;
+    padding-left: 30px;
+}
+/* GOLD */
+.table-success:nth-child(1) td,
+.bg-success:nth-child(1) td {
+    background-color: rgb(255, 196, 0);
+}
+/* SILVER */
+.table-success:nth-child(2) td,
+.bg-success:nth-child(1) td {
+    background-color: rgb(187, 187, 186);
+}
+/* BRONZE */
+.table-success:nth-child(3) td,
+.bg-success:nth-child(1) td {
+    background-color: rgb(230, 135, 27);
+}
 
 /* BOOTSTRAP */
 .table-dark td, .table-dark th, .table-dark thead th {
