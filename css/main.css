@@ -222,35 +222,66 @@ body.dark .adminButton:active {
 /* ranking medals */
 /* div#ranking > table.table > tbody > tr:nth-child(1) > td::before { */
 /* div#ranking tr.table-success:nth-child(1)::before { */
-div#ranking tr.table-success:nth-child(1) {
+/* div#ranking tr.table-success:nth-child(1) {
     background: url('pomelo_icon.png');
-    background-color: rgb(255, 196, 0);
+    background-color: rgb(255, 196, 0); */
     /* float: left;
     display: inline; */
-}
-.table-success:nth-child(1) td,
-.bg-success:nth-child(1) td {
-    background: url('pomelo_icon.png') no-repeat;
-    background-size: contain;
-    padding-left: 30px;
-}
+/* } */
+
+
 /* GOLD */
-.table-success:nth-child(1) td,
-.bg-success:nth-child(1) td {
-    background-color: rgb(255, 196, 0);
+#ranking .table-success:nth-child(1),
+#ranking tr.success:nth-child(1) {
+    /* background-color: rgb(241, 199, 10) !important; */
+    border-left: 6px solid hsl(49, 92%, 49%) !important;
 }
 /* SILVER */
-.table-success:nth-child(2) td,
-.bg-success:nth-child(1) td {
-    background-color: rgb(187, 187, 186);
+#ranking .table-success:nth-child(2),
+#ranking tr.success:nth-child(2) {
+    /* background-color: rgb(175, 175, 175) !important; */
+    border-left: 6px solid hsl(0, 0%, 69%) !important;
 }
 /* BRONZE */
-.table-success:nth-child(3) td,
-.bg-success:nth-child(1) td {
-    background-color: rgb(230, 135, 27);
+#ranking .table-success:nth-child(3),
+#ranking tr.success:nth-child(3) {
+    /* background-color: rgb(230, 135, 27) !important; */
+    border-left: 6px solid hsl(32, 80%, 50%) !important;
 }
 
-/* BOOTSTRAP */
+.table-success tbody+tbody,
+.table-success td,
+.table-success th,
+.table-success thead th {
+    border-color: rgba(0, 0, 0, .08) !important;
+}
+
+.table-success:nth-child(1) td:nth-child(1),
+.bg-success:nth-child(1) td:nth-child(1),
+.table-success:nth-child(2) td:nth-child(1),
+.bg-success:nth-child(2) td:nth-child(1),
+.table-success:nth-child(3) td:nth-child(1),
+.bg-success:nth-child(3) td:nth-child(1) {
+    background-image: url('pomelo_icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+.table-dark {
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+#rankingInstabili {
+    opacity: .65;
+    transition: opacity .3s;
+}
+#rankingInstabili:hover,
+#rankingInstabili:active {
+    opacity: 1;
+}
+
+
+/* BOOTSTRAP + modifiche */
 .table-dark td, .table-dark th, .table-dark thead th {
     border-color: rgba(0,0,0,.1);
 }
@@ -279,6 +310,9 @@ table#rankingInstabili > thead > tr.bg-danger > th {
 body.dark .table-striped tbody tr:nth-of-type(even),
 body.dark .table-striped thead {
     background: transparent;
+}
+body.dark .table-striped tbody tr.success {
+    background-color: hsla(134, 74%, 38%, 0.4) !important;
 }
 
 
