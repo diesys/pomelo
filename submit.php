@@ -103,6 +103,10 @@
                 $alert_msg = 'Qualche errore aggiungendo il giocatore!';
             }
         }
+        
+        // elseif($action == 'build') {
+        //     $command = '';
+        // }
 
         else {
             $command = '';

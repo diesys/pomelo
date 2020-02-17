@@ -133,6 +133,8 @@
                     </div>
                 </div>
             </form>
+
+            <!-- condividi -->
             <button id="buttonShare" class='btn btn-primary menuButton'>
                 Condividi <ion-icon name='ios-share-alt' size='lare'></ion-icon>
             </button>
@@ -166,6 +168,15 @@
                 </span>
             
             </div>
+
+            <!-- rigenera pagina html -->
+            <form action="/pomelo/submit.php?torneo={TORNEO}" method="post">
+                <input type="hidden" name="action" value="build">
+                <button class="btn bg-danger text-white menuButton" type="submit">
+                    Aggiorna la pagina <ion-icon size="large" name="md-refresh"></ion-icon>
+                </button>
+            </form>
+
         </div> <!-- fine menu -->
     </center> 
     
