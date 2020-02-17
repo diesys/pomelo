@@ -1,3 +1,10 @@
+// rimuovere giocatore 1 da lista dei suoi possibili avversari
+
+// mettere roba in locale e togliere il non necessario (BOOTSTRAP?)
+
+// logo a medagliette per il podio
+
+
 // CAMBIO VALORI ESITO DA SEGNARE..................
     a questo punto fare conversione json passato a nuovo
 
@@ -34,3 +41,6 @@
 
 //TODO: 
     POMELO, alla creazione di un torneo forzare la creazione di una password, poi viene salvata in un auth.php? (pure questa con accesso) e importata da submit.php. o cattiva idea?
+
+//TODO: 
+    USARE GRID AL POSTO DI BOOTSTRAP E PULIRE UN PO' TUTTO

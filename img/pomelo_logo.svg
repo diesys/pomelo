@@ -15,8 +15,8 @@
    version="1.1"
    id="svg1015"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
-   sodipodi:docname="pomelo.svg"
-   inkscape:export-filename="/home/jake/code/pomelo/img/pomelo.png"
+   sodipodi:docname="pomelo_logo.svg"
+   inkscape:export-filename="/home/jake/code/pomelo/img/pomelo_logo.png"
    inkscape:export-xdpi="115.19999"
    inkscape:export-ydpi="115.19999">
   <defs
@@ -211,7 +211,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

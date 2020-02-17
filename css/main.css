@@ -73,7 +73,8 @@ body.dark > #titolo {
     margin: 10px 0 20px 0;
     border: 8px solid #fff;
     box-shadow: 0 0px 10px -5px rgba(0,0,0,.4);
-    border-radius: 12px;
+    /* border-radius: 12px; */
+    border-radius: 50%;
     background: #fff;
     transition: all .3s;
 }
@@ -195,6 +196,26 @@ body.dark .adminButton:active {
     transform: translate(20px, 20px) !important;
     background: red;
 }
+
+
+/* CUSTOM ICONS */
+.icon::before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    position: relative;
+    background: red no-repeat;
+    display: inline-block;
+    background-size: contain !important;
+    margin: 2px 0px 4px 0px;
+    vertical-align: middle;
+    transform: translateX(-4px);
+}
+.icon.players::before {background: url('players.png');}
+.icon.points::before {background: url('../img/pomelo_icon.png');}
+.icon.n_match::before {background: url('n_match.png');}
+.icon.result::before {background: url('result.png');}
+.icon.date::before {background: url('date.png');}
 
 
 /* BOOTSTRAP */
