@@ -26,13 +26,18 @@
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
     <!-- <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script> -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
-    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous" defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous' defer></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous' defer></script>
     
-    <script src='/pomelo/js/script.js'></script>
+    <!-- ion-icons -->
+    <script src='https://unpkg.com/ionicons@4.5.5/dist/ionicons.js' defer></script>
+    <!-- clipboard -->
+    <script src='/pomelo/js/clipboard.min.js' defer></script>
     
+    <script src='/pomelo/js/script.js' defer></script>
     <link rel='stylesheet' href='/pomelo/css/main.css' />
+
   </head>
 
 <body>
@@ -60,8 +65,9 @@
     <div id='content' class='container-fluid'>
 
         <center>
+            <img id='logo_pomelo' src='img/pomelo_logo.png' height='140px' width='140px' alt='logo' /><br>
+            
             <h3>Benvenuto su Pomelo!</h3><br>
-            <img id='logo_pomelo' src='img/pomelo.png' height='140px' width='140px' alt='logo' /><br>
 
             <br>
             <br>
@@ -76,7 +82,7 @@
                                 <span class="input-group-text" id="basic-addon1">Crea torneo</span>
                             </div>
                             
-                            <input class="form-control" name="torneo" placeholder="Nome">
+                            <input class="form-control" name="torneo" placeholder="Nome" required>
                             
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary bg-danger text-white bigFontButton"
@@ -95,9 +101,10 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Mostra</span>
                             </div>
-                            <select class="custom-select" name="torneo">
+                            <select class="custom-select" name="torneo" required>
                                 <option value="" disabled selected>Torneo</option>
                                 <option value='doppio19'>doppio19</option>
+<option value='prova'>prova</option>
 <option value='singolo19'>singolo19</option>
 <option value='test'>test</option>
 
@@ -115,9 +122,6 @@
         </center> 
         
     </div>
-
-    <!-- ion-icons -->
-    <script src='https://unpkg.com/ionicons@4.5.5/dist/ionicons.js'></script>
 
 </body>
 </html>
